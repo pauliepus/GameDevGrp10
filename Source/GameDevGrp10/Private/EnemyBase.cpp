@@ -2,6 +2,7 @@
 
 
 #include "EnemyBase.h"
+#include <Kismet/KismetMathLibrary.h>
 
 // Sets default values
 AEnemyBase::AEnemyBase()
@@ -45,7 +46,16 @@ void AEnemyBase::Tick(float DeltaTime)
 
 }
 
-void AEnemyBase::EnemyMove()
+
+void AEnemyBase::EnemyTarget(AActor* target)
 {
+	FVector toTarget = target->GetActorLocation() - GetActorLocation();
+	toTarget.Normalize();
+	FRotator newRotation = UKismetMathLibrary::FindLookAtRotation(GetActorForwardVector(), toTarget);
+	SetActorRotation(newRotation);
 }
+
+
+
+
 

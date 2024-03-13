@@ -55,7 +55,10 @@ public:
 	float Health = 1.0f;
 	
 	bool bEnemyDead = false;
+	bool bHasTarget = false;
+	float fTargetDistance;
+
 
 	UFUNCTION()
-	void EnemyMove();
+	void EnemyTarget(AActor* target);
 };
