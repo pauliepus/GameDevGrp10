@@ -3,6 +3,7 @@
 
 #include "EnemyBase.h"
 #include <Kismet/KismetMathLibrary.h>
+#include "Components/SphereComponent.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
