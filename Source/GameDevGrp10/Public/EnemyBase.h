@@ -29,9 +29,10 @@ public:
 		Enemy Parts
 	*/
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-	class UStaticMeshComponent* EnemyMesh;
+	class USkeletalMeshComponent* EnemyMesh;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
 	class UShapeComponent* EnemyHitBox;
+	
 
 	/*
 		Sound
@@ -47,7 +48,7 @@ public:
 		Attributes
 	*/
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-	float Speed = 5.0f;
+	float Speed = 2.0f;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
 	float Health = 1.0f;
 	
