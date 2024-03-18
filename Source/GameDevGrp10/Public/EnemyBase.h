@@ -29,11 +29,9 @@ public:
 		Enemy Parts
 	*/
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-	class USceneComponent* EnemyRoot;
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
 	class UStaticMeshComponent* EnemyMesh;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-	class UShapeComponent* EnemyHitbox;
+	class UShapeComponent* EnemyHitBox;
 
 	/*
 		Sound
@@ -56,6 +54,7 @@ public:
 	bool bEnemyDead = false;
 	bool bHasTarget = false;
 	float fTargetDistance;
+
 	AActor* Player;
 
 
