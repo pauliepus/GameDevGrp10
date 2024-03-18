@@ -38,7 +38,7 @@ void AEnemySpawner::SpawnEnemy()
 	//Calculate a random spawn position
 	float SpawnX = FMath::RandRange(1.0f, 1000.0f);
 	float SpawnY = FMath::RandRange(1.0f, 1000.0f);
-	float SpawnZ = 100.0f;
+	float SpawnZ = 200.0f;
 	FVector SpawnPosition = FVector(SpawnX, SpawnY, SpawnZ);
 
 	GetWorld()->SpawnActor<AEnemyBase>(EnemyClass, SpawnPosition, FRotator::ZeroRotator);

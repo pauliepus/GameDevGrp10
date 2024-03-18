@@ -3,6 +3,7 @@
 
 #include "EnemyBase.h"
 #include <Kismet/KismetMathLibrary.h>
+#include "Kismet/GameplayStatics.h"
 #include "Components/SphereComponent.h"
 
 // Sets default values
@@ -23,14 +24,18 @@ AEnemyBase::AEnemyBase()
 	EnemyHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
 	EnemyHitbox->SetupAttachment(EnemyMesh);
 
+	EnemyMesh->SetSimulatePhysics(true);
+	EnemyMesh->SetGenerateOverlapEvents(true);
+
 }
 
 // Called when the game starts or when spawned
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
+	EnemyMesh->SetEnableGravity(true);
 
-
+	Player = UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn();
 	
 }
 
@@ -39,11 +44,11 @@ void AEnemyBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	//Movement
-	FVector Location = GetActorLocation();
+	//FVector Location = GetActorLocation();
 
-	Location += GetActorForwardVector() * Speed * DeltaTime;
+	//Location += GetActorForwardVector() * Speed * DeltaTime;
 
-	SetActorLocation(Location);
+	//SetActorLocation(Location);
 
 }
 

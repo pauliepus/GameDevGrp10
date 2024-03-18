@@ -56,6 +56,7 @@ public:
 	bool bEnemyDead = false;
 	bool bHasTarget = false;
 	float fTargetDistance;
+	AActor* Player;
 
 
 	UFUNCTION()
