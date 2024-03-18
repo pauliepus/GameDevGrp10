@@ -2,6 +2,9 @@
 
 
 #include "EnemyBase.h"
+#include <Kismet/KismetMathLibrary.h>
+#include "Kismet/GameplayStatics.h"
+#include "Components/SphereComponent.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
@@ -9,17 +12,17 @@ AEnemyBase::AEnemyBase()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//Create root
-	EnemyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	RootComponent = EnemyRoot;
 
 	//Create Mesh
 	EnemyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	EnemyMesh->SetupAttachment(RootComponent);
+	
 
 	//Create Collision
-	EnemyHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
-	EnemyHitbox->SetupAttachment(EnemyMesh);
+	EnemyHitBox = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
+	EnemyHitBox->SetupAttachment(EnemyMesh);
+
+	EnemyMesh->SetSimulatePhysics(true);
+	EnemyMesh->SetGenerateOverlapEvents(true);
 
 }
 
@@ -27,8 +30,9 @@ AEnemyBase::AEnemyBase()
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
+	EnemyMesh->SetEnableGravity(true);
 
-
+	Player = UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn();
 	
 }
 
@@ -36,16 +40,22 @@ void AEnemyBase::BeginPlay()
 void AEnemyBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//Movement
-	FVector Location = GetActorLocation();
 
-	Location += GetActorForwardVector() * Speed * DeltaTime;
-
-	SetActorLocation(Location);
+	FVector Direction = Player->GetActorLocation() - GetActorLocation();
+	SetActorLocation(GetActorLocation() + (Direction * Speed * DeltaTime));
 
 }
 
-void AEnemyBase::EnemyMove()
+
+void AEnemyBase::EnemyTarget(AActor* Target)
 {
+	//FVector ToTarget = Target->GetActorLocation() - GetActorLocation();
+	//ToTarget.Normalize();
+	//FRotator NewRotation = UKismetMathLibrary::FindLookAtRotation(GetActorForwardVector(), ToTarget);
+	//SetActorRotation(NewRotation);
 }
+
+
+
+
 

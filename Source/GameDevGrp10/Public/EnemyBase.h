@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "Components/SphereComponent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "EnemyBase.generated.h"
@@ -30,11 +29,9 @@ public:
 		Enemy Parts
 	*/
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-	class USceneComponent* EnemyRoot;
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
 	class UStaticMeshComponent* EnemyMesh;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-	class UShapeComponent* EnemyHitbox;
+	class UShapeComponent* EnemyHitBox;
 
 	/*
 		Sound
@@ -55,7 +52,12 @@ public:
 	float Health = 1.0f;
 	
 	bool bEnemyDead = false;
+	bool bHasTarget = false;
+	float fTargetDistance;
+
+	AActor* Player;
+
 
 	UFUNCTION()
-	void EnemyMove();
+	void EnemyTarget(AActor* target);
 };
