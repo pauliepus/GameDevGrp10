@@ -47,7 +47,7 @@ public:
 		Attributes
 	*/
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-	float Speed = 5.0f;
+	float Speed = 0.1f;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
 	float Health = 1.0f;
 	
