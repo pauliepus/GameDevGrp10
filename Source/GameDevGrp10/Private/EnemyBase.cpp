@@ -14,14 +14,17 @@ AEnemyBase::AEnemyBase()
 
 
 	//Create Mesh
-	EnemyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	EnemyMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
+	RootComponent = EnemyMesh;
 	
 
 	//Create Collision
 	EnemyHitBox = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
-	EnemyHitBox->SetupAttachment(EnemyMesh);
+	EnemyHitBox->SetupAttachment(RootComponent);
 
-	EnemyMesh->SetSimulatePhysics(true);
+	//Does not work for skeletal mesh
+	//EnemyMesh->SetSimulatePhysics(true);
+
 	EnemyMesh->SetGenerateOverlapEvents(true);
 
 }
