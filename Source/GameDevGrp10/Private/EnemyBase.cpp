@@ -45,6 +45,9 @@ void AEnemyBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FVector Direction = Player->GetActorLocation() - GetActorLocation();
+	FRotator DirectionRotator = Direction.Rotation();
+
+	SetActorRotation(DirectionRotator, ETeleportType::None);
 	SetActorLocation(GetActorLocation() + (Direction * Speed * DeltaTime));
 
 }
