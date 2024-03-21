@@ -14,14 +14,17 @@ AEnemyBase::AEnemyBase()
 
 
 	//Create Mesh
-	EnemyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	EnemyMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
+	RootComponent = EnemyMesh;
 	
 
 	//Create Collision
 	EnemyHitBox = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
-	EnemyHitBox->SetupAttachment(EnemyMesh);
+	EnemyHitBox->SetupAttachment(RootComponent);
 
-	EnemyMesh->SetSimulatePhysics(true);
+	//Does not work for skeletal mesh
+	//EnemyMesh->SetSimulatePhysics(true);
+
 	EnemyMesh->SetGenerateOverlapEvents(true);
 
 }
@@ -42,7 +45,10 @@ void AEnemyBase::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FVector Direction = Player->GetActorLocation() - GetActorLocation();
-	SetActorLocation(GetActorLocation() + (Direction * Speed * DeltaTime));
+	FRotator DirectionRotator = Direction.Rotation();
+
+	SetActorRotation(DirectionRotator, ETeleportType::TeleportPhysics);
+	//SetActorLocation(GetActorLocation() + (Direction * Speed * DeltaTime));
 
 }
 
