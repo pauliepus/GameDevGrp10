@@ -21,8 +21,8 @@ APlayerCharacter::APlayerCharacter()
 	PlayerCamera->SetupAttachment(GetCapsuleComponent());
 	PlayerCamera->bUsePawnControlRotation = true;
 
-	PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh"));
-	PlayerMesh->SetupAttachment(PlayerCamera);
+	//PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh"));
+	//PlayerMesh->SetupAttachment(PlayerCamera);
 }
 
 // Called when the game starts or when spawned
@@ -66,7 +66,7 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 
 	if (Controller != nullptr)
 	{
-		AddControllerYawInput(LookAroundVector.X);
+		AddControllerYawInput(-LookAroundVector.X);
 		AddControllerPitchInput(LookAroundVector.Y);
 	}
 }

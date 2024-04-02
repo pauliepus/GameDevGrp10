@@ -37,8 +37,8 @@ public:
 	/*
 	 * Attributes
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-	USkeletalMeshComponent* PlayerMesh;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
+	//USkeletalMeshComponent* PlayerMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	UCameraComponent* PlayerCamera;
