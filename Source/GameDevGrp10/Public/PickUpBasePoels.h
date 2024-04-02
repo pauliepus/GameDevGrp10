@@ -6,6 +6,12 @@
 #include "GameFramework/Actor.h"
 #include "PickUpBasePoels.generated.h"
 
+
+/*
+ * Pickup based on https://youtu.be/cBnYYois1vM
+ * PickupBool from https://youtu.be/iUq3rDvbUhM
+ */
+
 UCLASS()
 class GAMEDEVGRP10_API APickUpBasePoels : public AActor
 {
@@ -15,9 +21,21 @@ public:
 	// Sets default values for this actor's properties
 	APickUpBasePoels();
 
+	//PickupBool part
+
+	UFUNCTION(BlueprintPure,Category="Pickup")
+	bool bIsPickupActive() const;
+
+	UFUNCTION(BlueprintCallable,Category="Pickup")
+	void SetPickupIsActive(bool NewActiveState);
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//PickupBool part
+	bool bIsActive;
+
 
 #pragma region COMPONENTS
 

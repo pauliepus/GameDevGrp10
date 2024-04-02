@@ -5,18 +5,28 @@
 
 #include "NavigationSystemTypes.h"
 
-/*
- * Pickup based on https://youtu.be/cBnYYois1vM 
- */
 
 // Sets default values
 APickUpBasePoels::APickUpBasePoels()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	//this
+
+	bIsActive = true;
+
+	//pickup part
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pickup Mesh"));
 	RootComponent = PickupMesh;
+}
+
+bool APickUpBasePoels::bIsPickupActive() const
+{
+	return bIsActive;
+}
+
+void APickUpBasePoels::SetPickupIsActive(bool NewActiveState)
+{
+	bIsActive = NewActiveState;
 }
 
 // Called when the game starts or when spawned
