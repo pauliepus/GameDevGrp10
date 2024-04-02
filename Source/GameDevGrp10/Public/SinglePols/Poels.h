@@ -4,31 +4,23 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "PoelsGenerator.generated.h"
-
-/*
- * Spawner based on: https://youtu.be/8KWZQjMFcdE
- *
- * Timer based on : https://youtu.be/023iYtHpBFc
- */
+#include "Poels.generated.h"
 
 UCLASS()
-class APoelsGenerator : public AActor
+class GAMEDEVGRP10_API APoels : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	APoelsGenerator();
+	APoels();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Timer")
-	int PoelsTimer;
-
-	FTimerHandle TakePolsHandle;
 };
