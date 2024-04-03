@@ -2,7 +2,6 @@
 
 
 #include "EnemyBase.h"
-#include <Kismet/KismetMathLibrary.h>
 #include "Kismet/GameplayStatics.h"
 #include "Components/SphereComponent.h"
 
@@ -33,7 +32,7 @@ AEnemyBase::AEnemyBase()
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
-	EnemyMesh->SetEnableGravity(true);
+	//EnemyMesh->SetEnableGravity(true);
 
 	Player = UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn();
 	
@@ -43,13 +42,32 @@ void AEnemyBase::BeginPlay()
 void AEnemyBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	if (bEnemyDead == false)
+	{
+		FVector Direction = Player->GetActorLocation() - GetActorLocation();
+		FRotator DirectionRotator = Direction.Rotation();
 
-	FVector Direction = Player->GetActorLocation() - GetActorLocation();
-	FRotator DirectionRotator = Direction.Rotation();
+		SetActorRotation(DirectionRotator, ETeleportType::TeleportPhysics);
+		SetActorLocation(GetActorLocation() + (Direction * Speed * DeltaTime));
 
-	SetActorRotation(DirectionRotator, ETeleportType::TeleportPhysics);
-	//SetActorLocation(GetActorLocation() + (Direction * Speed * DeltaTime));
+		
+		if (IsOverlappingActor(Player))
+		{
+			bEnemyDead = true;
+			EnemyMesh->SetEnableGravity(true);
+			EnemyMesh->SetSimulatePhysics(true);
+			EnemyMesh->bPauseAnims = true;
 
+			GetWorldTimerManager().SetTimer(
+				StopDie,
+				this,
+				&AEnemyBase::EnemyDie,
+				DeathTimer,
+				true);
+			
+		}
+	}
 }
 
 
@@ -59,6 +77,11 @@ void AEnemyBase::EnemyTarget(AActor* Target)
 	//ToTarget.Normalize();
 	//FRotator NewRotation = UKismetMathLibrary::FindLookAtRotation(GetActorForwardVector(), ToTarget);
 	//SetActorRotation(NewRotation);
+}
+
+void AEnemyBase::EnemyDie()
+{
+	Destroy();
 }
 
 
