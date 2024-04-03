@@ -32,7 +32,7 @@ void AEnemySpawner::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	
 }
-
+//Based on Meisams RainManager
 void AEnemySpawner::SpawnEnemy()
 {
 	//Calculate a random spawn position
