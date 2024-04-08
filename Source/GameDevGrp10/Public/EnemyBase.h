@@ -48,19 +48,25 @@ public:
 		Attributes
 	*/
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
-
 	float Speed = 0.1f;
 
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemyAttribute")
 	float Health = 1.0f;
 	
 	bool bEnemyDead = false;
+	FTimerHandle StopDie;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemyAttribtue")
+	float DeathTimer = 5.0f;
+
 	bool bHasTarget = false;
 	float fTargetDistance;
+
 
 	AActor* Player;
 
 
 	UFUNCTION()
 	void EnemyTarget(AActor* target);
+	UFUNCTION()
+	void EnemyDie();
 };
