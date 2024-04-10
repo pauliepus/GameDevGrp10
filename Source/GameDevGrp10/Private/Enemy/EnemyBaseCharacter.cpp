@@ -20,7 +20,7 @@ void AEnemyBaseCharacter::BeginPlay()
 
 	//Remembers player
 	Player = UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetPawn();
-	
+	GetMesh()->SetGenerateOverlapEvents(true);
 }
 
 // Called every frame
