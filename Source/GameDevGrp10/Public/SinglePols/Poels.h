@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyActor.generated.h"
+#include "Poels.generated.h"
 
 UCLASS()
-class GAMEDEVGRP10_API AMyActor : public AActor
+class GAMEDEVGRP10_API APoels : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AMyActor();
+	APoels();
 
 protected:
 	// Called when the game starts or when spawned

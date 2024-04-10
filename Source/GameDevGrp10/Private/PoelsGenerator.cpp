@@ -15,13 +15,28 @@ APoelsGenerator::APoelsGenerator()
 void APoelsGenerator::BeginPlay()
 {
 	Super::BeginPlay();
+
 	
+
+	
+
+}
+//These functions create a time frame in which you cannot grab another Poelse
+void APoelsGenerator::PoelseGrabbed()
+{
+	bCanTakePoelse = false;
+
+	GetWorld()->GetTimerManager().SetTimer(
+		TakePolsHandle,
+		this,
+		&APoelsGenerator::PoelseGrabCooldown,
+		PoelsTimer,
+		false
+	);
 }
 
-// Called every frame
-void APoelsGenerator::Tick(float DeltaTime)
+void APoelsGenerator::PoelseGrabCooldown()
 {
-	Super::Tick(DeltaTime);
-
+	bCanTakePoelse = true;
 }
 
