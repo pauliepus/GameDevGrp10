@@ -34,6 +34,16 @@ public:
 
 public:
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta=(AllowPrivateAccess=true))
+	FTimerHandle T_CountDown;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
+	float Seconds = 59;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
+	int32 Minutes = 2;
+
+	void CountDown();
 	/*
 	 * Attributes
 	 */
