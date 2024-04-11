@@ -32,9 +32,15 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void EquipWeapon();
+
 public:
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta=(AllowPrivateAccess=true))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon", meta = (AllowPrivateAccess = true))
+	TSubclassOf<class AActor> m_cShotGun;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta=(AllowPrivateAccess = true))
 	FTimerHandle T_CountDown;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")

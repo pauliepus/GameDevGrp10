@@ -20,7 +20,8 @@ APlayerCharacter::APlayerCharacter()
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	//PlayerCamera->SetupAttachment(GetCapsuleComponent());
 	PlayerCamera->bUsePawnControlRotation = true;
-	PlayerCamera->SetupAttachment(GetMesh(), FName("Head"));
+	//PlayerCamera->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, "HeadSocket");
+	//PlayerCamera->SetupAttachment(GetMesh(), FName(TEXT("HeadSocket")));
 
 	//PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh"));
 	//PlayerMesh->SetupAttachment(PlayerCamera);
@@ -43,7 +44,7 @@ void APlayerCharacter::BeginPlay()
 	{
 		if (APlayerCharacter->PlayerCameraManager)
 		{
-			APlayerCharacter->PlayerCameraManager->ViewPitchMin = -50.0f;
+			APlayerCharacter->PlayerCameraManager->ViewPitchMin = -70.0f;
 			APlayerCharacter->PlayerCameraManager->ViewPitchMax = 50.0f;
 			APlayerCharacter->PlayerCameraManager->ViewYawMin = -90.0f;
 			APlayerCharacter->PlayerCameraManager->ViewYawMax = 90.0f;
@@ -51,6 +52,8 @@ void APlayerCharacter::BeginPlay()
 	}
 
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
+
+	EquipWeapon();
 }
 
 // Called every frame
@@ -70,6 +73,20 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	{
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 	}
+
+}
+
+void APlayerCharacter::EquipWeapon()
+{
+	APlayerController* pController = Cast<APlayerController>(GetController());
+
+	const FRotator pRotation = pController->PlayerCameraManager->GetCameraRotation();
+	const FVector pLocation = GetOwner()->GetActorLocation();
+
+	FActorSpawnParameters pSpawnParams;
+	pSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	AActor* pShotGun = GetWorld()->SpawnActor<AActor>(m_cShotGun, pLocation, pRotation, pSpawnParams);
 
 }
 
