@@ -33,6 +33,10 @@ public:
 	TSubclassOf<AEnemyBaseCharacter> EnemyClass;
 	UFUNCTION()
 	void SpawnEnemy();
-private:
+	UFUNCTION()
+	void StartSpawning();
+	UFUNCTION()
+	void StopSpawning();
+
 	FTimerHandle WavePause;
 };

@@ -70,4 +70,4 @@ public:
 
 	void Look(const FInputActionValue& Value);
 
-};
+	};
