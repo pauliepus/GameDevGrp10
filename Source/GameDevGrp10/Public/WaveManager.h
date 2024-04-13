@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Enemy/EnemyBaseCharacter.h"
-#include "EnemyBase.h"
-#include "EnemySpawner.generated.h"
+#include "EnemySpawner.h"
+
+#include "WaveManager.generated.h"
 
 
 UCLASS()
-class AEnemySpawner : public AActor
+class GAMEDEVGRP10_API AWaveManager : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AEnemySpawner();
+	AWaveManager();
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,17 +26,19 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-public:
-	UPROPERTY(EditAnywhere)
-	float SpawnTimer = 5.0f;
-	UPROPERTY(EditAnywhere, Category = "Enemy")
-	TSubclassOf<AEnemyBaseCharacter> EnemyClass;
-	UFUNCTION()
-	void SpawnEnemy();
-	UFUNCTION()
-	void StartSpawning();
-	UFUNCTION()
-	void StopSpawning();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
+	float WaveTimer = 180.0f;
 
-	FTimerHandle WavePause;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
+	int WaveNumber = 0;
+
+	FTimerHandle PauseWave;
+
+	UFUNCTION()
+	void WaveStart();
+
+	UFUNCTION()
+	void WaveEnd();
+
+	AEnemySpawner* TargetSpawner;
 };
