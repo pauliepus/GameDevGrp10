@@ -45,13 +45,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemyAttribtue")
 	float DeathTimer = 5.0f;
 
-	bool bHasTarget = false;
-	float fTargetDistance;
-
-
 	AActor* Player;
-
-
 
 	UFUNCTION()
 	void EnemyDie();

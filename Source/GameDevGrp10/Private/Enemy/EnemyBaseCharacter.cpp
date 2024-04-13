@@ -30,12 +30,6 @@ void AEnemyBaseCharacter::Tick(float DeltaTime)
 
 	if (bEnemyDead == false)
 	{
-		//FVector Direction = Player->GetActorLocation() - GetActorLocation();
-		//FRotator DirectionRotator = Direction.Rotation();
-
-		//SetActorRotation(DirectionRotator, ETeleportType::TeleportPhysics);
-		//SetActorLocation(GetActorLocation() + (Direction * Speed * DeltaTime));
-
 
 		if (IsOverlappingActor(Player))
 		{
