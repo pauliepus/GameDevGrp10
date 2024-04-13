@@ -17,9 +17,6 @@ void APoelsGenerator::BeginPlay()
 	Super::BeginPlay();
 
 	
-
-	
-
 }
 //These functions create a time frame in which you cannot grab another Poelse
 void APoelsGenerator::PoelseGrabbed()

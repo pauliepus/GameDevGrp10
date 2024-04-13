@@ -29,6 +29,7 @@ public:
 
 	//When true, you can grab a new poelse. There will be a delay that makes you unable to destroy the world with poelser.
 	bool bCanTakePoelse = true;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timer")
 	float PoelsTimer = 5.0f;
 

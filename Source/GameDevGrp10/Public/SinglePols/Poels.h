@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
 #include "Poels.generated.h"
 
 UCLASS()
@@ -14,14 +15,31 @@ class GAMEDEVGRP10_API APoels : public AActor
 public:	
 	// Sets default values for this actor's properties
 	APoels();
+		
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Cooking Timer")
+	float CookingTime= 15.0f;
 
+	FTimerHandle TakeStartCookingHandle;
 	
+	//Cooking thing that makes pøls bool true, meaning it now COUNTS towards pts.
+
+	bool bIsCooked = false;
+	void SetIsCookedTrue();
+	void CookingComplete();
+
+	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
+
+	//UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Custom Textures / Meshes")
+	UStaticMeshComponent* PolseMeshComponent;
+	UStaticMeshComponent* PolseMeshComponentSecond;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
+
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
