@@ -18,8 +18,10 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
-	PlayerCamera->SetupAttachment(GetCapsuleComponent());
+	//PlayerCamera->SetupAttachment(GetCapsuleComponent());
 	PlayerCamera->bUsePawnControlRotation = true;
+	//PlayerCamera->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, "HeadSocket");
+	//PlayerCamera->SetupAttachment(GetMesh(), FName(TEXT("HeadSocket")));
 
 	//PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh"));
 	//PlayerMesh->SetupAttachment(PlayerCamera);
@@ -36,7 +38,22 @@ void APlayerCharacter::BeginPlay()
 			SubSystem->AddMappingContext(IMC, 0);
 		}
 	}
-	
+
+	APlayerController* APlayerCharacter = Cast<APlayerController>(Controller);
+	if (APlayerCharacter)
+	{
+		if (APlayerCharacter->PlayerCameraManager)
+		{
+			APlayerCharacter->PlayerCameraManager->ViewPitchMin = -70.0f;
+			APlayerCharacter->PlayerCameraManager->ViewPitchMax = 50.0f;
+			APlayerCharacter->PlayerCameraManager->ViewYawMin = -90.0f;
+			APlayerCharacter->PlayerCameraManager->ViewYawMax = 90.0f;
+		}
+	}
+
+	GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
+
+	EquipWeapon();
 }
 
 // Called every frame
@@ -57,6 +74,42 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 	}
 
+}
+
+void APlayerCharacter::EquipWeapon()
+{
+	APlayerController* pController = Cast<APlayerController>(GetController());
+
+	const FRotator pRotation = pController->PlayerCameraManager->GetCameraRotation();
+	const FVector pLocation = GetOwner()->GetActorLocation();
+
+	FActorSpawnParameters pSpawnParams;
+	pSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	AActor* pShotGun = GetWorld()->SpawnActor<AActor>(m_cShotGun, pLocation, pRotation, pSpawnParams);
+
+}
+
+void APlayerCharacter::CountDown()
+{
+	if(Seconds>0)
+	{
+		--Seconds;
+		UE_LOG(LogTemp, Warning, TEXT("Seconds %f"), Seconds);
+	}
+	else
+	{
+		--Minutes;
+		Seconds = 11.0f;
+		UE_LOG(LogTemp, Warning, TEXT("Minutes %d"), Minutes);
+
+		if(Minutes <= 0)
+		{
+			GetWorldTimerManager().ClearTimer(T_CountDown);
+			Seconds = 0.0f;
+			UE_LOG(LogTemp, Warning, TEXT("End of Wave"));
+		}
+	}
 }
 
 
