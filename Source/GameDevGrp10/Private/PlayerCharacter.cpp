@@ -54,6 +54,7 @@ void APlayerCharacter::BeginPlay()
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
 
 	EquipWeapon();
+
 }
 
 // Called every frame
@@ -123,4 +124,3 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAroundVector.Y);
 	}
 }
-

@@ -3,6 +3,7 @@
 
 #include "EnemySpawner.h"
 
+
 // Sets default values
 AEnemySpawner::AEnemySpawner()
 {
@@ -16,13 +17,6 @@ AEnemySpawner::AEnemySpawner()
 void AEnemySpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorldTimerManager().SetTimer(
-		WavePause,
-		this,
-		&AEnemySpawner::SpawnEnemy,
-		SpawnTimer,
-		true
-	);
 	
 }
 
@@ -35,14 +29,12 @@ void AEnemySpawner::Tick(float DeltaTime)
 //Based on Meisams RainManager
 void AEnemySpawner::SpawnEnemy()
 {
-	float SpawnArea = FMath::RandRange(-1.6f, 1.6f);
 	//Calculate a random spawn position
+	float SpawnArea = FMath::RandRange(-1.6f, 1.6f);
 
 	float SpawnX = cos(SpawnArea) * 1900.0f;
 	float SpawnY = sin(SpawnArea) * 1900.0f;
 
-	//float SpawnX = FMath::RandRange(1300.0f, 1700.0f);
-	//float SpawnY = FMath::RandRange(-2000.0f, 2000.0f);
 	float SpawnZ = 20.0f;
 	FVector SpawnPosition = FVector(SpawnX, SpawnY, SpawnZ);
 
@@ -50,5 +42,22 @@ void AEnemySpawner::SpawnEnemy()
 
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
+}
+
+void AEnemySpawner::StartSpawning()
+{
+	GetWorldTimerManager().SetTimer(
+		WavePause,
+		this,
+		&AEnemySpawner::SpawnEnemy,
+		SpawnTimer,
+		true
+	);
+}
+
+void AEnemySpawner::StopSpawning()
+{
+	GetWorldTimerManager().ClearTimer(WavePause);
+	
 }
 

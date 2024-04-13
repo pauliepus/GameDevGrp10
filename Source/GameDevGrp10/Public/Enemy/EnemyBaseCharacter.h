@@ -42,8 +42,9 @@ public:
 	 */
 	bool bEnemyDead = false;
 	FTimerHandle StopDie;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemyAttribtue")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemyAttribute")
 	float DeathTimer = 5.0f;
+	
 
 	AActor* Player;
 
