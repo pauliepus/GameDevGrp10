@@ -37,8 +37,11 @@ void AEnemySpawner::SpawnEnemy()
 
 	float SpawnZ = 20.0f;
 	FVector SpawnPosition = FVector(SpawnX, SpawnY, SpawnZ);
-
-	GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyClass, SpawnPosition, FRotator::ZeroRotator);
+	//Selecting which enemy to spawn
+	if (SpawnArea < -1.3f || SpawnArea > 1.3f)
+		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, SpawnPosition, FRotator::ZeroRotator);
+	else
+		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, SpawnPosition, FRotator::ZeroRotator);
 
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
