@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "EnemyBaseCharacter.generated.h"
+#include "EnemyCharacterBase.generated.h"
 
 UCLASS()
-class GAMEDEVGRP10_API AEnemyBaseCharacter : public ACharacter
+class GAMEDEVGRP10_API AEnemyCharacterBase : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	AEnemyBaseCharacter();
+	AEnemyCharacterBase();
 
 protected:
 	// Called when the game starts or when spawned
@@ -44,7 +44,7 @@ public:
 	FTimerHandle StopDie;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemyAttribute")
 	float DeathTimer = 5.0f;
-	
+
 
 	AActor* Player;
 
