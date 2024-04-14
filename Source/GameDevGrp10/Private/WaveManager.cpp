@@ -60,7 +60,7 @@ void AWaveManager::WaveEnd()
 	//Destroying all enemies
 	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
-		if (ActorItr->GetName().Contains("EnemyBaseCharacter"))
+		if (ActorItr->GetName().Contains("EnemyCharacter"))
 		{
 			ActorItr->Destroy();
 		}
