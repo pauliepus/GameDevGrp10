@@ -34,6 +34,23 @@ void AEnemyCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 void AEnemyCharacterBase::EnemyDie()
 {
+	GetWorldTimerManager().SetTimer(
+		StopDie,
+		this,
+		&AEnemyCharacterBase::EnemyRemove,
+		DeathTimer,
+		true
+	);
+}
+
+void AEnemyCharacterBase::EnemyRemove()
+{
 	Destroy();
 }
+
+void AEnemyCharacterBase::EnemySteal()
+{
+	Destroy();
+}
+
 
