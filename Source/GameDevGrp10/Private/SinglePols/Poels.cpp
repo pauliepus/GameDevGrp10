@@ -2,7 +2,8 @@
 
 
 #include "SinglePols/Poels.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+
 
 
 // Sets default values
@@ -12,12 +13,12 @@ APoels::APoels()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Creating Static Mesh object and attaching to root component
-	PolseMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static mesh"));
-	PolseMeshComponent->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	PolseSMComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	PolseSMComponent->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 
 	// Creating Static Mesh object and attaching to root component
-	PolseMeshComponentSecond = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static mesh 2"));
-	PolseMeshComponentSecond->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	PolseSMComponentSecond = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal mesh 2"));
+	PolseSMComponentSecond->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 
 }
 
