@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Poels.generated.h"
 
 UCLASS()
@@ -30,8 +30,10 @@ public:
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 
 	//UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Custom Textures / Meshes")
-	UStaticMeshComponent* PolseMeshComponent;
-	UStaticMeshComponent* PolseMeshComponentSecond;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USkeletalMeshComponent* PolseSMComponent;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	USkeletalMeshComponent* PolseSMComponentSecond;
 
 protected:
 	// Called when the game starts or when spawned

@@ -3,9 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameDevGrp10/Enemy/EnemyCharacterBase.h"
 #include "GameFramework/Actor.h"
-#include "Enemy/EnemyBaseCharacter.h"
-#include "EnemyBase.h"
 #include "EnemySpawner.generated.h"
 
 
@@ -30,7 +29,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	float SpawnTimer = 5.0f;
 	UPROPERTY(EditAnywhere, Category = "Enemy")
-	TSubclassOf<AEnemyBaseCharacter> EnemyClass;
+	TSubclassOf<AEnemyCharacterBase> EnemyClass;
 	UFUNCTION()
 	void SpawnEnemy();
 	UFUNCTION()
