@@ -70,6 +70,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	{
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &APlayerCharacter::InteractWithObjects);
+		EnhancedInputComponent->BindAction(WaveStart, ETriggerEvent::Triggered, this, &APlayerCharacter::StartWave);
 	}
 
 }
@@ -192,4 +193,15 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(-LookAroundVector.X);
 		AddControllerPitchInput(LookAroundVector.Y);
 	}
+}
+
+void APlayerCharacter::StartWave()
+{
+	if (WaveEnded)
+		WaveEnded = false;
+}
+
+void APlayerCharacter::EndWave()
+{
+	WaveEnded = true;
 }
