@@ -31,11 +31,11 @@ public:
 	 *	Sound
 	 */
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemySound")
-	class USoundBase* EnemyNoise;
+	class USoundBase* WalkNoise;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemySound")
-	class USoundBase* EnemySteal;
+	class USoundBase* StealNoise;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemySound")
-	class USoundBase* EnemyDeath;
+	class USoundBase* DeathNoise;
 
 	/*
 	 *	Functions
@@ -50,4 +50,12 @@ public:
 
 	UFUNCTION()
 	void EnemyDie();
+
+	UFUNCTION()
+	void EnemyRemove();
+
+	UFUNCTION(BlueprintCallable)
+	void EnemySteal();
+
+
 };
