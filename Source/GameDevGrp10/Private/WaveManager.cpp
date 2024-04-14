@@ -2,9 +2,7 @@
 
 
 #include "WaveManager.h"
-#include "EnemySpawner.h"
 #include "EngineUtils.h"
-#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AWaveManager::AWaveManager()
@@ -29,6 +27,14 @@ void AWaveManager::BeginPlay()
 			TargetSpawner = static_cast<AEnemySpawner*>(*ActorItr);
 		}
 	}
+	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (ActorItr->GetName().Contains("PlayerCharacter"))
+		{
+			Player = static_cast<APlayerCharacter*>(*ActorItr);
+		}
+	}
+
 	WaveStart();
 }
 
@@ -36,6 +42,13 @@ void AWaveManager::BeginPlay()
 void AWaveManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (ManagerWaveEnded) {
+		if (!Player->WaveEnded)
+		{
+			ManagerWaveEnded = false;
+			WaveStart();
+		}
+	}
 
 }
 
@@ -65,5 +78,7 @@ void AWaveManager::WaveEnd()
 			ActorItr->Destroy();
 		}
 	}
+	Player->EndWave();
+	ManagerWaveEnded = true;
 }
 

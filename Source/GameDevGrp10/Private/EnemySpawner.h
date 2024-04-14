@@ -29,7 +29,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	float SpawnTimer = 5.0f;
 	UPROPERTY(EditAnywhere, Category = "Enemy")
-	TSubclassOf<AEnemyCharacterBase> EnemyClass;
+	TSubclassOf<AEnemyCharacterBase> EnemyBase;
+	UPROPERTY(EditAnywhere, Category = "Enemy")
+	TSubclassOf<AEnemyCharacterBase> EnemyRoller;
 	UFUNCTION()
 	void SpawnEnemy();
 	UFUNCTION()

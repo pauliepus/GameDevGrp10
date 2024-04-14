@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "EnemySpawner.h"
+#include "PlayerCharacter.h"
 
 #include "WaveManager.generated.h"
 
@@ -40,5 +41,8 @@ public:
 	UFUNCTION()
 	void WaveEnd();
 
+	bool ManagerWaveEnded = false;
+
 	AEnemySpawner* TargetSpawner;
+	APlayerCharacter* Player;
 };

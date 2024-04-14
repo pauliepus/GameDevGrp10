@@ -53,8 +53,6 @@ public:
 	/*
 	 * Attributes
 	 */
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-	//USkeletalMeshComponent* PlayerMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	UCameraComponent* PlayerCamera;
@@ -68,6 +66,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* Looking;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	UInputAction* WaveStart;
+
 	void Look(const FInputActionValue& Value);
 
-	};
+	/*
+	 * Waves
+	 */
+	void StartWave();
+
+	bool WaveEnded = false;
+
+	void EndWave();
+};

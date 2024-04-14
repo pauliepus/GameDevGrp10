@@ -4,12 +4,14 @@
 
 #include "PlayerCharacter.h"
 
+#include "EngineUtils.h"
 #include "EnhancedInputComponent.h"
 #include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "WaveManager.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -18,13 +20,10 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
-	//PlayerCamera->SetupAttachment(GetCapsuleComponent());
+	
 	PlayerCamera->bUsePawnControlRotation = true;
-	//PlayerCamera->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, "HeadSocket");
-	//PlayerCamera->SetupAttachment(GetMesh(), FName(TEXT("HeadSocket")));
 
-	//PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharacterMesh"));
-	//PlayerMesh->SetupAttachment(PlayerCamera);
+
 }
 
 // Called when the game starts or when spawned
@@ -54,7 +53,6 @@ void APlayerCharacter::BeginPlay()
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
 
 	EquipWeapon();
-
 }
 
 // Called every frame
@@ -73,6 +71,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	if (EnhancedInputComponent)
 	{
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+		EnhancedInputComponent->BindAction(WaveStart, ETriggerEvent::Triggered, this, &APlayerCharacter::StartWave);
 	}
 
 }
@@ -123,4 +122,15 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(-LookAroundVector.X);
 		AddControllerPitchInput(LookAroundVector.Y);
 	}
+}
+
+void APlayerCharacter::StartWave()
+{
+	if (WaveEnded)
+		WaveEnded = false;
+}
+
+void APlayerCharacter::EndWave()
+{
+	WaveEnded = true;
 }
