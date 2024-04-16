@@ -6,6 +6,12 @@
 #include "GameFramework/Actor.h"
 #include "PoelsGenerator.generated.h"
 
+/*
+ * Spawner based on: https://youtu.be/8KWZQjMFcdE
+ *
+ * Timer based on : https://youtu.be/023iYtHpBFc
+ */
+
 UCLASS()
 class APoelsGenerator : public AActor
 {
@@ -20,7 +26,17 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
+	//When true, you can grab a new poelse. There will be a delay that makes you unable to destroy the world with poelser.
+	bool bCanTakePoelse = true;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timer")
+	float PoelsTimer = 5.0f;
+
+	FTimerHandle TakePolsHandle;
+
+	UFUNCTION()
+	void PoelseGrabbed();
+	UFUNCTION()
+	void PoelseGrabCooldown();
 };

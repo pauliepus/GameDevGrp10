@@ -3,6 +3,7 @@
 
 #include "EnemySpawner.h"
 
+
 // Sets default values
 AEnemySpawner::AEnemySpawner()
 {
@@ -16,13 +17,6 @@ AEnemySpawner::AEnemySpawner()
 void AEnemySpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	GetWorldTimerManager().SetTimer(
-		WavePause,
-		this,
-		&AEnemySpawner::SpawnEnemy,
-		SpawnTimer,
-		true
-	);
 	
 }
 
@@ -36,14 +30,37 @@ void AEnemySpawner::Tick(float DeltaTime)
 void AEnemySpawner::SpawnEnemy()
 {
 	//Calculate a random spawn position
-	float SpawnX = FMath::RandRange(1300.0f, 1700.0f);
-	float SpawnY = FMath::RandRange(-2000.0f, 2000.0f);
+	float SpawnArea = FMath::RandRange(-1.6f, 1.6f);
+
+	float SpawnX = cos(SpawnArea) * 1900.0f;
+	float SpawnY = sin(SpawnArea) * 1900.0f;
+
 	float SpawnZ = 20.0f;
 	FVector SpawnPosition = FVector(SpawnX, SpawnY, SpawnZ);
-
-	GetWorld()->SpawnActor<AEnemyBase>(EnemyClass, SpawnPosition, FRotator::ZeroRotator);
+	//Selecting which enemy to spawn
+	if (SpawnArea < -1.3f || SpawnArea > 1.3f)
+		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, SpawnPosition, FRotator::ZeroRotator);
+	else
+		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, SpawnPosition, FRotator::ZeroRotator);
 
 	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Some debug message!"));
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
+}
+
+void AEnemySpawner::StartSpawning()
+{
+	GetWorldTimerManager().SetTimer(
+		WavePause,
+		this,
+		&AEnemySpawner::SpawnEnemy,
+		SpawnTimer,
+		true
+	);
+}
+
+void AEnemySpawner::StopSpawning()
+{
+	GetWorldTimerManager().ClearTimer(WavePause);
+	
 }
 
