@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InteractInterface.h"
 #include "GameFramework/Actor.h"
 #include "PickUpBasePoels.generated.h"
 
@@ -13,7 +14,7 @@
  */
 
 UCLASS()
-class GAMEDEVGRP10_API APickUpBasePoels : public AActor
+class GAMEDEVGRP10_API APickUpBasePoels : public AActor, public IInteractInterface
 {
 	GENERATED_BODY()
 	
@@ -47,5 +48,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void Interact_Implementation() override;
+	
+	UFUNCTION()
+	void pickup();
 
 };

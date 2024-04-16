@@ -43,3 +43,17 @@ void APickUpBasePoels::Tick(float DeltaTime)
 
 }
 
+void APickUpBasePoels::Interact_Implementation()
+{
+
+	pickup();
+
+}
+
+//create an invis component that holds the thing with offset from player and follows the cam
+
+void APickUpBasePoels::pickup()
+{
+
+}
+
