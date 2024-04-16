@@ -35,7 +35,7 @@ void AEnemySpawner::SpawnEnemy()
 	float SpawnX = cos(SpawnArea) * 1900.0f;
 	float SpawnY = sin(SpawnArea) * 1900.0f;
 
-	float SpawnZ = 20.0f;
+	float SpawnZ = 50.0f;
 	FVector SpawnPosition = FVector(SpawnX, SpawnY, SpawnZ);
 	//Selecting which enemy to spawn
 	if (SpawnArea < -1.3f || SpawnArea > 1.3f)

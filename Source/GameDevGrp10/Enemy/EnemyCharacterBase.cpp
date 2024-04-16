@@ -34,6 +34,9 @@ void AEnemyCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 void AEnemyCharacterBase::EnemyDie()
 {
+	GetMesh()->SetSimulatePhysics(true);
+	//GetMesh()->SetEnableGravity(true);
+	GetMesh()->SetAnimation(0);
 	GetWorldTimerManager().SetTimer(
 		StopDie,
 		this,
