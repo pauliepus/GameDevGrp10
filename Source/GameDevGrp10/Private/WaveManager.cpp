@@ -3,6 +3,7 @@
 
 #include "WaveManager.h"
 #include "EngineUtils.h"
+#include "AssetTypeActions/AssetDefinition_SoundBase.h"
 
 // Sets default values
 AWaveManager::AWaveManager()

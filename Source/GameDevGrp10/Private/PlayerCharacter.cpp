@@ -126,11 +126,18 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 
 void APlayerCharacter::StartWave()
 {
-	if (WaveEnded)
+	if (WaveEnded) 
+	{
 		WaveEnded = false;
+		Minutes = 2.0f;
+		Seconds = 59.0f;
+		GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
+	}
 }
 
 void APlayerCharacter::EndWave()
 {
 	WaveEnded = true;
+	Minutes = 1.0f;
+	Seconds = 0.0f;
 }

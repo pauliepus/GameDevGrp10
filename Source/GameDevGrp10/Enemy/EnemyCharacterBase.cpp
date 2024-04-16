@@ -34,6 +34,7 @@ void AEnemyCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 void AEnemyCharacterBase::EnemyDie()
 {
+
 	Destroy();
 }
 
