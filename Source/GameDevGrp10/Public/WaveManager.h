@@ -27,6 +27,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* WindSound;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
 	float WaveTimer = 180.0f;
 
@@ -38,7 +41,7 @@ public:
 	UFUNCTION()
 	void WaveStart();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void WaveEnd();
 
 	bool ManagerWaveEnded = false;
