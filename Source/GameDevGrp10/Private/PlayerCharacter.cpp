@@ -4,14 +4,14 @@
 
 #include "PlayerCharacter.h"
 
-#include "EngineUtils.h"
 #include "EnhancedInputComponent.h"
 #include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "WaveManager.h"
+#include "InteractInterface.h"
+#include "PickUpBasePoels.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -20,10 +20,8 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
-	
 	PlayerCamera->bUsePawnControlRotation = true;
-
-
+	
 }
 
 // Called when the game starts or when spawned
@@ -43,7 +41,7 @@ void APlayerCharacter::BeginPlay()
 	{
 		if (APlayerCharacter->PlayerCameraManager)
 		{
-			APlayerCharacter->PlayerCameraManager->ViewPitchMin = -70.0f;
+			APlayerCharacter->PlayerCameraManager->ViewPitchMin = -50.0f;
 			APlayerCharacter->PlayerCameraManager->ViewPitchMax = 50.0f;
 			APlayerCharacter->PlayerCameraManager->ViewYawMin = -90.0f;
 			APlayerCharacter->PlayerCameraManager->ViewYawMax = 90.0f;
@@ -52,7 +50,7 @@ void APlayerCharacter::BeginPlay()
 
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
 
-	EquipWeapon();
+
 }
 
 // Called every frame
@@ -71,23 +69,91 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	if (EnhancedInputComponent)
 	{
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &APlayerCharacter::InteractWithObjects);
 		EnhancedInputComponent->BindAction(WaveStart, ETriggerEvent::Triggered, this, &APlayerCharacter::StartWave);
 	}
 
 }
 
-void APlayerCharacter::EquipWeapon()
+void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 {
-	APlayerController* pController = Cast<APlayerController>(GetController());
+	FVector StartTrace = GetCameraComponent()->GetComponentLocation();
+	FVector EndTrace = StartTrace + GetCameraComponent()->GetComponentRotation().Vector() * InteractRange;
 
-	const FRotator pRotation = pController->PlayerCameraManager->GetCameraRotation();
-	const FVector pLocation = GetOwner()->GetActorLocation();
+	FHitResult HitResult;
+	FCollisionQueryParams CollisionParams;
+	CollisionParams.AddIgnoredActor(this);
 
-	FActorSpawnParameters pSpawnParams;
-	pSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	if(GetWorld()->LineTraceSingleByChannel(HitResult, StartTrace, EndTrace, ECC_Visibility, CollisionParams))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Hit: %s"), *HitResult.GetActor()->GetName());
+		if (HitResult.GetActor()->Implements<UInteractInterface>())
+		{
+			IInteractInterface::Execute_Interact(HitResult.GetActor());
+		}
+	}
+	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
+}
 
-	AActor* pShotGun = GetWorld()->SpawnActor<AActor>(m_cShotGun, pLocation, pRotation, pSpawnParams);
+void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
+{
+	Character = TargetCharacter;
 
+	if(TargetCharacter == nullptr || TargetCharacter->GetHasWeapon())
+	{
+		return;
+	}
+
+	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
+
+	AttachToComponent(TargetCharacter->GetMesh(), AttachmentRules, FName(TEXT("WeaponSocket")));
+
+	TargetCharacter->SetHasWeapon(true);
+
+	APlayerController* PlayerController = Cast<APlayerController>(TargetCharacter->GetController());
+	if(PlayerController)
+	{
+		if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->AddMappingContext(IMC, 1);
+		}
+
+		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
+
+		if(EnhancedInputComponent)
+		{
+			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Fire);
+		}
+	}
+}
+
+void APlayerCharacter::SetHasWeapon(bool bHasNewWeapon)
+{
+	bHasWeapon = bHasNewWeapon;
+}
+
+bool APlayerCharacter::GetHasWeapon()
+{
+	return bHasWeapon;
+}
+
+void APlayerCharacter::Fire()
+{
+	if(ProjectileToSpawn != nullptr)
+	{
+		UWorld* World = GetWorld();
+		if(World != nullptr)
+		{
+			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+			FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+			FVector SpawnLocation = GetOwner()->GetActorLocation();
+
+			FActorSpawnParameters ActorSpawnParams;
+			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+
+			World->SpawnActor<AActor>(ProjectileToSpawn, SpawnLocation, SpawnRotation, ActorSpawnParams);
+		}
+	}
 }
 
 void APlayerCharacter::CountDown()
@@ -112,6 +178,11 @@ void APlayerCharacter::CountDown()
 	}
 }
 
+UCameraComponent* APlayerCharacter::GetCameraComponent() const
+{
+	return PlayerCamera;
+}
+
 
 void APlayerCharacter::Look(const FInputActionValue& Value)
 {
@@ -126,18 +197,11 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 
 void APlayerCharacter::StartWave()
 {
-	if (WaveEnded) 
-	{
+	if (WaveEnded)
 		WaveEnded = false;
-		Minutes = 2.0f;
-		Seconds = 59.0f;
-		GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
-	}
 }
 
 void APlayerCharacter::EndWave()
 {
 	WaveEnded = true;
-	Minutes = 1.0f;
-	Seconds = 0.0f;
 }
