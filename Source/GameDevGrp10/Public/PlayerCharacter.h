@@ -71,6 +71,14 @@ public:
 	/*
 	 * Attributes
 	 */
+	UPROPERTY(BlueprintReadWrite, Category = "Lighter")
+	bool bHasLighter;
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void SetHasLighter(bool bHasNewWeapon);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	bool GetHasLighter();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	UCameraComponent* PlayerCamera;
@@ -91,9 +99,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* Looking;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	UInputAction* WaveStart;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* PauseAction;

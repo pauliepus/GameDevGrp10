@@ -12,8 +12,6 @@
 #include "EnhancedInputSubsystems.h"
 #include "InteractInterface.h"
 #include "PickUpBasePoels.h"
-#include "Blueprint/UserWidget.h"
-#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -69,7 +67,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	{
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &APlayerCharacter::InteractWithObjects);
-		EnhancedInputComponent->BindAction(WaveStart, ETriggerEvent::Triggered, this, &APlayerCharacter::StartWave);
 	}
 
 }
@@ -98,7 +95,7 @@ void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter
 {
 	Character = TargetCharacter;
 
-	if(TargetCharacter == nullptr || TargetCharacter->GetHasWeapon())
+	if(TargetCharacter == nullptr || TargetCharacter->GetHasWeapon() || TargetCharacter->GetHasLighter())
 	{
 		return;
 	}
@@ -107,7 +104,7 @@ void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter
 
 	AttachToComponent(TargetCharacter->GetMesh(), AttachmentRules, FName(TEXT("WeaponSocket")));
 
-	TargetCharacter->SetHasWeapon(true);
+	/*TargetCharacter->SetHasWeapon(true);*/
 
 	APlayerController* PlayerController = Cast<APlayerController>(TargetCharacter->GetController());
 	if(PlayerController)
@@ -153,6 +150,16 @@ void APlayerCharacter::Fire()
 			World->SpawnActor<AActor>(ProjectileToSpawn, SpawnLocation, SpawnRotation, ActorSpawnParams);
 		}
 	}
+}
+
+void APlayerCharacter::SetHasLighter(bool HasLighter)
+{
+	bHasLighter = true;
+}
+
+bool APlayerCharacter::GetHasLighter()
+{
+	return bHasLighter;
 }
 
 
