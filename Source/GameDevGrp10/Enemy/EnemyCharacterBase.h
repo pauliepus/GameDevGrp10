@@ -48,7 +48,7 @@ public:
 
 	AActor* Player;
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void EnemyDie();
 
 	UFUNCTION()
