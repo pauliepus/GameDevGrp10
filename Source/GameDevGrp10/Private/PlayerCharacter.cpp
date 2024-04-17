@@ -23,7 +23,6 @@ APlayerCharacter::APlayerCharacter()
 
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	PlayerCamera->bUsePawnControlRotation = true;
-	PlayerPauseCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("PauseCameraComponent)"));
 	
 }
 
@@ -184,22 +183,6 @@ void APlayerCharacter::CountDown()
 UCameraComponent* APlayerCharacter::GetCameraComponent() const
 {
 	return PlayerCamera;
-}
-
-void APlayerCharacter::SwitchCamera()
-{
-	if (PlayerCamera->IsActive()) 
-	{
-		PlayerCamera->Deactivate();
-		PlayerPauseCamera->Activate();
-	}
-	else
-	{
-		PlayerPauseCamera->Deactivate();
-		PlayerCamera->Activate();
-	}
-	APlayerController* APlayerCharacter = Cast<APlayerController>(Controller);
-	APlayerCharacter->SetViewTarget(this);
 }
 
 

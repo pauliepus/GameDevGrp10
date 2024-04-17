@@ -87,13 +87,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	UCameraComponent* PlayerCamera;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
-	UCameraComponent* PlayerPauseCamera;
-
 	UCameraComponent* GetCameraComponent() const;
-
-	UFUNCTION(BlueprintCallable)
-	void SwitchCamera();
 
 	/*
 	 * Inputs
