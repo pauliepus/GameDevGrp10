@@ -43,6 +43,7 @@ void AAShotgun::Fire(const FInputActionValue& Value)
 	UE_LOG(LogTemp, Warning, TEXT("FIRE"));
 	
 }
+//could comment or remove idk
 
 void AAShotgun::Fire2()
 {

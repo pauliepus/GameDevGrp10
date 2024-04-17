@@ -24,4 +24,5 @@ class GAMEDEVGRP10_API IInteractInterface
 public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void Interact();
+
 };
