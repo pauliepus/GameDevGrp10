@@ -7,6 +7,9 @@
 #include "Components/SphereComponent.h"
 #include "OurSphereComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, PlayerCharacter*, PickUpCharacter);
+
+
 UCLASS(Blueprintable, BlueprintType, meta = (BlueprintSpawnableComponent))
 class GAMEDEVGRP10_API UOurSphereComponent : public USphereComponent
 {
@@ -29,6 +32,4 @@ public:
 		bool bFromSweep, const FHitResult& SweepResult);
 
 
-	// Called every frame
-	//virtual void Tick(float DeltaTime) override;
 };
