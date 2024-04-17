@@ -88,6 +88,7 @@ public:
 	UCameraComponent* PlayerCamera;
 
 	UCameraComponent* GetCameraComponent() const;
+
 	/*
 	 * Inputs
 	 */
@@ -99,6 +100,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* WaveStart;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	UInputAction* PauseAction;
 
 	void Look(const FInputActionValue& Value);
 
