@@ -5,10 +5,6 @@
 #include "CoreMinimal.h"
 #include "PlayerCharacter.h"
 #include "Components/SkeletalMeshComponent.h"
-<<<<<<< HEAD
-#include "Components/StaticMeshComponent.h"
-=======
->>>>>>> PlayercharacterFixes
 #include "BaselinePickup.generated.h"
 
 /**
