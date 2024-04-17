@@ -35,7 +35,6 @@ void AWaveManager::BeginPlay()
 			Player = static_cast<APlayerCharacter*>(*ActorItr);
 		}
 	}
-
 	WaveStart();
 }
 
@@ -57,7 +56,12 @@ void AWaveManager::WaveStart()
 {
 	WaveNumber++;
 	TargetSpawner->StartSpawning();
+	//This is for the UI at the top of the screen
+	Seconds = (WaveTimer-1) % 60;
+	Minutes = (WaveTimer-1) / 60;
 
+	GetWorldTimerManager().SetTimer(T_CountDown, this, &AWaveManager::CountDown, 1.0f, true, 1.0f);
+	//This handles spawning and is the one that actually ends things
 	GetWorldTimerManager().SetTimer(
 		PauseWave,
 		this,
@@ -80,6 +84,32 @@ void AWaveManager::WaveEnd()
 		}
 	}
 	Player->EndWave();
+
+	GetWorldTimerManager().ClearTimer(T_CountDown);
+
 	ManagerWaveEnded = true;
 }
+
+void AWaveManager::CountDown()
+{
+	if (Seconds > 0)
+	{
+		--Seconds;
+		UE_LOG(LogTemp, Warning, TEXT("Seconds %f"), Seconds);
+	}
+	else
+	{
+		--Minutes;
+		Seconds = 59.0f;
+		UE_LOG(LogTemp, Warning, TEXT("Minutes %d"), Minutes);
+	}
+	/*else
+	{
+			Seconds = 0.0f;
+			UE_LOG(LogTemp, Warning, TEXT("End of Wave"));
+	}
+	*/
+}
+
+
 

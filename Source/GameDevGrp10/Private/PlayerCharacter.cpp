@@ -50,10 +50,6 @@ void APlayerCharacter::BeginPlay()
 			APlayerCharacter->PlayerCameraManager->ViewYawMax = 90.0f;
 		}
 	}
-
-	GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
-
-
 }
 
 // Called every frame
@@ -159,27 +155,6 @@ void APlayerCharacter::Fire()
 	}
 }
 
-void APlayerCharacter::CountDown()
-{
-	if(Seconds>0)
-	{
-		--Seconds;
-		UE_LOG(LogTemp, Warning, TEXT("Seconds %f"), Seconds);
-	}
-	else
-	{
-		--Minutes;
-		Seconds = 11.0f;
-		UE_LOG(LogTemp, Warning, TEXT("Minutes %d"), Minutes);
-
-		if(Minutes <= 0)
-		{
-			GetWorldTimerManager().ClearTimer(T_CountDown);
-			Seconds = 0.0f;
-			UE_LOG(LogTemp, Warning, TEXT("End of Wave"));
-		}
-	}
-}
 
 UCameraComponent* APlayerCharacter::GetCameraComponent() const
 {
