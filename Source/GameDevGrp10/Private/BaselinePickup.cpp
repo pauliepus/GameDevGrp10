@@ -10,17 +10,11 @@
 UBaselinePickup::UBaselinePickup()
 {
 	GuntipOffset = FVector(100.0f, 0.0f, 10.0f);
-<<<<<<< HEAD
-
-	//StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Skeletal Mesh Alt."));
-	//StaticMesh->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-=======
->>>>>>> PlayercharacterFixes
 }
 
 void UBaselinePickup::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 {
-	if(Character== nullptr||Character->GetHasWeapon())
+	if(Character == nullptr||Character->GetHasWeapon())
 	{
 		return;
 	}

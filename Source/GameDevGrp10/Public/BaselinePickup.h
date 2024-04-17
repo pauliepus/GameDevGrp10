@@ -5,10 +5,7 @@
 #include "CoreMinimal.h"
 #include "PlayerCharacter.h"
 #include "Components/SkeletalMeshComponent.h"
-<<<<<<< HEAD
 #include "Components/StaticMeshComponent.h"
-=======
->>>>>>> PlayercharacterFixes
 #include "BaselinePickup.generated.h"
 
 /**
@@ -20,14 +17,9 @@ class GAMEDEVGRP10_API UBaselinePickup : public USkeletalMeshComponent
 	GENERATED_BODY()
 
 public:
-<<<<<<< HEAD
-	
-	UBaselinePickup();
-	//attach parts
-=======
+
 	UBaselinePickup();
 
->>>>>>> PlayercharacterFixes
 	APlayerCharacter* Character;
 
 	UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
@@ -39,18 +31,16 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponSettings")
 	FVector GuntipOffset;
 
-<<<<<<< HEAD
+
 	//Input Actions
-	
-=======
->>>>>>> PlayercharacterFixes
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	class UInputMappingContext* ItemIMC;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	class UInputAction* UseAction;
 
-<<<<<<< HEAD
+
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	class UInputAction* StopUseAction;
 
@@ -72,11 +62,7 @@ public:
 	UPROPERTY(EditAnywhere, Category="ReSpawn")
 	TSubclassOf<AActor> Respawn;
 
-=======
-	UFUNCTION(BlueprintCallable, Category = "Input")
-	void Use();
 
->>>>>>> PlayercharacterFixes
 
 	/*
 	 * Sounds
