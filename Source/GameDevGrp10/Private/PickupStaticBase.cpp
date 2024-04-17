@@ -99,3 +99,8 @@ void UPickupStaticBase::StopUse()
 	GetWorld()->SpawnActor<AActor>(Respawn, Location, Rotation, ActorSpawnParams);
 
 }
+
+void UPickupStaticBase::Interact_Implementation(APlayerCharacter* TargetCharacter)
+{
+	AttachComponentToPlayer(TargetCharacter);
+}

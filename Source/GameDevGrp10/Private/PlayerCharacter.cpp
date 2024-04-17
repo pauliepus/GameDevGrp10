@@ -84,7 +84,7 @@ void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 		UE_LOG(LogTemp, Warning, TEXT("Hit: %s"), *HitResult.GetActor()->GetName());
 		if (HitResult.GetActor()->Implements<UInteractInterface>())
 		{
-			IInteractInterface::Execute_Interact(HitResult.GetActor());
+			IInteractInterface::Execute_Interact(HitResult.GetActor(), this);
 		}
 	}
 	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
