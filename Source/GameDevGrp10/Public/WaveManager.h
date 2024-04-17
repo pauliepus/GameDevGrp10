@@ -31,7 +31,7 @@ public:
 	USoundBase* WindSound;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
-	float WaveTimer = 180.0f;
+	int WaveTimer = 180;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
 	int WaveNumber = 0;
@@ -48,4 +48,18 @@ public:
 
 	AEnemySpawner* TargetSpawner;
 	APlayerCharacter* Player;
+
+	/*
+	 *Timer
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	FTimerHandle T_CountDown;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
+	int Seconds;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
+	int32 Minutes;
+
+	void CountDown();
 };
