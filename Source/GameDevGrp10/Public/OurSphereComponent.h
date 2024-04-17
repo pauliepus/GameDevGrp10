@@ -7,7 +7,7 @@
 #include "Components/SphereComponent.h"
 #include "OurSphereComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, APlayerCharacter*, PickUpCharacter);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, PlayerCharacter*, PickUpCharacter);
 
 
 UCLASS(Blueprintable, BlueprintType, meta = (BlueprintSpawnableComponent))
@@ -19,10 +19,10 @@ public:
 	// Sets default values for this actor's properties
 
 	virtual void BeginPlay() override;
-	//UPROPERTY(BlueprintAssignable, Category = "Interaction")
-	//FOnPickup OnPickup;
+	UPROPERTY(BlueprintAssignable, Category = "Interaction")
+	FOnPickup OnPickup;
 	
-	void AOurSphereComponent();
+	AOurSphereComponent();
 
 	UOurSphereComponent();
 
