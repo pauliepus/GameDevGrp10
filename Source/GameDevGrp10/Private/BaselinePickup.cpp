@@ -87,7 +87,6 @@ void UBaselinePickup::Use()
 	}
 
 }
-<<<<<<< HEAD
 
 void UBaselinePickup::StopUse()
 {
@@ -100,5 +99,3 @@ void UBaselinePickup::StopUse()
 	GetWorld()->SpawnActor<AActor>(Respawn,Location,Rotation,ActorSpawnParams);
 
 }
-=======
->>>>>>> PlayercharacterFixes
