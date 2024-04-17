@@ -4,13 +4,13 @@
 #include "OurSphereComponent.h"
 
 // Sets default values
-AOurSphereComponent::AOurSphereComponent()
+UOurSphereComponent::UOurSphereComponent()
 {
 	SphereRadius = 30.0f;
 }
 
 // Called when the game starts or when spawned
-void AOurSphereComponent::BeginPlay()
+void UOurSphereComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	
@@ -21,7 +21,7 @@ void AOurSphereComponent::BeginPlay()
 void UOurSphereComponent::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	APKPlayerCharacter* Character = Cast<PlayerCharacter>(OtherActor);
+	PlayerCharacter* Character = Cast<PlayerCharacter>(OtherActor);
 	if (Character != nullptr)
 	{
 		OnPickUp.Broadcast(Character);
