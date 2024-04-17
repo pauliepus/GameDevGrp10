@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "PlayerCharacter.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "BaselinePickup.generated.h"
 
 /**
@@ -16,8 +17,9 @@ class GAMEDEVGRP10_API UBaselinePickup : public USkeletalMeshComponent
 	GENERATED_BODY()
 
 public:
+	
 	UBaselinePickup();
-
+	//attach parts
 	APlayerCharacter* Character;
 
 	UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
@@ -29,6 +31,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponSettings")
 	FVector GuntipOffset;
 
+	//Input Actions
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	class UInputMappingContext* ItemIMC;
 	
@@ -38,11 +42,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	class UInputAction* StopUseAction;
 
+	//IMC definitions for InputMappings
+
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void Use();
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void StopUse();
+
+	//Settings a SM to a Skeletal mesh :D Cuz I need a mesh
+	/*
+	*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UStaticMeshComponent* StaticMesh;
+	* 
+	*/
 
 	UPROPERTY(EditAnywhere, Category="ReSpawn")
 	TSubclassOf<AActor> Respawn;
