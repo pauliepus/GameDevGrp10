@@ -24,7 +24,7 @@ void UOurSphereComponent::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedCo
 	APlayerCharacter* Character = Cast<APlayerCharacter>(OtherActor);
 	if (Character != nullptr)
 	{
-		//OnPickUp.Broadcast(Character);
+		OnPickup.Broadcast(Character);
 		OnComponentBeginOverlap.RemoveAll(this);
 	}
 }

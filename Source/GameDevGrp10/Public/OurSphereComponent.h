@@ -9,18 +9,19 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, APlayerCharacter*, PickUpCharacter);
 
-
 UCLASS(Blueprintable, BlueprintType, meta = (BlueprintSpawnableComponent))
 class GAMEDEVGRP10_API UOurSphereComponent : public USphereComponent
 {
 	GENERATED_BODY()
 	
-public:	
+public:
+	UPROPERTY(BlueprintAssignable, Category = "Interaction")
+	FOnPickUp OnPickup;
 	// Sets default values for this actor's properties
 
+
 	virtual void BeginPlay() override;
-	//UPROPERTY(BlueprintAssignable, Category = "Interaction")
-	//FOnPickup OnPickup;
+	
 	
 
 	UOurSphereComponent();
