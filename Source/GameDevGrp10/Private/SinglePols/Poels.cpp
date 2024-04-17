@@ -10,10 +10,6 @@ APoels::APoels()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	// Creating Static Mesh object and attaching to root component (no real reason to have it tbh)
-	SMDefault = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Static Mesh Default"));
-	SMDefault->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 	
 	// Creating Skeletal Mesh objects and attaching to root component
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
