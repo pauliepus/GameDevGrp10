@@ -91,6 +91,11 @@ void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
 }
 
+void APlayerCharacter::StopInteractWithObjects()
+{
+	
+}
+
 void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 {
 	Character = TargetCharacter;
@@ -103,8 +108,9 @@ void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter
 	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
 
 	AttachToComponent(TargetCharacter->GetMesh(), AttachmentRules, FName(TEXT("WeaponSocket")));
+	
 
-	/*TargetCharacter->SetHasWeapon(true);*/
+	TargetCharacter->SetHasWeapon(true);
 
 	APlayerController* PlayerController = Cast<APlayerController>(TargetCharacter->GetController());
 	if(PlayerController)

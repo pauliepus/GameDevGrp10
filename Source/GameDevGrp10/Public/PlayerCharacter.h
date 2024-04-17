@@ -43,6 +43,12 @@ public:
 	UFUNCTION(Category = "Interact")
 	void InteractWithObjects(const FInputActionValue& Value);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	UInputAction* StopInteractAction;
+
+	UFUNCTION(Category = "Interact")
+	void StopInteractWithObjects()
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
 	float InteractRange = 500.f;
 
