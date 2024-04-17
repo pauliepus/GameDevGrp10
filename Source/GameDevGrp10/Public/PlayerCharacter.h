@@ -29,14 +29,24 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	
+	/*
+	* pkfps switch part (?)
+	*/
+
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
-public:
+	/*
+	* Attach part, range, Character declaration
+	*/
 
 	APlayerCharacter* Character;
 
+	UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
+	void AttachComponentToPlayer(APlayerCharacter* TargetCharacter);
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* InteractAction;
 
@@ -45,9 +55,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
 	float InteractRange = 500.f;
-
-	UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
-	void AttachComponentToPlayer(APlayerCharacter* TargetCharacter);
+	
+	/*
+	* Weapon parts, bools, Projectile
+	*/
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
 	bool bHasWeapon = false;
@@ -64,9 +75,11 @@ public:
 	UFUNCTION(Blueprintable, Category = "Input")
 	void Fire();
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
-	TSubclassOf<AActor> ProjectileToSpawn;
+	
 
+	/*
+	* Wave Timers
+	*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta=(AllowPrivateAccess = true))
 	FTimerHandle T_CountDown;
@@ -81,16 +94,18 @@ public:
 	void CountDown();
 
 	/*
-	 * Attributes
+	 * Attributes, Camera components
 	 */
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	UCameraComponent* PlayerCamera;
 
 	UCameraComponent* GetCameraComponent() const;
+	
 	/*
 	 * Inputs
 	 */
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputMappingContext* IMC;
 
@@ -105,6 +120,7 @@ public:
 	/*
 	 * Waves
 	 */
+
 	void StartWave();
 
 	bool WaveEnded = false;

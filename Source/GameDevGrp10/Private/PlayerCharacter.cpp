@@ -4,13 +4,12 @@
 
 #include "PlayerCharacter.h"
 
-#include "EnhancedInputComponent.h"
-#include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
+#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Components/InputComponent.h"
 #include "InteractInterface.h"
+#include "Components/CapsuleComponent.h"
 #include "PickUpBasePoels.h"
 
 // Sets default values
@@ -18,13 +17,54 @@ APlayerCharacter::APlayerCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	
+	//camera control and creation
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	PlayerCamera->bUsePawnControlRotation = true;
 	
 }
 
+UCameraComponent* APlayerCharacter::GetCameraComponent() const
+{
+	return PlayerCamera;
+}
+
+/*
+* EQUIPPED WEAPON 
+* equip weapon bool, weapon check, Fire action
+*/
+
+void APlayerCharacter::SetHasWeapon(bool bHasNewWeapon)
+{
+	bHasWeapon = bHasNewWeapon;
+}
+
+bool APlayerCharacter::GetHasWeapon()
+{
+	return bHasWeapon;
+}
+
+//void APlayerCharacter::Fire()
+//{
+//	if(ProjectileToSpawn != nullptr)
+//	{
+//		UWorld* World = GetWorld();
+//		if(World != nullptr)
+//		{
+//			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+//			FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
+//			FVector SpawnLocation = GetOwner()->GetActorLocation();
+//
+//			FActorSpawnParameters ActorSpawnParams;
+//			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
+//
+//			World->SpawnActor<AActor>(ProjectileToSpawn, SpawnLocation, SpawnRotation, ActorSpawnParams);
+//		}
+//	}
+//}
+
 // Called when the game starts or when spawned
+
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -49,16 +89,12 @@ void APlayerCharacter::BeginPlay()
 	}
 
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &APlayerCharacter::CountDown, 1.0f, true, 1.0f);
-
-
 }
 
-// Called every frame
-void APlayerCharacter::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
+/*
+	* INPUT COMPONENT
+	*  Look IA, Camera,
+*/
 
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -74,6 +110,21 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	}
 
 }
+
+void APlayerCharacter::Look(const FInputActionValue& Value)
+{
+	FVector2D LookAroundVector = Value.Get<FVector2D>();
+
+	if (Controller != nullptr)
+	{
+		AddControllerYawInput(-LookAroundVector.X);
+		AddControllerPitchInput(LookAroundVector.Y);
+	}
+}
+
+/*
+* INTERACT COMPONENT
+*/
 
 void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 {
@@ -94,6 +145,10 @@ void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 	}
 	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
 }
+
+/*
+* character as a weapon (?) (pauli dum dum)
+*/
 
 void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 {
@@ -127,35 +182,9 @@ void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter
 	}
 }
 
-void APlayerCharacter::SetHasWeapon(bool bHasNewWeapon)
-{
-	bHasWeapon = bHasNewWeapon;
-}
-
-bool APlayerCharacter::GetHasWeapon()
-{
-	return bHasWeapon;
-}
-
-void APlayerCharacter::Fire()
-{
-	if(ProjectileToSpawn != nullptr)
-	{
-		UWorld* World = GetWorld();
-		if(World != nullptr)
-		{
-			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
-			FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
-			FVector SpawnLocation = GetOwner()->GetActorLocation();
-
-			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
-
-			World->SpawnActor<AActor>(ProjectileToSpawn, SpawnLocation, SpawnRotation, ActorSpawnParams);
-		}
-	}
-}
-
+/*
+* Wave timer part
+*/
 void APlayerCharacter::CountDown()
 {
 	if(Seconds>0)
@@ -178,23 +207,6 @@ void APlayerCharacter::CountDown()
 	}
 }
 
-UCameraComponent* APlayerCharacter::GetCameraComponent() const
-{
-	return PlayerCamera;
-}
-
-
-void APlayerCharacter::Look(const FInputActionValue& Value)
-{
-	FVector2D LookAroundVector = Value.Get<FVector2D>();
-
-	if (Controller != nullptr)
-	{
-		AddControllerYawInput(-LookAroundVector.X);
-		AddControllerPitchInput(LookAroundVector.Y);
-	}
-}
-
 void APlayerCharacter::StartWave()
 {
 	if (WaveEnded)
@@ -204,4 +216,11 @@ void APlayerCharacter::StartWave()
 void APlayerCharacter::EndWave()
 {
 	WaveEnded = true;
+}
+
+// Called every frame
+void APlayerCharacter::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
 }
