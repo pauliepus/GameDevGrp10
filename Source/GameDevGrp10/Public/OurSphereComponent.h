@@ -22,6 +22,8 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
 	FOnPickup OnPickup;
 	
+	AOurSphereComponent();
+
 	UOurSphereComponent();
 
 	UFUNCTION()
