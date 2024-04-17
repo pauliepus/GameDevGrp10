@@ -19,8 +19,8 @@ public:
 	// Sets default values for this actor's properties
 
 	virtual void BeginPlay() override;
-	//UPROPERTY(BlueprintAssignable, Category = "Interaction")
-	//FOnPickup OnPickup;
+	UPROPERTY(BlueprintAssignable, Category = "Interaction")
+	FOnPickUp OnPickup;
 	
 
 	UOurSphereComponent();
