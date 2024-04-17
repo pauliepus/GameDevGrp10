@@ -99,3 +99,8 @@ void UBaselinePickup::StopUse()
 	GetWorld()->SpawnActor<AActor>(Respawn,Location,Rotation,ActorSpawnParams);
 
 }
+
+void UBaselinePickup::Interact_Implementation(APlayerCharacter* TargetCharacter)
+{
+	AttachComponentToPlayer(TargetCharacter);
+}

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InteractInterface.h"
 #include "PlayerCharacter.h"
 #include "Components/StaticMeshComponent.h"
 #include "PickupStaticBase.generated.h"
@@ -11,7 +12,7 @@
  * 
  */
 UCLASS()
-class GAMEDEVGRP10_API UPickupStaticBase : public UStaticMeshComponent
+class GAMEDEVGRP10_API UPickupStaticBase : public UStaticMeshComponent, public IInteractInterface
 {
 	GENERATED_BODY()
 
@@ -75,4 +76,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	TSubclassOf<AActor> ProjectileToSpawn;
 
+	virtual void Interact_Implementation(APlayerCharacter* TargetCharacter) override;
 };

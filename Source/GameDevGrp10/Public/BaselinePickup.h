@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InteractInterface.h"
 #include "PlayerCharacter.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -12,7 +13,7 @@
  * 
  */
 UCLASS(Blueprintable, BlueprintType, meta = (BlueprintSpawnableComponent))
-class GAMEDEVGRP10_API UBaselinePickup : public USkeletalMeshComponent
+class GAMEDEVGRP10_API UBaselinePickup : public USkeletalMeshComponent, public IInteractInterface
 {
 	GENERATED_BODY()
 
@@ -76,4 +77,6 @@ public:
 	UPROPERTY(EditAnywhere,BlueprintReadOnly,Category="Projectile")
 	TSubclassOf<AActor> ProjectileToSpawn;
 
+
+	virtual void Interact_Implementation(APlayerCharacter* TargetCharacter) override;
 };
