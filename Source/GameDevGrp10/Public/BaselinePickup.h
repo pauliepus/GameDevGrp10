@@ -18,6 +18,8 @@ class GAMEDEVGRP10_API UBaselinePickup : public USkeletalMeshComponent
 
 public:
 
+	//attach parts
+
 	UBaselinePickup();
 
 	APlayerCharacter* Character;
@@ -40,7 +42,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	class UInputAction* UseAction;
 
-
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	class UInputAction* StopUseAction;
 
@@ -52,13 +53,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void StopUse();
 
-	//Settings a SM to a Skeletal mesh :D Cuz I need a mesh
-	/*
-	*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* StaticMesh;
-	* 
-	*/
-
+	
 	UPROPERTY(EditAnywhere, Category="ReSpawn")
 	TSubclassOf<AActor> Respawn;
 

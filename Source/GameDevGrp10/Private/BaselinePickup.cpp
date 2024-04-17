@@ -10,6 +10,7 @@
 UBaselinePickup::UBaselinePickup()
 {
 	GuntipOffset = FVector(100.0f, 0.0f, 10.0f);
+
 }
 
 void UBaselinePickup::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
