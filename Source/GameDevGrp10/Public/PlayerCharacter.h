@@ -47,7 +47,7 @@ public:
 	UInputAction* StopInteractAction;
 
 	UFUNCTION(Category = "Interact")
-	void StopInteractWithObjects()
+	void StopInteractWithObjects();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
 	float InteractRange = 500.f;
