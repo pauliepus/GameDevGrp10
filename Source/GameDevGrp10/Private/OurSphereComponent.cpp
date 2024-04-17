@@ -21,7 +21,7 @@ void AOurSphereComponent::BeginPlay()
 void UOurSphereComponent::OnSphereBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	APKPlayerCharacter* Character = Cast<APKPlayerCharacter>(OtherActor);
+	APKPlayerCharacter* Character = Cast<APlayerCharacter>(OtherActor);
 	if (Character != nullptr)
 	{
 		OnPickUp.Broadcast(Character);
