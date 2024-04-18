@@ -70,6 +70,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 }
 
+//Ray from player to stuck
+
 void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 {
 	FVector StartTrace = GetCameraComponent()->GetComponentLocation();
