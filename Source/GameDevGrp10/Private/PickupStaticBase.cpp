@@ -14,7 +14,7 @@ UPickupStaticBase::UPickupStaticBase()
 
 void UPickupStaticBase::AttachComponentTooPlayer(APlayerCharacter* TargetCharacter)
 {
-	Character TargetCharacter;
+	Character = TargetCharacter;
 
 	if (Character == nullptr || Character->GetHasWeapon())
 	{

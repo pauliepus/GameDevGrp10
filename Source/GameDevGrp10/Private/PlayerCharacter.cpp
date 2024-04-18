@@ -25,10 +25,10 @@ APlayerCharacter::APlayerCharacter()
 	
 	MeshFPV = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharMesh"));
 	MeshFPV->SetupAttachment(PlayerCamera);
-	
+	/*
 	APlayerCharacter* Character;
 	APlayerCharacter* Character2;
-	
+	*/
 }
 
 // Called when the game starts or when spawned

@@ -15,7 +15,7 @@ UBaselinePickup::UBaselinePickup()
 
 void UBaselinePickup::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 {
-	Character2 TargetCharacter;
+	Character2 =  TargetCharacter;
 
 	if(Character2 == nullptr||Character2->GetHasWeapon())
 	{
