@@ -15,18 +15,20 @@ UBaselinePickup::UBaselinePickup()
 
 void UBaselinePickup::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 {
-	if(Character == nullptr||Character->GetHasWeapon())
+	Character2 =  TargetCharacter;
+
+	if(Character2 == nullptr||Character2->GetHasWeapon())
 	{
 		return;
 	}
 
 	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
 
-	AttachToComponent(Character->GetMesh(), AttachmentRules, FName(TEXT("AttachSocket")));
+	AttachToComponent(Character2->GetMesh(), AttachmentRules, FName(TEXT("AttachSocket")));
 
-	Character->SetHasWeapon(true);
+	Character2->SetHasWeapon(true);
 	//IMC
-	APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+	APlayerController* PlayerController = Cast<APlayerController>(Character2->GetController());
 	if(PlayerController)
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
@@ -35,19 +37,19 @@ void UBaselinePickup::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 			Subsystem->AddMappingContext(ItemIMC, 1);
 		}
 
-		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
+			UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
 
-			if (EnhancedInputComponent)
-			{
-				EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Triggered, this, &UBaselinePickup::Use);
-			}
+		if (EnhancedInputComponent)
+		{
+			EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Triggered, this, &UBaselinePickup::Use);
+		}
 	}
 
 }
 
 void UBaselinePickup::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	if (Character == nullptr)
+	if (Character2 == nullptr)
 	{
 		return;
 	};
@@ -60,7 +62,7 @@ void UBaselinePickup::Use()
 		UWorld* World = GetWorld();
 		if (World != nullptr)
 		{
-			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+			APlayerController* PlayerController = Cast<APlayerController>(Character2->GetController());
 			FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 			FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(GuntipOffset);
 
@@ -74,12 +76,12 @@ void UBaselinePickup::Use()
 	//Play sound
 	if (ItemSound != nullptr)
 	{
-		UGameplayStatics::PlaySoundAtLocation(this, ItemSound, Character->GetActorLocation());
+		UGameplayStatics::PlaySoundAtLocation(this, ItemSound, Character2->GetActorLocation());
 	};
 	//Use >>Item<<
 	if (ItemAnimation!=nullptr)
 	{
-		UAnimInstance* AnimInstance = Character->GetMesh()->GetAnimInstance();
+		UAnimInstance* AnimInstance = Character2->GetMesh()->GetAnimInstance();
 		if (AnimInstance != nullptr)
 		{
 			AnimInstance->Montage_Play(ItemAnimation, 1.0f);
@@ -100,7 +102,7 @@ void UBaselinePickup::StopUse()
 
 }
 
-void UBaselinePickup::Interact_Implementation(APlayerCharacter* TargetCharacter)
+void UBaselinePickup::Interact_Implementation()
 {
-	AttachComponentToPlayer(TargetCharacter);
+	AttachComponentToPlayer(Character2);
 }

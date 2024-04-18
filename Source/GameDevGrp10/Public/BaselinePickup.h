@@ -23,7 +23,7 @@ public:
 
 	UBaselinePickup();
 
-	APlayerCharacter* Character;
+	APlayerCharacter* Character2;
 
 	UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
 	void AttachComponentToPlayer(APlayerCharacter* TargetCharacter);
@@ -78,5 +78,5 @@ public:
 	TSubclassOf<AActor> ProjectileToSpawn;
 
 
-	virtual void Interact_Implementation(APlayerCharacter* TargetCharacter) override;
+	virtual void Interact_Implementation() override;
 };

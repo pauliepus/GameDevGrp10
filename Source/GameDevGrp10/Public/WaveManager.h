@@ -27,6 +27,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	/*
+	 *Waves
+	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
 	USoundBase* WindSound;
 
@@ -34,9 +37,7 @@ public:
 	int WaveTimer = 180;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
-	int WaveNumber = 0;
-
-	FTimerHandle PauseWave;
+	int WaveNumber = 0;	
 
 	UFUNCTION()
 	void WaveStart();
@@ -44,16 +45,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void WaveEnd();
 
-	bool ManagerWaveEnded = false;
-
-	AEnemySpawner* TargetSpawner;
-	APlayerCharacter* Player;
+	
 
 	/*
 	 *Timer
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
-	FTimerHandle T_CountDown;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
 	int Seconds;
@@ -61,5 +57,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
 	int32 Minutes;
 
+	
+public:
+	FTimerHandle PauseWave;
+	FTimerHandle T_CountDown;
 	void CountDown();
+	bool ManagerWaveEnded = false;
+
+	AEnemySpawner* TargetSpawner;
+	APlayerCharacter* Player;
 };

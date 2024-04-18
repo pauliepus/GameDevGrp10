@@ -2,7 +2,6 @@
 
 
 #include "PickupStaticBase.h"
-
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/GameplayStatics.h"
@@ -13,8 +12,10 @@ UPickupStaticBase::UPickupStaticBase()
 
 }
 
-void UPickupStaticBase::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
+void UPickupStaticBase::AttachComponentTooPlayer(APlayerCharacter* TargetCharacter)
 {
+	Character = TargetCharacter;
+
 	if (Character == nullptr || Character->GetHasWeapon())
 	{
 		return;
@@ -25,7 +26,9 @@ void UPickupStaticBase::AttachComponentToPlayer(APlayerCharacter* TargetCharacte
 	AttachToComponent(Character->GetMesh(), AttachmentRules, FName(TEXT("AttachSocket")));
 
 	Character->SetHasWeapon(true);
+
 	//IMC
+	
 	APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
 	if (PlayerController)
 	{
@@ -35,7 +38,7 @@ void UPickupStaticBase::AttachComponentToPlayer(APlayerCharacter* TargetCharacte
 			Subsystem->AddMappingContext(ItemIMC, 1);
 		}
 
-		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
+			UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
 
 		if (EnhancedInputComponent)
 		{
@@ -50,7 +53,7 @@ void UPickupStaticBase::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	if (Character == nullptr)
 	{
 		return;
-	};
+	}
 }
 
 void UPickupStaticBase::Use()
@@ -65,17 +68,18 @@ void UPickupStaticBase::Use()
 			FVector SpawnLocation = GetOwner()->GetActorLocation() + SpawnRotation.RotateVector(GuntipOffset);
 
 			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+			ActorSpawnParams.SpawnCollisionHandlingOverride =
+				ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
 
 			World->SpawnActor<AActor>(ProjectileToSpawn, SpawnLocation, SpawnRotation, ActorSpawnParams);
-		};
-	};
+		}
+	}
 
 	//Play sound
 	if (ItemSound != nullptr)
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, ItemSound, Character->GetActorLocation());
-	};
+	}
 	//Use >>Item<<
 	if (ItemAnimation != nullptr)
 	{
@@ -94,13 +98,14 @@ void UPickupStaticBase::StopUse()
 	FRotator Rotation = GetComponentRotation();
 
 	FActorSpawnParameters ActorSpawnParams;
-	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
 	GetWorld()->SpawnActor<AActor>(Respawn, Location, Rotation, ActorSpawnParams);
 
 }
 
-void UPickupStaticBase::Interact_Implementation(APlayerCharacter* TargetCharacter)
+void UPickupStaticBase::Interact_Implementation()
 {
-	AttachComponentToPlayer(TargetCharacter);
+	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, TEXT("touch"));
+	AttachComponentTooPlayer(Character);
 }

@@ -19,9 +19,16 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//camera (?)
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
 	PlayerCamera->bUsePawnControlRotation = true;
 	
+	MeshFPV = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharMesh"));
+	MeshFPV->SetupAttachment(PlayerCamera);
+	/*
+	APlayerCharacter* Character;
+	APlayerCharacter* Character2;
+	*/
 }
 
 // Called when the game starts or when spawned
@@ -88,64 +95,24 @@ void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Sadge %p"), HitResult.GetActor()));
 		if (HitResult.GetActor()->Implements<UInteractInterface>())
 		{
-			IInteractInterface::Execute_Interact(HitResult.GetActor(), this);
+
 			if (GEngine)
 				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Freedom is close ")));
+
+			IInteractInterface::Execute_Interact(HitResult.GetActor());
+ 
 		}
 	}
 	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
 }
-
-void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
-{
-	Character = TargetCharacter;
-
-	if(TargetCharacter == nullptr || TargetCharacter->GetHasWeapon() || TargetCharacter->GetHasLighter())
-	{
-		return;
-	}
-
-	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
-
-	AttachToComponent(TargetCharacter->GetMesh(), AttachmentRules, FName(TEXT("WeaponSocket")));
-
-	/*TargetCharacter->SetHasWeapon(true);*/
-
-	APlayerController* PlayerController = Cast<APlayerController>(TargetCharacter->GetController());
-	if(PlayerController)
-	{
-		if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-		{
-			Subsystem->AddMappingContext(IMC, 1);
-		}
-
-		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
-
-		if(EnhancedInputComponent)
-		{
-			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Fire);
-		}
-	}
-}
-
-void APlayerCharacter::SetHasWeapon(bool bHasNewWeapon)
-{
-	bHasWeapon = bHasNewWeapon;
-}
-
-bool APlayerCharacter::GetHasWeapon()
-{
-	return bHasWeapon;
-}
-
 void APlayerCharacter::Fire()
 {
-	if(ProjectileToSpawn != nullptr)
+	if (ProjectileToSpawn != nullptr)
 	{
 		UWorld* World = GetWorld();
-		if(World != nullptr)
+		if (World != nullptr)
 		{
-			APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+			APlayerController* PlayerController = Cast<APlayerController>(FireCharacter->GetController());
 			FRotator SpawnRotation = PlayerController->PlayerCameraManager->GetCameraRotation();
 			FVector SpawnLocation = GetOwner()->GetActorLocation();
 
@@ -156,23 +123,6 @@ void APlayerCharacter::Fire()
 		}
 	}
 }
-
-void APlayerCharacter::SetHasLighter(bool HasLighter)
-{
-	bHasLighter = true;
-}
-
-bool APlayerCharacter::GetHasLighter()
-{
-	return bHasLighter;
-}
-
-
-UCameraComponent* APlayerCharacter::GetCameraComponent() const
-{
-	return PlayerCamera;
-}
-
 
 void APlayerCharacter::Look(const FInputActionValue& Value)
 {
@@ -185,6 +135,83 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+//void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
+//{
+//	Character = TargetCharacter;
+//
+//	if(Character == nullptr || Character->GetHasWeapon() ||Character->GetHasLighter())
+//	{
+//		return;
+//	}
+//
+//	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
+//
+//	AttachToComponent(Character->GetMesh(), AttachmentRules, FName(TEXT("WeaponSocket")));
+//
+//	/*TargetCharacter->SetHasWeapon(true);*/
+//
+//	APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
+//	if(PlayerController)
+//	{
+//		if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+//		{
+//			Subsystem->AddMappingContext(IMC, 1);
+//		}
+//
+//		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
+//
+//		if(EnhancedInputComponent)
+//		{
+//			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Fire);
+//		}
+//	}
+//}
+
+/*
+* Bools for weapon equip
+*/
+
+void APlayerCharacter::SetHasWeapon(bool bHasNewWeapon)
+{
+	bHasWeapon = bHasNewWeapon;
+}
+
+bool APlayerCharacter::GetHasWeapon()
+{
+	return bHasWeapon;
+}
+//end
+
+UCameraComponent* APlayerCharacter::GetCameraComponent() const
+{
+	return PlayerCamera;
+}
+
+//get mesh from thing u pickup firstpersonview
+
+USkeletalMeshComponent* APlayerCharacter::GetMeshFPV() const
+{
+	return MeshFPV;
+}
+
+/*
+* bools for Lighter
+*/
+
+void APlayerCharacter::SetHasLighter(bool HasLighter)
+{
+	bHasLighter = true;
+}
+
+bool APlayerCharacter::GetHasLighter()
+{
+	return bHasLighter;
+}
+//end
+
+/*
+* bools for Waves
+*/
 
 void APlayerCharacter::StartWave()
 {
