@@ -58,7 +58,7 @@ public:
 	int32 Minutes;
 
 	
-private:
+public:
 	FTimerHandle PauseWave;
 	FTimerHandle T_CountDown;
 	void CountDown();
