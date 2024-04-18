@@ -105,6 +105,11 @@ void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 	}
 	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
 }
+
+/*
+* Fire function  (working)
+*/
+
 void APlayerCharacter::Fire()
 {
 	if (ProjectileToSpawn != nullptr)
