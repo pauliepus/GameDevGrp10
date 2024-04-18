@@ -11,9 +11,10 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable, BlueprintType, meta = (BlueprintSpawnableComponent))
 class GAMEDEVGRP10_API UPickupStaticBase : public UStaticMeshComponent, public IInteractInterface
 {
+
 	GENERATED_BODY()
 
 public:
@@ -25,7 +26,7 @@ public:
 	APlayerCharacter* Character;
 
 	UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
-	void AttachComponentToPlayer(APlayerCharacter* TargetCharacter);
+	void AttachComponentTooPlayer(APlayerCharacter* TargetCharacter);
 
 	UFUNCTION()
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
@@ -76,5 +77,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	TSubclassOf<AActor> ProjectileToSpawn;
 
-	virtual void Interact_Implementation(APlayerCharacter* TargetCharacter) override;
+	virtual void Interact_Implementation() override;
+
 };

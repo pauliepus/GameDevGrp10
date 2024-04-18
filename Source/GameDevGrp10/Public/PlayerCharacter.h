@@ -21,21 +21,13 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void GetMeshFPV();
 
-public:
-
-	APlayerCharacter* Character;
+	//Fire Interact Component declaration
+	APlayerCharacter* FireCharacter;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* InteractAction;
@@ -46,9 +38,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
 	float InteractRange = 500.f;
 
-	UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
-	void AttachComponentToPlayer(APlayerCharacter* TargetCharacter);
-
+	//UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
+	//void AttachComponentToPlayer(APlayerCharacter* TargetCharacter);
+	
+	
+	/*
+	* Weapon Bools
+	*/
+		
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
 	bool bHasWeapon = false;
 
@@ -57,6 +54,25 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Weapon")
 	bool GetHasWeapon();
+	//End
+
+	/*
+	* Lighter bools
+	*/
+
+	UPROPERTY(BlueprintReadWrite, Category = "Lighter")
+	bool bHasLighter;
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	void SetHasLighter(bool bHasNewWeapon);
+
+	UFUNCTION(BlueprintCallable, Category = "Weapon")
+	bool GetHasLighter();
+	//End
+
+	/*
+	* Firing part (IA)
+	*/
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "Input")
 	class UInputAction* FireAction;
@@ -66,28 +82,32 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile")
 	TSubclassOf<AActor> ProjectileToSpawn;
-
+	//End
 
 	/*
 	 * Attributes
 	 */
-	UPROPERTY(BlueprintReadWrite, Category = "Lighter")
-	bool bHasLighter;
 
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void SetHasLighter(bool bHasNewWeapon);
-
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	bool GetHasLighter();
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMeshComponent* MeshFPV;
+	
+		//Camera Component
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attributes")
 	UCameraComponent* PlayerCamera;
 
 	UCameraComponent* GetCameraComponent() const;
 
+	USkeletalMeshComponent* GetMeshFPV() const;
+	
+		//Camera Look (IA)
+
+	void Look(const FInputActionValue& Value);
+
+
 	/*
 	 * Inputs
 	 */
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputMappingContext* IMC;
 
@@ -97,7 +117,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* PauseAction;
 
-	void Look(const FInputActionValue& Value);
 
 	/*
 	 * Waves
@@ -107,4 +126,13 @@ public:
 	bool WaveEnded = false;
 
 	void EndWave();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
 };
