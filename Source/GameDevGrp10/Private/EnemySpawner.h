@@ -32,12 +32,16 @@ public:
 	TSubclassOf<AEnemyCharacterBase> EnemyBase;
 	UPROPERTY(EditAnywhere, Category = "Enemy")
 	TSubclassOf<AEnemyCharacterBase> EnemyRoller;
-	UFUNCTION()
-	void SpawnEnemy();
+
+
+	
 	UFUNCTION()
 	void StartSpawning();
 	UFUNCTION()
 	void StopSpawning();
 
+private:
 	FTimerHandle WavePause;
+
+	void SpawnEnemy();
 };

@@ -27,9 +27,14 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemyAttribute")
+	float DeathTimer = 5.0f;
+
 	/*
 	 *	Sound
 	 */
+
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemySound")
 	class USoundBase* WalkNoise;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemySound")
@@ -39,23 +44,19 @@ public:
 
 	/*
 	 *	Functions
-	 */
-	bool bEnemyDead = false;
-	FTimerHandle StopDie;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EnemyAttribute")
-	float DeathTimer = 5.0f;
-
-
-	AActor* Player;
+	 */	
 
 	UFUNCTION(BlueprintCallable)
 	void EnemyDie();
 
-	UFUNCTION()
-	void EnemyRemove();
-
 	UFUNCTION(BlueprintCallable)
 	void EnemySteal();
 
+private:
+	bool bEnemyDead = false;
+	AActor* Player;
+	FTimerHandle StopDie;
+
+	void EnemyRemove();
 
 };
