@@ -98,7 +98,7 @@ void UPickupStaticBase::StopUse()
 	FRotator Rotation = GetComponentRotation();
 
 	FActorSpawnParameters ActorSpawnParams;
-	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+	ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 
 	GetWorld()->SpawnActor<AActor>(Respawn, Location, Rotation, ActorSpawnParams);
 
