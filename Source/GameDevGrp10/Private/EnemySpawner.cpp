@@ -35,13 +35,24 @@ void AEnemySpawner::SpawnEnemy()
 	float SpawnX = cos(SpawnArea) * 1900.0f;
 	float SpawnY = sin(SpawnArea) * 1900.0f;
 
-	float SpawnZ = 20.0f;
-	FVector SpawnPosition = FVector(SpawnX, SpawnY, SpawnZ);
-	//Selecting which enemy to spawn
+	//Finding surface by using raytracing
+	FVector StartTrace = { SpawnX, SpawnY, 400.0f };
+	FVector EndTrace = { SpawnX, SpawnY, -200.0f };
+
+	FHitResult Hit;
+	FCollisionQueryParams CollisionParams;
+
+	if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, CollisionParams))
+	{
+		if (Hit.bBlockingHit)
+		{
+			
+		}
+	}
 	if (SpawnArea < -1.3f || SpawnArea > 1.3f)
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, SpawnPosition, FRotator::ZeroRotator);
+		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, Hit.ImpactPoint, FRotator::ZeroRotator);
 	else
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, SpawnPosition, FRotator::ZeroRotator);
+		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, Hit.ImpactPoint, FRotator::ZeroRotator);
 
 	if (GEngine)
 		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
