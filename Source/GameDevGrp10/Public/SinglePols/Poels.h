@@ -26,6 +26,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Burnt Timer")
 	float BurntTime = 10.0f;
 
+
 	FTimerHandle TakeStartCookingHandle;
 	
 	/*
@@ -45,7 +46,10 @@ public:
 	*/
 
 	FTimerHandle TakeStartOvercookHandle;
-	//Burnt checker
+	
+	/*
+	*Burnt checker
+	*/
 	
 	bool bIsOvercooked = false;
 	void SetIsOvercookedTrue();
@@ -59,10 +63,6 @@ public:
 	/*
 	MESHES
 	*/
-
-	//Forward declarations of mesh, SM just to have it, not really necessary.
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* SMDefault;
 	//Skeletons
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
