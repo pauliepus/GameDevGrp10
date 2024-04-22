@@ -5,7 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Runtime/Engine/Public/TimerManager.h"
 #include "Poels.generated.h"
+
 
 UCLASS()
 class GAMEDEVGRP10_API APoels : public AActor
@@ -15,12 +17,18 @@ class GAMEDEVGRP10_API APoels : public AActor
 public:	
 	// Sets default values for this actor's properties
 	APoels();
-	
+		
+
+	//old attempt at making the skins change.
+	/*
+	* An alt was getting an iretaror to change mat_ based on "i",
+	* but that would require direct access to files, and.. no, no ty
+	*/
 	//void SKChanger();
 
 	//Cooking
-	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category = "Cooking Timer")
-	float CookingTime= 15.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cooking Timer")
+	float CookingTime = 15.0f;
 	
 	//Burning
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Burnt Timer")
@@ -44,7 +52,7 @@ public:
 	/*
 	* (14.4) Overcooking / Burning the pøls function
 	*/
-
+	
 	FTimerHandle TakeStartOvercookHandle;
 	
 	/*
@@ -57,19 +65,22 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void OverCooked();
 
+	
+
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.
 	
 	/*
-	MESHES
+	* MESHES
 	*/
+
 	//Skeletons
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	USkeletalMeshComponent* SKAlternate;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	USkeletalMeshComponent* SKBurnt;
+	//UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	//USkeletalMeshComponent* SKAlternate;
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	//USkeletalMeshComponent* SKBurnt;
 
 protected:
 	// Called when the game starts or when spawned
