@@ -135,6 +135,8 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+
+ //theoretical trace we couldn't get to work
 //void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 //{
 //	Character = TargetCharacter;

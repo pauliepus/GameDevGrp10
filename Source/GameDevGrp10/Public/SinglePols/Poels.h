@@ -17,8 +17,7 @@ class GAMEDEVGRP10_API APoels : public AActor
 public:	
 	// Sets default values for this actor's properties
 	APoels();
-		
-
+	
 	//old attempt at making the skins change.
 	/*
 	* An alt was getting an iretaror to change mat_ based on "i",
@@ -64,9 +63,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void OverCooked();
-
-	
-
+		
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.
 	
@@ -74,13 +71,19 @@ public:
 	* MESHES
 	*/
 
+	//Capsule Component
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	UCapsuleComponent* CapsuleAttachment;
 	//Skeletons
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
+
 	//UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	//USkeletalMeshComponent* SKAlternate;
 	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	//USkeletalMeshComponent* SKBurnt;
+
+
 
 protected:
 	// Called when the game starts or when spawned
