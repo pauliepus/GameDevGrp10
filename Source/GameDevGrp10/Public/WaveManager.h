@@ -57,12 +57,25 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
 	int32 Minutes;
 
+	/*
+	 *Troll Animation
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation Sequence")
+	AActor* TrollMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation Sequence")
+	UAnimSequence* TrollAnim;
+	UFUNCTION()
+	void TrollAnimDone();
+
+	FTimerHandle StopTroll;
+
 	
 public:
 	FTimerHandle PauseWave;
 	FTimerHandle T_CountDown;
 	void CountDown();
 	bool ManagerWaveEnded = false;
+	float EndWaveDelay;
 
 	AEnemySpawner* TargetSpawner;
 	APlayerCharacter* Player;

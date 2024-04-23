@@ -35,6 +35,7 @@ void AWaveManager::BeginPlay()
 			Player = static_cast<APlayerCharacter*>(*ActorItr);
 		}
 	}
+	EndWaveDelay = TrollAnim->GetPlayLength();
 	WaveStart();
 }
 
@@ -83,11 +84,21 @@ void AWaveManager::WaveEnd()
 			ActorItr->Destroy();
 		}
 	}
-	Player->EndWave();
-
 	GetWorldTimerManager().ClearTimer(T_CountDown);
 
+	GetWorldTimerManager().SetTimer(
+		StopTroll,
+		this,
+		&AWaveManager::TrollAnimDone,
+		EndWaveDelay,
+		false
+	);
+}
+
+void AWaveManager::TrollAnimDone()
+{
 	ManagerWaveEnded = true;
+	Player->EndWave();
 }
 
 void AWaveManager::CountDown()
@@ -103,12 +114,6 @@ void AWaveManager::CountDown()
 		Seconds = 59.0f;
 		UE_LOG(LogTemp, Warning, TEXT("Minutes %d"), Minutes);
 	}
-	/*else
-	{
-			Seconds = 0.0f;
-			UE_LOG(LogTemp, Warning, TEXT("End of Wave"));
-	}
-	*/
 }
 
 
