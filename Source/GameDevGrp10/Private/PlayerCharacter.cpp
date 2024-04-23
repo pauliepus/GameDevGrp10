@@ -5,7 +5,6 @@
 #include "PlayerCharacter.h"
 
 #include "EnhancedInputComponent.h"
-#include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
