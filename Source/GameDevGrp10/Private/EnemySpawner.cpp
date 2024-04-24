@@ -30,7 +30,7 @@ void AEnemySpawner::Tick(float DeltaTime)
 void AEnemySpawner::SpawnEnemy()
 {
 	//Calculate a random spawn position
-	float SpawnArea = FMath::RandRange(-1.6f, 1.6f);
+	float SpawnArea = FMath::RandRange(-1.7f, 1.7f);
 
 	float SpawnX = cos(SpawnArea) * 1900.0f;
 	float SpawnY = sin(SpawnArea) * 1900.0f;
@@ -44,18 +44,18 @@ void AEnemySpawner::SpawnEnemy()
 
 	if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, CollisionParams))
 	{
-		if (Hit.bBlockingHit)
-		{
-			
-		}
+		if (SpawnArea < -1.3f || SpawnArea > 1.3f)
+			GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, Hit.ImpactPoint, FRotator::ZeroRotator);
+		else
+			GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, Hit.ImpactPoint, FRotator::ZeroRotator);
+		if (GEngine)
+			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
 	}
-	if (SpawnArea < -1.3f || SpawnArea > 1.3f)
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, Hit.ImpactPoint, FRotator::ZeroRotator);
 	else
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, Hit.ImpactPoint, FRotator::ZeroRotator);
-
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
+	{
+		SpawnEnemy();
+	}
+	
 }
 
 void AEnemySpawner::StartSpawning()

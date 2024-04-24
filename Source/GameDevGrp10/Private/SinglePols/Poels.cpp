@@ -101,7 +101,7 @@ void APoels::OverCooked()
 void APoels::BeginPlay()
 {
 	Super::BeginPlay();
-	SKDefault->SetSimulatePhysics(true);
+	//SKDefault->SetSimulatePhysics(true);
 }
 
 // Called every frame
