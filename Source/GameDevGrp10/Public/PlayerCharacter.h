@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "NiagaraActor.h"
 #include "PlayerCharacter.generated.h"
 
 class UInputMappingContext;
@@ -142,6 +143,12 @@ public:
 	bool WaveEnded = false;
 
 	void EndWave();
+
+	UPROPERTY(EditAnywhere, Category= "Niagara")
+	ANiagaraActor* CampfireFire;
+
+	UPROPERTY(EditAnywhere, Category = "Niagara")
+	ANiagaraActor* CampfireSmoke;
 
 protected:
 	// Called when the game starts or when spawned

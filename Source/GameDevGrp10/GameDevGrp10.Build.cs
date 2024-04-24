@@ -8,7 +8,7 @@ public class GameDevGrp10 : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput","LevelSequence", "MovieScene" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput","LevelSequence", "MovieScene", "Niagara" });
 
 
         PrivateDependencyModuleNames.AddRange(new string[] {  });
