@@ -8,7 +8,6 @@
 #include "Runtime/Engine/Public/TimerManager.h"
 #include "Poels.generated.h"
 
-
 UCLASS()
 class GAMEDEVGRP10_API APoels : public AActor
 {
@@ -73,7 +72,8 @@ public:
 
 	//Capsule Component
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	UCapsuleComponent* CapsuleAttachment;
+	class UBoxComponent* BoxAttachment;
+
 	//Skeletons
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;

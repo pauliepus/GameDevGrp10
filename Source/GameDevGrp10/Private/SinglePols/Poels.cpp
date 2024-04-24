@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SinglePols/Poels.h"
-#include "Components/CapsuleComponent.h" //this for capsule to attach to root to attach mesh to
 #include "Components/SkeletalMeshComponent.h"
 #include <GameFramework/Character.h>
+#include <Components/BoxComponent.h>
 
 
 // Sets default values
@@ -19,11 +19,11 @@ APoels::APoels()
 	// Creating Skeletal Mesh objects and attaching to capsule component
 
 	//
-	CapsuleAttachment = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Asset Capsule"));
-	CapsuleAttachment->SetupAttachment(GetRootComponent());
+	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
+	BoxAttachment->SetupAttachment(GetRootComponent());
 
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKDefault->SetupAttachment(CapsuleAttachment);
+	SKDefault->SetupAttachment(BoxAttachment);
 
 	// (14.4) After /finally/ making these, I realize there was a function to simply Change materials,
 	// - but I've chosen to just keep it this way.
