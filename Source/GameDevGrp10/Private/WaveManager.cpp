@@ -57,7 +57,7 @@ void AWaveManager::WaveStart()
 	WaveNumber++;
 	TargetSpawner->StartSpawning();
 	//This is for the UI at the top of the screen
-	Seconds = (WaveTimer-1) % 60 + 1;
+	Seconds = (WaveTimer-1) % 60;
 	Minutes = (WaveTimer-1) / 60;
 
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &AWaveManager::CountDown, 1.0f, true, 1.0f);
@@ -83,11 +83,31 @@ void AWaveManager::WaveEnd()
 			ActorItr->Destroy();
 		}
 	}
-	Player->EndWave();
-
 	GetWorldTimerManager().ClearTimer(T_CountDown);
 
+	if (TrollSequence && TrollSequencePlayer == nullptr)
+		TrollSequencePlayer = ULevelSequencePlayer::CreateLevelSequencePlayer(GetWorld(), TrollSequence, FMovieSceneSequencePlaybackSettings(), TrollSequenceActor);
+
+	//Sequence Play
+	if (TrollSequencePlayer != nullptr)
+	{
+		TrollSequencePlayer->Play();
+	}
+
+
+	GetWorldTimerManager().SetTimer(
+		StopTroll,
+		this,
+		&AWaveManager::TrollAnimDone,
+		EndWaveDelay,
+		false
+	);
+}
+
+void AWaveManager::TrollAnimDone()
+{
 	ManagerWaveEnded = true;
+	Player->EndWave();
 }
 
 void AWaveManager::CountDown()
@@ -103,12 +123,6 @@ void AWaveManager::CountDown()
 		Seconds = 59.0f;
 		UE_LOG(LogTemp, Warning, TEXT("Minutes %d"), Minutes);
 	}
-	/*else
-	{
-			Seconds = 0.0f;
-			UE_LOG(LogTemp, Warning, TEXT("End of Wave"));
-	}
-	*/
 }
 
 

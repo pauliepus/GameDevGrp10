@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "EnemySpawner.h"
+#include "LevelSequence.h"
+#include "LevelSequencePlayer.h"
 #include "PlayerCharacter.h"
 
 #include "WaveManager.generated.h"
@@ -57,12 +59,28 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
 	int32 Minutes;
 
+	/*
+	 *Troll Animation
+	 *This is based on the discussion from this page https://forums.unrealengine.com/t/is-there-a-way-to-trigger-a-level-sequence-in-c/381446/8
+	 */
+	
+	UFUNCTION()
+	void TrollAnimDone();
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TrollAnim")
+	ULevelSequence* TrollSequence;
+	
+	ALevelSequenceActor* TrollSequenceActor;
+	
+	ULevelSequencePlayer* TrollSequencePlayer;
+	FTimerHandle StopTroll;
+
 	
 public:
 	FTimerHandle PauseWave;
 	FTimerHandle T_CountDown;
 	void CountDown();
 	bool ManagerWaveEnded = false;
+	float EndWaveDelay = 7.0f;
 
 	AEnemySpawner* TargetSpawner;
 	APlayerCharacter* Player;
