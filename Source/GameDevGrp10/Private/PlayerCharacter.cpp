@@ -225,6 +225,8 @@ void APlayerCharacter::SwitchView()
 	{
 		ForestCam1->Activate();
 		PlayerCamera->Deactivate();
+		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+			DisableInput(PlayerController);
 	}
 	else if (ForestCam1->IsActive())
 	{
@@ -235,6 +237,8 @@ void APlayerCharacter::SwitchView()
 	{
 		PlayerCamera->Activate();
 		ForestCam2->Deactivate();
+		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+			EnableInput(PlayerController);
 	}
 }
 
