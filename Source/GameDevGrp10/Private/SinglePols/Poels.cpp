@@ -19,11 +19,11 @@ APoels::APoels()
 	// Creating Skeletal Mesh objects and attaching to capsule component
 
 	//
-	CapsuleAttachment = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Asset Capsule"));
+	/*CapsuleAttachment = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Asset Capsule"));
 	CapsuleAttachment->SetupAttachment(GetRootComponent());
 
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKDefault->SetupAttachment(CapsuleAttachment);
+	SKDefault->SetupAttachment(CapsuleAttachment);*/
 
 	// (14.4) After /finally/ making these, I realize there was a function to simply Change materials,
 	// - but I've chosen to just keep it this way.
