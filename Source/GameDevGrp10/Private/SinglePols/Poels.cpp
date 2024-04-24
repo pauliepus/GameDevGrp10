@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Components/SkeletalMeshComponent.h"
 #include "SinglePols/Poels.h"
+#include "Components/CapsuleComponent.h" //this for capsule to attach to root to attach mesh to
+#include "Components/SkeletalMeshComponent.h"
+#include <GameFramework/Character.h>
 
-//DIDNT find correct delegate cast, whatever.
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE(USkeletalMeshComponent);
 
 // Sets default values
 APoels::APoels()
@@ -13,28 +13,32 @@ APoels::APoels()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	
-	// Creating Skeletal Mesh objects and attaching to root component
-	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKDefault->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	//Sets physics 
+		
 
-	// (14.4) After /finally/ making these, I realize there was a function to simply Change materials, but I've chosen to just keep it this way.
+	// Creating Skeletal Mesh objects and attaching to capsule component
+
+	//
+	/*CapsuleAttachment = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Asset Capsule"));
+	CapsuleAttachment->SetupAttachment(GetRootComponent());
+
+	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKDefault->SetupAttachment(CapsuleAttachment);*/
+
+	// (14.4) After /finally/ making these, I realize there was a function to simply Change materials,
+	// - but I've chosen to just keep it this way.
 	/*
 	* SKAlternate = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Alt."));
 	* SKAlternate->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-	* 
 	*/
 
-	// (14.4) This is very sub-optimal, because I feel like it adds too much data, but I believe I got carried by the UAssets, ngl.
+	// (14.4) This is very sub-optimal, because I feel like it adds too much data,
+	// - but I believe I got carried by the UAssets, ngl.
 	/*
 	* SKBurnt = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Burnt"));
 	* SKBurnt->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 	* 
 	*/
-
-	//didnt work, idfk, want to turn on physics
-	//virtual void FSkeletalMeshComponent::SetSimulatePhysics(bool bSimulate);
-
 }
 	
 //This is to make the SkelMeshes change
@@ -82,6 +86,7 @@ void APoels::SetIsOvercookedTrue()
 			BurntTime,
 			false
 		);
+
 	}
 }
 
@@ -96,13 +101,12 @@ void APoels::OverCooked()
 void APoels::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SKDefault->SetSimulatePhysics(true);
 }
 
 // Called every frame
 void APoels::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
