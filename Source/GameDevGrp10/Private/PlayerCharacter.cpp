@@ -24,10 +24,10 @@ APlayerCharacter::APlayerCharacter()
 	
 	MeshFPV = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("CharMesh"));
 	MeshFPV->SetupAttachment(PlayerCamera);
-	/*
-	APlayerCharacter* Character;
-	APlayerCharacter* Character2;
-	*/
+
+	/* Additional cameras for CameraSwitching*/
+	ForestCam1 = CreateDefaultSubobject<UCameraComponent>(TEXT("ForestCam1"));
+	ForestCam2 = CreateDefaultSubobject<UCameraComponent>(TEXT("ForestCam2"));
 }
 
 // Called when the game starts or when spawned
@@ -53,6 +53,8 @@ void APlayerCharacter::BeginPlay()
 			APlayerCharacter->PlayerCameraManager->ViewYawMax = 90.0f;
 		}
 	}
+	ForestCam1->Deactivate();
+	ForestCam2->Deactivate();
 }
 
 // Called every frame
@@ -73,6 +75,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &APlayerCharacter::InteractWithObjects);
 		EnhancedInputComponent->BindAction(StartWaveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::StartWave);
+		EnhancedInputComponent->BindAction(SwitchViewAction, ETriggerEvent::Triggered, this, &APlayerCharacter::SwitchView);
 	}
 
 }
