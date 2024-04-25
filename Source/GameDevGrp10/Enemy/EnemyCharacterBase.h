@@ -52,6 +52,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EnemySteal();
 
+	/*UFUNCTION(BlueprintCallable)
+	void EnemyMove();*/
+
 private:
 	bool bEnemyDead = false;
 	AActor* Player;

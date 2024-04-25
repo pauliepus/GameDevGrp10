@@ -3,6 +3,8 @@
 
 #include "EnemyCharacterBase.h"
 
+#include "GameFramework/MovementComponent.h"
+
 // Sets default values
 AEnemyCharacterBase::AEnemyCharacterBase()
 {
@@ -55,4 +57,7 @@ void AEnemyCharacterBase::EnemySteal()
 	Destroy();
 }
 
-
+//void AEnemyCharacterBase::EnemyMove()
+//{
+//	
+//}

@@ -226,7 +226,7 @@ void APlayerCharacter::SwitchView()
 		ForestCam1->Activate();
 		PlayerCamera->Deactivate();
 		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-			DisableInput(PlayerController);
+			PlayerController->SetIgnoreLookInput(true);
 	}
 	else if (ForestCam1->IsActive())
 	{
@@ -238,7 +238,7 @@ void APlayerCharacter::SwitchView()
 		PlayerCamera->Activate();
 		ForestCam2->Deactivate();
 		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
-			EnableInput(PlayerController);
+			PlayerController->SetIgnoreLookInput(false);
 	}
 }
 
@@ -246,9 +246,19 @@ void APlayerCharacter::StartWave()
 {
 	if (WaveEnded)
 		WaveEnded = false;
+
+	if (CampfireFire)
+	CampfireFire->SetActorHiddenInGame(false);
+	if (CampfireSmoke)
+	CampfireSmoke->SetActorHiddenInGame(false);
 }
 
 void APlayerCharacter::EndWave()
 {
 	WaveEnded = true;
+
+	if(CampfireFire)
+	CampfireFire->SetActorHiddenInGame(true);
+	if(CampfireSmoke)
+	CampfireSmoke->SetActorHiddenInGame(true);
 }
