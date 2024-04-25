@@ -103,6 +103,17 @@ public:
 
 	void Look(const FInputActionValue& Value);
 
+	/*
+	 *CameraSwitching
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cameras")
+	UCameraComponent* ForestCam1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cameras")
+	UCameraComponent* ForestCam2;
+
+	UFUNCTION()
+	void SwitchView();
 
 	/*
 	 * Inputs

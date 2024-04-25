@@ -245,18 +245,18 @@ void APlayerCharacter::StartWave()
 	if (WaveEnded)
 		WaveEnded = false;
 
-	if (CampfireFire)
+	/*if (CampfireFire)
 	CampfireFire->SetActorHiddenInGame(false);
 	if (CampfireSmoke)
-	CampfireSmoke->SetActorHiddenInGame(false);
+	CampfireSmoke->SetActorHiddenInGame(false);*/
 }
 
 void APlayerCharacter::EndWave()
 {
 	WaveEnded = true;
 
-	if(CampfireFire)
+	/*if(CampfireFire)
 	CampfireFire->SetActorHiddenInGame(true);
 	if(CampfireSmoke)
-	CampfireSmoke->SetActorHiddenInGame(true);
+	CampfireSmoke->SetActorHiddenInGame(true);*/
 }
