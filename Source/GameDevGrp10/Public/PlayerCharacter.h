@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "NiagaraActor.h"
 #include "PlayerCharacter.generated.h"
 
 class UInputMappingContext;
@@ -100,7 +99,7 @@ public:
 
 	USkeletalMeshComponent* GetMeshFPV() const;
 	
-		//Camera Look (IA)
+	//Camera Look (IA)
 
 	void Look(const FInputActionValue& Value);
 
@@ -117,20 +116,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* PauseAction;
-	/*
-	 *CameraSwitching
-	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cameras")
-	UCameraComponent* ForestCam1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cameras")
-	UCameraComponent* ForestCam2;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	UInputAction* SwitchViewAction;
-
-	UFUNCTION(BlueprintCallable)
-	void SwitchView();
 
 	/*
 	 * Waves
@@ -143,18 +129,17 @@ public:
 	bool WaveEnded = false;
 
 	void EndWave();
-
-	UPROPERTY(EditAnywhere, Category= "Niagara")
-	ANiagaraActor* CampfireFire;
-
-	UPROPERTY(EditAnywhere, Category = "Niagara")
-	ANiagaraActor* CampfireSmoke;
-
+	
+	// End
+	
+	
 protected:
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
