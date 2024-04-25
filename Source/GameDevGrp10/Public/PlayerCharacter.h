@@ -117,6 +117,17 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* PauseAction;
 
+	/*
+	 *CameraSwitching
+	 */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cameras")
+	UCameraComponent* ForestCam1;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cameras")
+	UCameraComponent* ForestCam2;
+
+	UFUNCTION()
+	void SwitchView();
 
 	/*
 	 * Waves

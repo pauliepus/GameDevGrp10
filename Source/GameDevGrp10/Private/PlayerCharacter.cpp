@@ -216,8 +216,30 @@ bool APlayerCharacter::GetHasLighter()
 }
 //end
 
+void APlayerCharacter::SwitchView()
+{
+	if (PlayerCamera->IsActive())
+	{
+		ForestCam1->Activate();
+		PlayerCamera->Deactivate();
+		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+			PlayerController->SetIgnoreLookInput(true);
+	}
+	else if (ForestCam1->IsActive())
+	{
+		ForestCam2->Activate();
+		ForestCam1->Deactivate();
+	}
+	else
+	{
+		PlayerCamera->Activate();
+		ForestCam2->Deactivate();
+		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+			PlayerController->SetIgnoreLookInput(false);
+	}
+}
 /*
-* bools for Waves
+* Waves
 */
 
 void APlayerCharacter::StartWave()
