@@ -78,10 +78,11 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
 
-	//UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	//USkeletalMeshComponent* SKAlternate;
-	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	//USkeletalMeshComponent* SKBurnt;
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	USkeletalMeshComponent* SKCooked;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USkeletalMeshComponent* SKBurnt;
 
 
 
