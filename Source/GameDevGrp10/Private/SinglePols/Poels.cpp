@@ -29,14 +29,14 @@ APoels::APoels()
 	// - but I've chosen to just keep it this way.
 	/*
 	* SKAlternate = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Alt."));
-	* SKAlternate->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	* SKAlternate->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
 	*/
 
 	// (14.4) This is very sub-optimal, because I feel like it adds too much data,
 	// - but I believe I got carried by the UAssets, ngl.
 	/*
 	* SKBurnt = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Burnt"));
-	* SKBurnt->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+	* SKBurnt->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
 	* 
 	*/
 }
