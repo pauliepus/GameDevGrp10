@@ -5,7 +5,6 @@
 #include "PlayerCharacter.h"
 
 #include "EnhancedInputComponent.h"
-#include "Components/InputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
@@ -109,6 +108,11 @@ void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 	}
 	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
 }
+
+/*
+* Fire function  (working)
+*/
+
 void APlayerCharacter::Fire()
 {
 	if (ProjectileToSpawn != nullptr)
@@ -139,6 +143,8 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
+
+ //theoretical trace we couldn't get to work
 //void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
 //{
 //	Character = TargetCharacter;
@@ -213,6 +219,28 @@ bool APlayerCharacter::GetHasLighter()
 }
 //end
 
+void APlayerCharacter::SwitchView()
+{
+	if (PlayerCamera->IsActive())
+	{
+		ForestCam1->Activate();
+		PlayerCamera->Deactivate();
+		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+			PlayerController->SetIgnoreLookInput(true);
+	}
+	else if (ForestCam1->IsActive())
+	{
+		ForestCam2->Activate();
+		ForestCam1->Deactivate();
+	}
+	else
+	{
+		PlayerCamera->Activate();
+		ForestCam2->Deactivate();
+		if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
+			PlayerController->SetIgnoreLookInput(false);
+	}
+}
 /*
 * Waves
 */

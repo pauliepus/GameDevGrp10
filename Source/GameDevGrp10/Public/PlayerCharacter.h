@@ -99,7 +99,7 @@ public:
 
 	USkeletalMeshComponent* GetMeshFPV() const;
 	
-		//Camera Look (IA)
+	//Camera Look (IA)
 
 	void Look(const FInputActionValue& Value);
 
@@ -116,6 +116,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
 	UInputAction* PauseAction;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
+	UInputAction* SwitchViewAction;
+
 	/*
 	 *CameraSwitching
 	 */
@@ -125,10 +129,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cameras")
 	UCameraComponent* ForestCam2;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	UInputAction* SwitchViewAction;
-
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION()
 	void SwitchView();
 
 	/*
@@ -142,12 +143,17 @@ public:
 	bool WaveEnded = false;
 
 	void EndWave();
-
+	
+	// End
+	
+	
 protected:
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
