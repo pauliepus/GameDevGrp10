@@ -1,10 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "SinglePols/Poels.h"
-#include "Components/SkeletalMeshComponent.h"
 #include <GameFramework/Character.h>
 #include <Components/BoxComponent.h>
-//#include <PolseEnum.h>
 
 
 // Sets default values
@@ -16,19 +14,23 @@ APoels::APoels()
 		
 	// Creating Skeletal Mesh objects and attaching to capsule component
 
-	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
+	// Box Make and attach to root
+	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider Box"));
 	BoxAttachment->SetupAttachment(GetRootComponent());
-
+	// SKeleton make, and make attach to Box
 	SKDefault= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	SKDefault->SetupAttachment(BoxAttachment);
-	
+	// Safety bools for when making children
 	bIsCooked = false;
 	bIsOvercooked = false;
-	
+	// Sphere make, and attach to... not root? uhh, box. Okay..
+	TakeCookingPower = CreateDefaultSubobject<USphereComponent>(TEXT("Heat Taker Sphere"));
+	TakeCookingPower->SetupAttachment(BoxAttachment);
+
 }
 
 /*
-* COOKED
+* COOKED, they do be gettin' 'lit
 */
 
 void APoels::IsCookedTrue()
@@ -82,9 +84,7 @@ void APoels::SetIsOverCookedTrue()
 void APoels::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	BoxAttachment->OnComponentBeginOverlap.__Internal_AddDynamic(this, get(IsCookedTrue))
-		
+				
 }
 
 // Called every frame

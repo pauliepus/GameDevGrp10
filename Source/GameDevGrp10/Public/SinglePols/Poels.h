@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/SkeletalMeshComponent.h"
+#include <Components/SkeletalMeshComponent.h>
+#include <Components/SphereComponent.h>
+#include <Components/BoxComponent.h>
 #include "Runtime/Engine/Public/TimerManager.h"
 #include "Poels.generated.h"
 
@@ -42,21 +44,26 @@ public:
 	bool bIsCooked = false;
 	//the boolean needs to be called in BP.
 	
+	/*
+	* Well, this starts a timer. Based on what
+	*/
 	void IsCookedTrue();
 	
 	UFUNCTION(BlueprintCallable, Category="bools")
 	void SetIsCookedTrue();
 	
 	/*
-	* (14.4) Overcooking / Burning the pøls function
+	*  Overcooking / Burning the pøls function
 	*/
 	
-	//Timerhandle, part of Unrealtimer to set a timer
-	
+	/*
+	* Timerhandle, part of Unrealtimer to set a timer
+	*/
+
 	FTimerHandle TakeStartOvercookHandle;
 	
 	/*
-	* Overcooked checker
+	* Overcooked, checks if Cooked==true, and if colliding with "heatsphere" on grill
 	*/
 	
 	bool bIsOvercooked = false;
@@ -68,19 +75,20 @@ public:
 	void SetIsOverCookedTrue();
 	
 
-
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.
 	
 	/*
-	* MESHES
+	* Attributes? components?
 	*/
 
 	//Box Component, doesn't need to #include <box> cause of "class" infront of it 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class UBoxComponent* BoxAttachment;
 
-	//Skeletons
+	USphereComponent* TakeCookingPower;
+
+	//Skeleton's mesh
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
 
