@@ -4,6 +4,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include <GameFramework/Character.h>
 #include <Components/BoxComponent.h>
+//#include <PolseEnum.h>
 
 
 // Sets default values
@@ -12,88 +13,68 @@ APoels::APoels()
 		
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
-	//Sets physics 
 		
-
 	// Creating Skeletal Mesh objects and attaching to capsule component
 
-	//
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
 	BoxAttachment->SetupAttachment(GetRootComponent());
 
-	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKDefault= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	SKDefault->SetupAttachment(BoxAttachment);
-
-	// (14.4) After /finally/ making these, I realize there was a function to simply Change materials,
-	// - but I've chosen to just keep it this way.
-	/*
-	* SKAlternate = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Alt."));
-	* SKAlternate->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
-	*/
-
-	// (14.4) This is very sub-optimal, because I feel like it adds too much data,
-	// - but I believe I got carried by the UAssets, ngl.
-	/*
-	* SKBurnt = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Burnt"));
-	* SKBurnt->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
-	* 
-	*/
-}
 	
-//This is to make the SkelMeshes change
-//
-//void APoels::SKChanger()
-//{ 
-//	if (bIsCooked == false)
-//	{
-//		SKDefault;
-//	}
-//	else {
-//		SKAlternate;
-//	};
-//}
+	bIsCooked = false;
+	bIsOvercooked = false;
+	
+}
 
-void APoels::SetIsCookedTrue()
+/*
+* COOKED
+*/
+
+void APoels::IsCookedTrue()
 {
 	bIsCooked = false;
+	
 	if (bIsOvercooked == false) {
 		GetWorld()->GetTimerManager().SetTimer(
 			TakeStartCookingHandle,
 			this,
-			&APoels::CookingComplete,
+			&APoels::SetIsCookedTrue,
 			CookingTime,
 			false
 		);
 	}
 }
 
-void APoels::CookingComplete()
+void APoels::SetIsCookedTrue()
 {
 	bIsCooked = true;
 }
 
-void APoels::SetIsOvercookedTrue()
+/*
+* OVERCOOKS
+*/
+void APoels::StartOverCook()
 {
 	bIsOvercooked = false;
 
-	if (bIsCooked == true) 
+	if (bIsCooked == true)
 	{
 		GetWorld()->GetTimerManager().SetTimer(
 			TakeStartOvercookHandle,
 			this,
-			&APoels::OverCooked,
-			BurntTime,
+			&APoels::SetIsOverCookedTrue,
+			OverCookingTime,
 			false
 		);
-
 	}
 }
 
-void APoels::OverCooked()
+
+void APoels::SetIsOverCookedTrue()
 {
-	bIsOvercooked = true;
 	bIsCooked = false;
+	bIsOvercooked = true;
 }
 
 
@@ -101,7 +82,9 @@ void APoels::OverCooked()
 void APoels::BeginPlay()
 {
 	Super::BeginPlay();
-	//SKDefault->SetSimulatePhysics(true);
+	
+	BoxAttachment->OnComponentBeginOverlap.__Internal_AddDynamic(this, get(IsCookedTrue))
+		
 }
 
 // Called every frame
