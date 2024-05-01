@@ -17,18 +17,11 @@ public:
 	// Sets default values for this actor's properties
 	APoels();
 	
-	//old attempt at making the skins change.
-	/*
-	* An alt was getting an iretaror to change mat_ based on "i",
-	* but that would require direct access to files, and.. no, no ty
-	*/
-	//void SKChanger();
-
-	//Cooking
+	/* Cooking Pølse Timer */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cooking Timer")
 	float CookingTime = 15.0f;
 	
-	//Burning
+	/*Overcooking Pølse Timer*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Burnt Timer")
 	float BurntTime = 10.0f;
 
@@ -43,7 +36,9 @@ public:
 	bool bIsCooked = false;
 	void SetIsCookedTrue();
 	
-	//the boolean funct for timer and mesh change (which should've been M_), needs to be called in BP.
+	/*
+	the boolean funct for timer and mesh change(which should've been M_), needs to be called in BP.
+	*/
 	UFUNCTION(BlueprintCallable)
 	void CookingComplete();
 	
@@ -70,19 +65,13 @@ public:
 	* MESHES
 	*/
 
-	//Capsule Component
+	/* CapsuleComponent Class + Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	class UBoxComponent* BoxAttachment;
 
-	//Skeletons
+	/* SkeletalMesh Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
-
-	//UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	//USkeletalMeshComponent* SKAlternate;
-	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	//USkeletalMeshComponent* SKBurnt;
-
 
 
 protected:

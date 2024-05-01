@@ -13,46 +13,15 @@ APoels::APoels()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	//Sets physics 
-		
-
 	// Creating Skeletal Mesh objects and attaching to capsule component
 
-	//
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
 	BoxAttachment->SetupAttachment(GetRootComponent());
 
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	SKDefault->SetupAttachment(BoxAttachment);
 
-	// (14.4) After /finally/ making these, I realize there was a function to simply Change materials,
-	// - but I've chosen to just keep it this way.
-	/*
-	* SKAlternate = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Alt."));
-	* SKAlternate->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-	*/
-
-	// (14.4) This is very sub-optimal, because I feel like it adds too much data,
-	// - but I believe I got carried by the UAssets, ngl.
-	/*
-	* SKBurnt = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh Burnt"));
-	* SKBurnt->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-	* 
-	*/
 }
-	
-//This is to make the SkelMeshes change
-//
-//void APoels::SKChanger()
-//{ 
-//	if (bIsCooked == false)
-//	{
-//		SKDefault;
-//	}
-//	else {
-//		SKAlternate;
-//	};
-//}
 
 void APoels::SetIsCookedTrue()
 {
