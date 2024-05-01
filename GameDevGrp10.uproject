@@ -9,8 +9,7 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
-				"Engine",
-				"LevelSequence"
+				"Engine"
 			]
 		}
 	],
@@ -21,14 +20,6 @@
 			"TargetAllowList": [
 				"Editor"
 			]
-		},
-		{
-			"Name": "GPULightmass",
-			"Enabled": true
-		},
-		{
-			"Name": "MovieRenderPipeline",
-			"Enabled": true
 		}
 	]
 }
