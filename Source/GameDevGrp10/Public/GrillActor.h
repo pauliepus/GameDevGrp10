@@ -15,6 +15,11 @@ public:
 	// Sets default values for this actor's properties
 	AGrillActor();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	class UBoxComponent* BoxAttachment;
+	
+	//SetRootComponent()->BoxAttachment;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

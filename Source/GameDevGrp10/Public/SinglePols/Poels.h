@@ -21,18 +21,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cooking Timer")
 	float CookingTime = 15.0f;
 	
-	/*Overcooking Pølse Timer*/
+	/* Overcooking Pølse Timer */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Burnt Timer")
 	float BurntTime = 10.0f;
 
 
 	FTimerHandle TakeStartCookingHandle;
 	
-	/*
-	* (20.3)Cooking thing that makes pøls bool true, meaning it now COUNTS towards pts. 
-	* (14.4) aw shucks, I just realized this is kinda dumb, cause, if it's burnt, it's now not cooked, therefore it can cook again. Shucks
-	*/
-
+	/**/
 	bool bIsCooked = false;
 	void SetIsCookedTrue();
 	
@@ -43,20 +39,18 @@ public:
 	void CookingComplete();
 	
 	/*
-	* (14.4) Overcooking / Burning the pøls function
+	* Overcook FTimerHandle connected to the Overcook function
 	*/
-	
 	FTimerHandle TakeStartOvercookHandle;
 	
 	/*
 	*Burnt checker
 	*/
-	
 	bool bIsOvercooked = false;
 	void SetIsOvercookedTrue();
 	
 	UFUNCTION(BlueprintCallable)
-	void OverCooked();
+	void OverCookingComplete();
 		
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.

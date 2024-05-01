@@ -51,7 +51,7 @@ void APoels::SetIsOvercookedTrue()
 		GetWorld()->GetTimerManager().SetTimer(
 			TakeStartOvercookHandle,
 			this,
-			&APoels::OverCooked,
+			&APoels::OverCookingComplete,
 			BurntTime,
 			false
 		);
@@ -59,7 +59,7 @@ void APoels::SetIsOvercookedTrue()
 	}
 }
 
-void APoels::OverCooked()
+void APoels::OverCookingComplete()
 {
 	bIsOvercooked = true;
 	bIsCooked = false;
