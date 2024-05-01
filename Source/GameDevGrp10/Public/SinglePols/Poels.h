@@ -17,51 +17,40 @@ public:
 	// Sets default values for this actor's properties
 	APoels();
 	
-	//old attempt at making the skins change.
-	/*
-	* An alt was getting an iretaror to change mat_ based on "i",
-	* but that would require direct access to files, and.. no, no ty
-	*/
-	//void SKChanger();
-
-	//Cooking
+	/* Cooking Pølse Timer */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cooking Timer")
 	float CookingTime = 15.0f;
 	
-	//Burning
+	/* Overcooking Pølse Timer */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Burnt Timer")
 	float BurntTime = 10.0f;
 
 
 	FTimerHandle TakeStartCookingHandle;
 	
-	/*
-	* (20.3)Cooking thing that makes pøls bool true, meaning it now COUNTS towards pts. 
-	* (14.4) aw shucks, I just realized this is kinda dumb, cause, if it's burnt, it's now not cooked, therefore it can cook again. Shucks
-	*/
-
+	/**/
 	bool bIsCooked = false;
 	void SetIsCookedTrue();
 	
-	//the boolean funct for timer and mesh change (which should've been M_), needs to be called in BP.
+	/*
+	the boolean funct for timer and mesh change(which should've been M_), needs to be called in BP.
+	*/
 	UFUNCTION(BlueprintCallable)
 	void CookingComplete();
 	
 	/*
-	* (14.4) Overcooking / Burning the pøls function
+	* Overcook FTimerHandle connected to the Overcook function
 	*/
-	
 	FTimerHandle TakeStartOvercookHandle;
 	
 	/*
 	*Burnt checker
 	*/
-	
 	bool bIsOvercooked = false;
 	void SetIsOvercookedTrue();
 	
 	UFUNCTION(BlueprintCallable)
-	void OverCooked();
+	void OverCookingComplete();
 		
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.
@@ -70,19 +59,13 @@ public:
 	* MESHES
 	*/
 
-	//Capsule Component
+	/* CapsuleComponent Class + Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	class UBoxComponent* BoxAttachment;
 
-	//Skeletons
+	/* SkeletalMesh Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
-
-	//UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	//USkeletalMeshComponent* SKAlternate;
-	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	//USkeletalMeshComponent* SKBurnt;
-
 
 
 protected:
