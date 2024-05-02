@@ -44,18 +44,22 @@ void AEnemySpawner::SpawnEnemy()
 
 	if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, CollisionParams))
 	{
-		if (Hit.bBlockingHit)
+		if (Hit.IsValidBlockingHit())
 		{
-			
+			if (SpawnArea < -1.3f || SpawnArea > 1.3f)
+				GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, Hit.ImpactPoint, FRotator::ZeroRotator);
+			else
+				GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, Hit.ImpactPoint, FRotator::ZeroRotator);
+			if (GEngine)
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
+		}
+		else
+		{
+			SpawnEnemy();
 		}
 	}
-	if (SpawnArea < -1.3f || SpawnArea > 1.3f)
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, Hit.ImpactPoint, FRotator::ZeroRotator);
-	else
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, Hit.ImpactPoint, FRotator::ZeroRotator);
-
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
+	
+	
 }
 
 void AEnemySpawner::StartSpawning()
