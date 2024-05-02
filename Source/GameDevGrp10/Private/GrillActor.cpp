@@ -10,7 +10,7 @@ AGrillActor::AGrillActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
-
+	BoxAttachment->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 
 }
 

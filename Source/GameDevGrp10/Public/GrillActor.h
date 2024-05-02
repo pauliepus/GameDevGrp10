@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include <Components/BoxComponent.h>
 #include "GrillActor.generated.h"
 
 UCLASS()
@@ -16,9 +17,8 @@ public:
 	AGrillActor();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	class UBoxComponent* BoxAttachment;
+	UBoxComponent* BoxAttachment;
 	
-	//SetRootComponent()->BoxAttachment;
 
 protected:
 	// Called when the game starts or when spawned
