@@ -76,6 +76,7 @@ void AEnemySpawner::StartSpawning()
 void AEnemySpawner::StopSpawning()
 {
 	GetWorldTimerManager().ClearTimer(WavePause);
+	SpawnTimer -= SpawnTimer / 30;
 	
 }
 
