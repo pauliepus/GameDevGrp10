@@ -57,8 +57,8 @@ void AWaveManager::WaveStart()
 	WaveNumber++;
 	TargetSpawner->StartSpawning();
 	//This is for the UI at the top of the screen
-	Seconds = (WaveTimer-1) % 60;
-	Minutes = (WaveTimer-1) / 60;
+	Seconds = (WaveTimer) % 60;
+	Minutes = (WaveTimer) / 60;
 
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &AWaveManager::CountDown, 1.0f, true, 1.0f);
 	//This handles spawning and is the one that actually ends things
