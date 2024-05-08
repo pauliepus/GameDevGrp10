@@ -47,12 +47,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void WaveEnd();
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool ManagerWaveEnded = false;
+
 	
 
 	/*
 	 *Timer
 	 */
-
+	//These have to be accessed by the UI Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
 	int Seconds;
 
@@ -78,8 +81,7 @@ public:
 	FTimerHandle PauseWave;
 	FTimerHandle T_CountDown;
 	void CountDown();
-	bool ManagerWaveEnded = false;
-	float EndWaveDelay = 7.0f;
+	float fEndWaveDelay = 7.0f;
 
 	//These are defined during runtime, which is why they are not UPROPERTY
 	AEnemySpawner* TargetSpawner;

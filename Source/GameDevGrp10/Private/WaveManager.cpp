@@ -103,7 +103,7 @@ void AWaveManager::WaveEnd()
 		StopTroll,
 		this,
 		&AWaveManager::TrollAnimDone,
-		EndWaveDelay,
+		fEndWaveDelay,
 		false
 	);
 }
