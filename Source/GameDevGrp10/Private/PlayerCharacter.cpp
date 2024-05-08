@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InteractInterface.h"
 #include "PickUpBasePoels.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -130,6 +131,11 @@ void APlayerCharacter::Fire()
 
 			World->SpawnActor<AActor>(ProjectileToSpawn, SpawnLocation, SpawnRotation, ActorSpawnParams);
 		}
+	}
+
+	if (FireSound != nullptr)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, FireSound, FireCharacter->GetActorLocation());
 	}
 }
 
@@ -257,3 +263,4 @@ void APlayerCharacter::EndWave()
 {
 	WaveEnded = true;
 }
+
