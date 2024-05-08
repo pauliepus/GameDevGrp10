@@ -33,7 +33,7 @@ public:
 	 *Waves
 	 */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	USoundBase* WindSound;
+	USoundBase* RoundEndSound;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
 	int WaveTimer = 180;
@@ -68,13 +68,12 @@ public:
 	void TrollAnimDone();
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TrollAnim")
 	ULevelSequence* TrollSequence;
-	
-	ALevelSequenceActor* TrollSequenceActor;
-	
-	ULevelSequencePlayer* TrollSequencePlayer;
-	FTimerHandle StopTroll;
 
-	
+	//These are defined during runtime, which is why they are not UPROPERTY
+	ALevelSequenceActor* TrollSequenceActor;
+	ULevelSequencePlayer* TrollSequencePlayer;
+
+	FTimerHandle StopTroll;
 public:
 	FTimerHandle PauseWave;
 	FTimerHandle T_CountDown;
@@ -82,6 +81,7 @@ public:
 	bool ManagerWaveEnded = false;
 	float EndWaveDelay = 7.0f;
 
+	//These are defined during runtime, which is why they are not UPROPERTY
 	AEnemySpawner* TargetSpawner;
 	APlayerCharacter* Player;
 };

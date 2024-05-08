@@ -31,7 +31,7 @@ void AEnemyCharacterBase::SetupPlayerInputComponent(UInputComponent* PlayerInput
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
-
+//Sets a timer until the enemy is de-spawned
 void AEnemyCharacterBase::EnemyDie()
 {
 	GetMesh()->SetSimulatePhysics(true);
@@ -44,12 +44,12 @@ void AEnemyCharacterBase::EnemyDie()
 		true
 	);
 }
-
+//De-spawns enemy
 void AEnemyCharacterBase::EnemyRemove()
 {
 	Destroy();
 }
-
+//Happens upon reaching a pølse
 void AEnemyCharacterBase::EnemySteal()
 {
 	Destroy();
