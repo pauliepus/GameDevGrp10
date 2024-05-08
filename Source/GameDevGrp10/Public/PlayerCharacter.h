@@ -143,6 +143,15 @@ public:
 	bool WaveEnded = false;
 
 	void EndWave();
+
+
+
+	/*
+	 * Sound
+	 */
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* FireSound;
 	
 	// End
 	
