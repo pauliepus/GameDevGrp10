@@ -38,23 +38,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interact")
 	float InteractRange = 500.f;
 
-	//UFUNCTION(Blueprintable, BlueprintCallable, Category = "Object")
-	//void AttachComponentToPlayer(APlayerCharacter* TargetCharacter);
-	
-	
-	/*
-	* Weapon Bools
-	*/
-		
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Weapon")
-	bool bHasWeapon = false;
-
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	void SetHasWeapon(bool bHasNewWeapon);
-
-	UFUNCTION(BlueprintCallable, Category = "Weapon")
-	bool GetHasWeapon();
-	//End
 
 	/*
 	* Lighter bools

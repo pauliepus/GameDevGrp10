@@ -172,55 +172,6 @@ void APlayerCharacter::SwitchView()
 	}
 }
 
-
-//theoretical trace we couldn't get to work
-//void APlayerCharacter::AttachComponentToPlayer(APlayerCharacter* TargetCharacter)
-//{
-//	Character = TargetCharacter;
-//
-//	if(Character == nullptr || Character->GetHasWeapon() ||Character->GetHasLighter())
-//	{
-//		return;
-//	}
-//
-//	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
-//
-//	AttachToComponent(Character->GetMesh(), AttachmentRules, FName(TEXT("WeaponSocket")));
-//
-//	/*TargetCharacter->SetHasWeapon(true);*/
-//
-//	APlayerController* PlayerController = Cast<APlayerController>(Character->GetController());
-//	if(PlayerController)
-//	{
-//		if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
-//		{
-//			Subsystem->AddMappingContext(IMC, 1);
-//		}
-//
-//		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent);
-//
-//		if(EnhancedInputComponent)
-//		{
-//			EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Fire);
-//		}
-//	}
-//}
-
-/*
-* Bools for weapon equip
-*/
-
-void APlayerCharacter::SetHasWeapon(bool bHasNewWeapon)
-{
-	bHasWeapon = bHasNewWeapon;
-}
-
-bool APlayerCharacter::GetHasWeapon()
-{
-	return bHasWeapon;
-}
-//end
-
 UCameraComponent* APlayerCharacter::GetCameraComponent() const
 {
 	return PlayerCamera;
