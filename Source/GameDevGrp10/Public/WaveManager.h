@@ -48,7 +48,7 @@ public:
 	void WaveEnd();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	bool ManagerWaveEnded = false;
+	bool ManagerWaveEnded = true;
 
 	
 

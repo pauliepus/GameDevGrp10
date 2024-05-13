@@ -32,7 +32,7 @@ void AWaveManager::BeginPlay()
 			Player = static_cast<APlayerCharacter*>(*ActorItr);
 		}
 	}
-	WaveStart();
+	
 }
 
 // Called every frame
@@ -40,7 +40,8 @@ void AWaveManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//Starts wave upon player start wave input
+	//Starts wave upon player start wave input.
+	//WaveManager has direct access to player, but player does not have as easy of a connection, so start wave is placed in WaveManager
 	if (ManagerWaveEnded) {
 		if (!Player->WaveEnded)
 		{

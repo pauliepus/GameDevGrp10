@@ -212,5 +212,9 @@ void APlayerCharacter::StartWave()
 void APlayerCharacter::EndWave()
 {
 	WaveEnded = true;
+	//Forcing PlayerCamera to be active upon the cinematic ending
+	ForestCam1->Deactivate();
+	ForestCam2->Deactivate();
+	PlayerCamera->Activate();
 }
 

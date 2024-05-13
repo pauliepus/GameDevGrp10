@@ -123,7 +123,7 @@ public:
 
 	void StartWave();
 
-	bool WaveEnded = false;
+	bool WaveEnded = true;
 
 	void EndWave();
 
