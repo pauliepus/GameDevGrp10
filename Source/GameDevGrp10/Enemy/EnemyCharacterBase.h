@@ -35,8 +35,6 @@ public:
 	class USoundBase* WalkNoise;
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemySound")
 	class USoundBase* StealNoise;
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = "EnemySound")
-	class USoundBase* DeathNoise;
 
 	/*
 	 *	Functions

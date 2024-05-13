@@ -32,10 +32,7 @@ public:
 	/*
 	 *Waves
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	USoundBase* RoundEndSound;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
 	int WaveTimer = 180;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
