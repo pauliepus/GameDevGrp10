@@ -24,10 +24,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class UBoxComponent* BoxAttachment;
 
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	/* Meshes */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* Staticmesh;
@@ -37,18 +34,23 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* Staticmesh2;
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* Staticmesh3;
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* Staticmesh4;
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* Staticmesh5;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 	
-	virtual void NotifyActorBeginOverlap(AActor* APoels);
-	virtual void NotifyActorEndOverlap(AActor* APoels);
+	//virtual void NotifyActorBeginOverlap(AActor* APoels);
+	//virtual void NotifyActorEndOverlap(AActor* APoels);
 
 	
 public:	
