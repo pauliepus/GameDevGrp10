@@ -24,7 +24,7 @@ APoels::APoels()
 
 	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
 	TakeHeatSphere->AttachToComponent(SKDefault, FAttachmentTransformRules::KeepRelativeTransform);
-	TakeHeatSphere->SetSphereRadius(200);
+	TakeHeatSphere->SetSphereRadius(85);
 }
 
 void APoels::SetIsCookedTrue()

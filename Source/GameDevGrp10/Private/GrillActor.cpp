@@ -22,31 +22,52 @@ AGrillActor::AGrillActor()
 
 	
 	/* RootComponent in BP */
-	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Root - HeatCapsule"));
-	GiveHeatCapsule->SetCapsuleRadius(200);
-	RootComponent = GiveHeatCapsule;
+	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Root - ));
+	BoxAttachment->SetupAttachment(GetRootComponent());
+	BoxAttachment = RootBoxComponent;
+
+	/* Attaches to RootBoxAttachment */
+	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT(" - HeatCapsule - "));
+	GiveHeatCapsule->AttachToComponent(RootBoxComponent,FAttachmentTransformRules::KeepRelativeTransform)
+	GiveHeatCapsule = HeatComponent;
+	HeatComponent->SetCapsuleRadius(50);
+	/* Root */
+	BoxAttachment2 = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Glue Component - "));
+	BoxAttachment2->SetupAttachment(HeatComponent);
+	BoxAttachment2 = GlueBoxComponent;
+	/* AttachCoComponent KeepsTransforms, physically attaches meshes*/
 
 	
-	//()()Attachtocomponent physically attaches
-	
-	//This component connects to the RootComponent and grants mesh connect, :
-	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Sub-root - Glue Box"));
-	BoxAttachment->SetupAttachment(RootComponent);
+	/* Connects to GlueBoxComponent */
+	SMGrillComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh - "))
+	SMGrillComponent = GrillMeshComponent;
+	GrillMeshComponent->AttachToComponent(GlueBoxComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
-	//Meshes connecting to BoxComponent
-	Staticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	
-	Staticmesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh1"));
-	
-	Staticmesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh2"));
-	
-	Staticmesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh3"));
-	
-	Staticmesh4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh4"));
-	
-	Staticmesh5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh5"));
+	/* Transforms to Grill - StaticMeshComponents Attaching to Grill Mesh Component */
+	GrillStaticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
+	GrillStaticmesh->AttachToComponent(GrillMeshComponent, FAttachmentTransformRules::KeepWorldTransform);
 
+	GrillStaticmesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
+	GrillStaticmesh1->AttachToComponent(GrillMeshComponent, FAttachmentTransformRules::KeepWorldTransform);
+	
+	GrillStaticmesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
+	GrillStaticmesh2->AttachToComponent(GrillMeshComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	
+	GrillStaticmesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
+	GrillStaticmesh3->SetupAttachment(GrillMeshComponent);
+
+	// overlap event trigger/end
+	//GiveHeatCapsule->OnComponentBeginOverlap.AddDynamic(this, &AOverlap::OnOverlapBegin);
+	//GiveHeatCapsule->OnComponentEndOverlap.AddDynamic(this, &AOverlap::OnOverlapEnd);
+	
 }
+
+/*AGrillActor::OnActorBeginOverlap
+{
+
+};
+*/
+
 
 //void AGrillActor::TransferHeat()
 //{

@@ -16,33 +16,40 @@ public:
 	// Sets default values for this actor's properties
 	AGrillActor();
 
-	//TransferHeat();
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	class UCapsuleComponent* GiveHeatCapsule;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class UBoxComponent* BoxAttachment;
-
-	/* Meshes */
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh;
+	
+	/* Attaches to Root */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh1;
+	class UCapsuleComponent* GiveHeatCapsule;
+	//TransferHeat();
+	
+	/* Attaches to HeatComponent */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh2;
+	class UBoxComponent* BoxAttachment2;
+	
+	/* Attaches to HeatBoxComponent, is mesh */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh3;
+	class UStaticMeshComponent* SMGrillComponent;
+
+	/* Attaches to GrillComponent Meshes */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh4;
+	UStaticMeshComponent* GrillStaticmesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh5;
+	UStaticMeshComponent* GrillStaticmesh1;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UStaticMeshComponent* GrillStaticmesh2;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UStaticMeshComponent* GrillStaticmesh3;
+
 
 protected:
 	// Called when the game starts or when spawned
