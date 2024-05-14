@@ -48,9 +48,9 @@ AGrillActor::AGrillActor()
 
 }
 
-AGrillActor::TransferHeat()
-{
-}
+//void AGrillActor::TransferHeat()
+//{
+//}
 
 
 // Called when the game starts or when spawned

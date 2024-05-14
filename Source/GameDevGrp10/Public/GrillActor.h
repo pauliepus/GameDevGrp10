@@ -16,7 +16,7 @@ public:
 	// Sets default values for this actor's properties
 	AGrillActor();
 
-	TransferHeat();
+	//TransferHeat();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class UCapsuleComponent* GiveHeatCapsule;
