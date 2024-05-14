@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include <Components/BoxComponent.h>
+#include <Components/CapsuleComponent.h>
+#include <Source/GameDevGrp10/Public/SinglePols/Poels.h>
 #include "GrillActor.generated.h"
 
 UCLASS()
@@ -16,10 +18,12 @@ public:
 	// Sets default values for this actor's properties
 	AGrillActor();
 
+	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
+	UCapsuleComponent* GiveHeatCapsule;
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UBoxComponent* BoxAttachment;
 	
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
