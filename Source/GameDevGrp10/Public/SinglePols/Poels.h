@@ -59,13 +59,18 @@ public:
 	* MESHES
 	*/
 
-	/* CapsuleComponent Class + Pointer */
+	/* BoxComponent Class + Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	class UBoxComponent* BoxAttachment;
 
 	/* SkeletalMesh Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
+
+	/* Sphere Taking heat for overlap of Capsule in Grill */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	class USphereComponent* TakeHeatSphere;
+
 
 
 protected:

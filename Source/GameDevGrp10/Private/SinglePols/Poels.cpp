@@ -4,6 +4,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include <GameFramework/Character.h>
 #include <Components/BoxComponent.h>
+#include <Components/SphereComponent.h>
 
 
 // Sets default values
@@ -20,6 +21,9 @@ APoels::APoels()
 
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	SKDefault->SetupAttachment(BoxAttachment);
+
+	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
+	TakeHeatSphere->AttachToComponent(SKDefault, FAttachmentTransformRules::KeepRelativeTransform);
 
 }
 

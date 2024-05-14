@@ -5,6 +5,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
 
+// Casting learnt from https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/ActorCommunication/CastingQuickStart/ 
 
 // Sets default values
 AGrillActor::AGrillActor()
@@ -12,14 +13,18 @@ AGrillActor::AGrillActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	APoels* Polse;
+	//TSubclassOf<AActor>
+	//APoels* Polse;
+	APoels* Poels = Cast<APoels>(APoels::SetIsCookedTrue.GetActor());
 
-	////RootComponent in BP,
-//
-	//GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Root - HeatCapsule"));
-	//RootComponent = GiveHeatCapsule;
+
+
+	/* RootComponent in BP */
+	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Root - HeatCapsule"));
+	RootComponent = GiveHeatCapsule;
 	
 	//()()Attachtocomponent physically attaches
+	
 	//This component connects to the RootComponent and grants mesh connect, :
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Sub-root - Glue Box"));
 	BoxAttachment->SetupAttachment(RootComponent);
