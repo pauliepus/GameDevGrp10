@@ -2,7 +2,7 @@
 
 
 #include "GrillActor.h"
-#include "Poels.h"
+//#include "Poels.h"
 #include "Components/SphereComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
@@ -34,16 +34,24 @@ AGrillActor::AGrillActor()
 	BoxAttachment->SetupAttachment(RootComponent);
 
 	//Meshes connecting to BoxComponent
-
+	Staticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
+	
+	Staticmesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh1"));
+	
+	Staticmesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh2"));
+	
+	Staticmesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh3"));
+	
+	Staticmesh4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh4"));
+	
+	Staticmesh5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh5"));
 
 }
 
-void AGrillActor::TransferHeat() 
+AGrillActor::TransferHeat()
 {
-	//Polse = Cast<APoels>(this, );
-	//if(bUncooked)
-
 }
+
 
 // Called when the game starts or when spawned
 void AGrillActor::BeginPlay()
