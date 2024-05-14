@@ -2,8 +2,12 @@
 
 
 #include "GrillActor.h"
+#include "Poels.h"
+#include "Components/SphereComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/BoxComponent.h"
+
+
 
 // Casting learnt from https://docs.unrealengine.com/4.27/en-US/ProgrammingAndScripting/ActorCommunication/CastingQuickStart/ 
 
@@ -13,30 +17,31 @@ AGrillActor::AGrillActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	//TSubclassOf<AActor>
-	//APoels* Polse;
-	APoels* Poels = Cast<APoels>(APoels::SetIsCookedTrue.GetActor());
 
+	//APoels* Poels = Cast<APoels>(APoels::SetIsCookedTrue.GetActor());
 
-
+	
 	/* RootComponent in BP */
 	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Root - HeatCapsule"));
+	GiveHeatCapsule->SetCapsuleRadius(200);
 	RootComponent = GiveHeatCapsule;
+
 	
 	//()()Attachtocomponent physically attaches
 	
 	//This component connects to the RootComponent and grants mesh connect, :
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Sub-root - Glue Box"));
 	BoxAttachment->SetupAttachment(RootComponent);
-	//Meshes connecting to BoxComponent below
+
+	//Meshes connecting to BoxComponent
 
 
 }
 
 void AGrillActor::TransferHeat() 
 {
-	Polse = Cast<APoels>(this, );
-	if(bUncooked)
+	//Polse = Cast<APoels>(this, );
+	//if(bUncooked)
 
 }
 

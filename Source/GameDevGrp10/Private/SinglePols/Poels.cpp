@@ -15,7 +15,7 @@ APoels::APoels()
 	PrimaryActorTick.bCanEverTick = true;
 	
 	// Creating Skeletal Mesh objects and attaching to capsule component
-
+	// Because Poels is an Actor and not Character, it cannot move yet. This will be fixed later
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
 	BoxAttachment->SetupAttachment(GetRootComponent());
 
