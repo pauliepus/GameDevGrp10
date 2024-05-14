@@ -29,9 +29,10 @@ void AEnemySpawner::Tick(float DeltaTime)
 //Based on Meisams RainManager
 void AEnemySpawner::SpawnEnemy()
 {
-	//Calculate a random spawn position
+	//Calculate a random spawn position. using pi/2 as max values both positive and negative in order to spawn in a semicircle when using cos and sin
 	float SpawnArea = FMath::RandRange(-1.6f, 1.6f);
 
+	//Expanding the semicircle
 	float SpawnX = cos(SpawnArea) * 1900.0f;
 	float SpawnY = sin(SpawnArea) * 1900.0f;
 
@@ -44,18 +45,19 @@ void AEnemySpawner::SpawnEnemy()
 
 	if (GetWorld()->LineTraceSingleByChannel(Hit, StartTrace, EndTrace, ECC_Visibility, CollisionParams))
 	{
-		if (Hit.bBlockingHit)
+		if (Hit.IsValidBlockingHit())
 		{
-			
+			if (SpawnArea < -1.3f || SpawnArea > 1.3f)
+				GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, Hit.ImpactPoint, FRotator::ZeroRotator);
+			else
+				GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, Hit.ImpactPoint, FRotator::ZeroRotator);
+		}
+		//If nothing was hit, the Spawn-point was invalid, so a new position to spawn is calculated
+		else
+		{
+			SpawnEnemy();
 		}
 	}
-	if (SpawnArea < -1.3f || SpawnArea > 1.3f)
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyRoller, Hit.ImpactPoint, FRotator::ZeroRotator);
-	else
-		GetWorld()->SpawnActor<AEnemyCharacterBase>(EnemyBase, Hit.ImpactPoint, FRotator::ZeroRotator);
-
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Some debug message! %f"), SpawnArea));
 }
 
 void AEnemySpawner::StartSpawning()
@@ -68,10 +70,9 @@ void AEnemySpawner::StartSpawning()
 		true
 	);
 }
-
+//Makes enemies spawn more often for each wave that ends
 void AEnemySpawner::StopSpawning()
 {
 	GetWorldTimerManager().ClearTimer(WavePause);
-	
+	SpawnTimer -= SpawnTimer / 30;
 }
-

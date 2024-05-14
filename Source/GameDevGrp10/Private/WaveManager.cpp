@@ -3,7 +3,6 @@
 
 #include "WaveManager.h"
 #include "EngineUtils.h"
-#include "AssetTypeActions/AssetDefinition_SoundBase.h"
 
 // Sets default values
 AWaveManager::AWaveManager()
@@ -27,21 +26,22 @@ void AWaveManager::BeginPlay()
 		{
 			TargetSpawner = static_cast<AEnemySpawner*>(*ActorItr);
 		}
-	}
-	for (TActorIterator<AActor> ActorItr(GetWorld()); ActorItr; ++ActorItr)
-	{
+
 		if (ActorItr->GetName().Contains("PlayerCharacter"))
 		{
 			Player = static_cast<APlayerCharacter*>(*ActorItr);
 		}
 	}
-	WaveStart();
+	
 }
 
 // Called every frame
 void AWaveManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//Starts wave upon player start wave input.
+	//WaveManager has direct access to player, but player does not have as easy of a connection, so start wave is placed in WaveManager
 	if (ManagerWaveEnded) {
 		if (!Player->WaveEnded)
 		{
@@ -54,13 +54,16 @@ void AWaveManager::Tick(float DeltaTime)
 
 void AWaveManager::WaveStart()
 {
+	//Higher WaveNumber means enemies spawn faster
 	WaveNumber++;
 	TargetSpawner->StartSpawning();
+
 	//This is for the UI at the top of the screen
-	Seconds = (WaveTimer-1) % 60;
-	Minutes = (WaveTimer-1) / 60;
+	Seconds = (WaveTimer) % 60;
+	Minutes = (WaveTimer) / 60;
 
 	GetWorldTimerManager().SetTimer(T_CountDown, this, &AWaveManager::CountDown, 1.0f, true, 1.0f);
+
 	//This handles spawning and is the one that actually ends things
 	GetWorldTimerManager().SetTimer(
 		PauseWave,
@@ -83,8 +86,10 @@ void AWaveManager::WaveEnd()
 			ActorItr->Destroy();
 		}
 	}
+	//stops timer from counting
 	GetWorldTimerManager().ClearTimer(T_CountDown);
 
+	//Only makes the SequencePlayer if it does not already exist
 	if (TrollSequence && TrollSequencePlayer == nullptr)
 		TrollSequencePlayer = ULevelSequencePlayer::CreateLevelSequencePlayer(GetWorld(), TrollSequence, FMovieSceneSequencePlaybackSettings(), TrollSequenceActor);
 
@@ -94,34 +99,32 @@ void AWaveManager::WaveEnd()
 		TrollSequencePlayer->Play();
 	}
 
-
+	//Sets a timer for the animation, so that the player cannot start a new wave while the end of round animation is playing
 	GetWorldTimerManager().SetTimer(
 		StopTroll,
 		this,
 		&AWaveManager::TrollAnimDone,
-		EndWaveDelay,
+		fEndWaveDelay,
 		false
 	);
 }
-
+//After this, the player can start a new wave
 void AWaveManager::TrollAnimDone()
 {
 	ManagerWaveEnded = true;
 	Player->EndWave();
 }
-
+//Used for Timer Widget
 void AWaveManager::CountDown()
 {
 	if (Seconds > 0)
 	{
 		--Seconds;
-		UE_LOG(LogTemp, Warning, TEXT("Seconds %f"), Seconds);
 	}
 	else
 	{
 		--Minutes;
 		Seconds = 59.0f;
-		UE_LOG(LogTemp, Warning, TEXT("Minutes %d"), Minutes);
 	}
 }
 

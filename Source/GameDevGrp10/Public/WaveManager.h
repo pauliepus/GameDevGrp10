@@ -32,10 +32,7 @@ public:
 	/*
 	 *Waves
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
-	USoundBase* WindSound;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
+		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
 	int WaveTimer = 180;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WaveOptions")
@@ -47,12 +44,15 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void WaveEnd();
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool ManagerWaveEnded = true;
+
 	
 
 	/*
 	 *Timer
 	 */
-
+	//These have to be accessed by the UI Widget
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wave Timer")
 	int Seconds;
 
@@ -68,20 +68,19 @@ public:
 	void TrollAnimDone();
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "TrollAnim")
 	ULevelSequence* TrollSequence;
-	
-	ALevelSequenceActor* TrollSequenceActor;
-	
-	ULevelSequencePlayer* TrollSequencePlayer;
-	FTimerHandle StopTroll;
 
-	
+	//These are defined during runtime, which is why they are not UPROPERTY
+	ALevelSequenceActor* TrollSequenceActor;
+	ULevelSequencePlayer* TrollSequencePlayer;
+
+	FTimerHandle StopTroll;
 public:
 	FTimerHandle PauseWave;
 	FTimerHandle T_CountDown;
 	void CountDown();
-	bool ManagerWaveEnded = false;
-	float EndWaveDelay = 7.0f;
+	float fEndWaveDelay = 7.0f;
 
+	//These are defined during runtime, which is why they are not UPROPERTY
 	AEnemySpawner* TargetSpawner;
 	APlayerCharacter* Player;
 };

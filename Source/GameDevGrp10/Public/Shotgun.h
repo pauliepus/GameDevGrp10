@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "FirstActor.generated.h"
+#include "Shotgun.generated.h"
 
 UCLASS()
-class GAMEDEVGRP10_API AFirstActor : public AActor
+class GAMEDEVGRP10_API AShotgun : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AFirstActor();
+	AShotgun();
 
 protected:
 	// Called when the game starts or when spawned
