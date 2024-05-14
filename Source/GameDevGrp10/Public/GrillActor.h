@@ -18,37 +18,39 @@ public:
 
 	//TransferHeat();
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Heat Capsule")
 	class UCapsuleComponent* GiveHeatCapsule;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Glue Box")
 	class UBoxComponent* BoxAttachment;
+	//
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Fire")
+	//class UNiagaraSystem* StylizedFire
 
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mesh")
+	//UStaticMeshComponent* Staticmesh0;
+	//
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mesh")
+	//UStaticMeshComponent* Staticmesh1;
+
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mesh")
+	//UStaticMeshComponent* Staticmesh2;
+
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mesh")
+	//UStaticMeshComponent* Staticmesh3;
+
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mesh")
+	//UStaticMeshComponent* Staticmesh4;
+
+	//UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category= "Mesh")
+	//UStaticMeshComponent* Staticmesh5;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh1;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh2;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh3;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh4;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* Staticmesh5;
-	
-	virtual void NotifyActorBeginOverlap(AActor* APoels);
-	virtual void NotifyActorEndOverlap(AActor* APoels);
+	//virtual void NotifyActorBeginOverlap(AActor* APoels);
+	//virtual void NotifyActorEndOverlap(AActor* APoels);
 
 	
 public:	

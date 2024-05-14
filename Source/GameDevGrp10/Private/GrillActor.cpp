@@ -32,19 +32,30 @@ AGrillActor::AGrillActor()
 	//This component connects to the RootComponent and grants mesh connect, :
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Sub-root - Glue Box"));
 	BoxAttachment->SetupAttachment(RootComponent);
-
+	
+	// /* NiagaraSystem */
+	//StylizedFire = CreateDefaultSubobject<UNiagaraSystem>(TEXT("Fire SFX"));
+	//StylizedFire->SetupAttachment(RootComponent,FAttachmentTransformRules::KeepRelativeTransform);
+	//
 	//Meshes connecting to BoxComponent
-	Staticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	
-	Staticmesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh1"));
-	
-	Staticmesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh2"));
-	
-	Staticmesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh3"));
-	
-	Staticmesh4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh4"));
-	
-	Staticmesh5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh5"));
+	//Staticmesh0 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
+	//Staticmesh0->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
+	//
+	//Staticmesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh1"));
+	//Staticmesh1->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
+
+	//Staticmesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh2"));
+	//Staticmesh2->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
+
+	//Staticmesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh3"));
+	//Staticmesh3->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
+
+	//Staticmesh4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh4"));
+	//Staticmesh4->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
+
+	//Staticmesh5 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh5"));
+	//Staticmesh5->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
 
 }
 
