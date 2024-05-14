@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include <Components/BoxComponent.h>
+#include <Components/CapsuleComponent.h>
 #include <Components/StaticMeshComponent.h>
 #include "GrillActor.generated.h"
 
@@ -15,31 +17,31 @@ class GAMEDEVGRP10_API AGrillActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AGrillActor();
+	//TransferHeat();
 
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	class UBoxComponent* BoxAttachment;
+	UBoxComponent* BoxAttachment;
 	
 	/* Attaches to Root */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	class UCapsuleComponent* GiveHeatCapsule;
-	//TransferHeat();
+	UCapsuleComponent* GiveHeatCapsule;
 	
 	/* Attaches to HeatComponent */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	class UBoxComponent* BoxAttachment2;
+	UBoxComponent* BoxAttachment2;
 	
 	/* Attaches to HeatBoxComponent, is mesh */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	class UStaticMeshComponent* SMGrillComponent;
+	UStaticMeshComponent* GrillStaticmesh;
 
 	/* Attaches to GrillComponent Meshes */
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* GrillStaticmesh;
+	UStaticMeshComponent* GrillStaticmesh0;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UStaticMeshComponent* GrillStaticmesh1;
