@@ -26,22 +26,22 @@ AGrillActor::AGrillActor()
 	BoxAttachment->SetupAttachment(GetRootComponent());	
 	/* Attaches to RootBoxAttachment - Gives Heat */
 	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT(" - HeatCapsule - "));
-	GiveHeatCapsule->AttachToComponent(BoxAttachment, FAttachmentTransformRules::KeepRelativeTransform);
+	GiveHeatCapsule->SetupAttachment(BoxAttachment);
 	GiveHeatCapsule->SetCapsuleRadius(50);
 	/* Childs from Heat - Box 2 */
 	BoxAttachment2 = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Glue Box Component - "));
 	BoxAttachment2->SetupAttachment(GiveHeatCapsule);
 	/* Childs from Box 2 - Grill mesh */
 	GrillStaticmesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
-	GrillStaticmesh->SetupAttachment(BoxAttachment2);
-	GrillStaticmesh0 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
-	GrillStaticmesh0->SetupAttachment(BoxAttachment2);
+	GrillStaticmesh->SetupAttachment(BoxAttachment2);	
 	GrillStaticmesh1 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
-	GrillStaticmesh1->SetupAttachment(BoxAttachment2);
+	GrillStaticmesh1->AttachToComponent(GrillStaticmesh, FAttachmentTransformRules::KeepRelativeTransform);
 	GrillStaticmesh2 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
-	GrillStaticmesh2->SetupAttachment(BoxAttachment2);
+	GrillStaticmesh2->AttachToComponent(GrillStaticmesh1, FAttachmentTransformRules::KeepRelativeTransform);
 	GrillStaticmesh3 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
-	GrillStaticmesh3->SetupAttachment(BoxAttachment2);
+	GrillStaticmesh3->AttachToComponent(GrillStaticmesh2, FAttachmentTransformRules::KeepRelativeTransform);
+	GrillStaticmesh4 = CreateDefaultSubobject<UStaticMeshComponent>(TEXT(" - Grill Mesh Component"));
+	GrillStaticmesh4->AttachToComponent(GrillStaticmesh3, FAttachmentTransformRules::KeepRelativeTransform);
 
 	// overlap event trigger/end
 	//GiveHeatCapsule->OnComponentBeginOverlap.AddDynamic(this, &AOverlap::OnOverlapBegin);

@@ -19,39 +19,33 @@ public:
 	AGrillActor();
 	//TransferHeat();
 
-
+	/* Box Attaches to Root */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UBoxComponent* BoxAttachment;
 	
-	/* Attaches to Root */
-
+	/* Capsule Attaches To Box 1*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UCapsuleComponent* GiveHeatCapsule;
 	
-	/* Attaches to HeatComponent */
-
+	/* Box Attaches to HeatCapsule */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UBoxComponent* BoxAttachment2;
 	
-	/* Attaches to HeatBoxComponent, is mesh */
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	/* Mesh Attaches to Box 2 */
+	UPROPERTY(EditAnywhere, BlueprintReadwrite)
 	UStaticMeshComponent* GrillStaticmesh;
-
-	/* Attaches to GrillComponent Meshes */
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	UStaticMeshComponent* GrillStaticmesh0;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+		
+	UPROPERTY(EditAnywhere, BlueprintReadwrite)
 	UStaticMeshComponent* GrillStaticmesh1;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadwrite)
 	UStaticMeshComponent* GrillStaticmesh2;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadwrite)
 	UStaticMeshComponent* GrillStaticmesh3;
 
+	UPROPERTY(EditAnywhere, BlueprintReadwrite)
+	UStaticMeshComponent* GrillStaticmesh4;
 
 protected:
 	// Called when the game starts or when spawned
