@@ -85,6 +85,10 @@ void AWaveManager::WaveEnd()
 		{
 			ActorItr->Destroy();
 		}
+		else if (ActorItr->GetName().Contains("Poelse"))
+		{
+			ActorItr->Destroy();
+		}
 	}
 	//stops timer from counting
 	GetWorldTimerManager().ClearTimer(T_CountDown);
