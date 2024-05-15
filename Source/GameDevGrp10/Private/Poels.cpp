@@ -27,8 +27,9 @@ APoels::APoels()
 	TakeHeatSphere->InitSphereRadius(25);
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
 
-	//TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
-
+	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
+	
+	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
 
 }
 
@@ -92,10 +93,12 @@ void APoels::BeginPlay()
 
 }
 
-void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* AGrillActor, UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex)
+void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT(" It takes heat "));
-	
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("It takes heat"));
+		SetIsCookedTrue();
 }
 
 // Called every frame
