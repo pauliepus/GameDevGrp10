@@ -44,7 +44,6 @@ public:
 	UFUNCTION()
 	void OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-
 private:
 
 	FTimerHandle TakeStartCookingHandle;
@@ -54,7 +53,7 @@ private:
 public:
 
 	UFUNCTION()
-	void ClearTimers();
+	void StopTimers();
 
 	UFUNCTION(BlueprintCallable)
 	void SetIsCookedTrue();
@@ -63,11 +62,7 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void CookingComplete();
-	
-	 /*
-	 *Burnt checker
-	 */
-
+		
 	UFUNCTION(BlueprintCallable, Category="CookingComponent")
 	void SetIsOvercookedTrue();
 	

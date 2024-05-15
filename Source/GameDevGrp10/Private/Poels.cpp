@@ -30,8 +30,8 @@ APoels::APoels()
 	BoxPoelse = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
 	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKCooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKOvercooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKCooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh2"));
+	SKOvercooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh3"));
 	 /* Attaching components */
 	BoxPoelse->SetupAttachment(RootComponent);
 	TakeHeatSphere->SetupAttachment(SKDefault);
@@ -49,9 +49,10 @@ APoels::APoels()
 		
 }
 
-void ClearTimers();
+void APoels::StopTimers()
 {
-	
+	GetWorldTimerManager().ClearTimer(TakeStartCookingHandle);
+	GetWorldTimerManager().ClearTimer(TakeStartOvercookHandle);
 }
 
 void APoels::SetIsCookedTrue()
