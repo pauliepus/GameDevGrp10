@@ -2,10 +2,10 @@
 
 
 #include "GrillActor.h"
+#include "Poels.h"
 #include <Components/BoxComponent.h>
 #include <Components/SphereComponent.h>
 #include <Components/CapsuleComponent.h>
-#include <Poels.h>
 
 
 
@@ -17,11 +17,8 @@ AGrillActor::AGrillActor()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	// In your constructor
 	SceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Scene Root"));
 	RootComponent = SceneRoot;
-	// Then to attach your box
-	// Now add your offset.
 	
 	 /* Childs from Root */
 	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Mesh Root - "));
