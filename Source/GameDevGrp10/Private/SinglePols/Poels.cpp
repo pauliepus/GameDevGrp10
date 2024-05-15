@@ -43,8 +43,6 @@ void APoels::SetIsCookedTrue()
 void APoels::CookingComplete()
 {
 	bIsCooked = true;
-	SKDefault->SetSimulatePhysics(false);
-	SKDefault->SetEnableGravity(false);
 	FVector TempLocation = GetActorLocation();
 	FRotator TempRotation = GetActorRotation();
 	GetWorld()->SpawnActor<APoels>(SpawnPoels, TempLocation, TempRotation);
@@ -68,13 +66,8 @@ void APoels::SetIsOvercookedTrue()
 
 void APoels::OverCookingComplete()
 {
-	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Overcooked"));
 	bIsOvercooked = true;
 	bIsCooked = false;
-
-	SKDefault->SetSimulatePhysics(false);
-	SKDefault->SetEnableGravity(false);
 	FVector TempLocation = GetActorLocation();
 	FRotator TempRotation = GetActorRotation();
 	GetWorld()->SpawnActor<APoels>(SpawnPoels, TempLocation, TempRotation);
