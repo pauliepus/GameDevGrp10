@@ -38,6 +38,7 @@ AGrillActor::AGrillActor()
 void AGrillActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	UE_LOG(LogTemp, Display, TEXT(" cooking "));
 	APoels* PoelsActor = Cast<APoels>(OtherActor);
 	if (PoelsActor)
 	{
