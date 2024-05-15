@@ -79,14 +79,14 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UFUNCTION()
-	void OnOverlapActivateCook(UPrimitiveComponent* TakeHeatSphere,
+
+	/*UFUNCTION()
+	 void OnOverlapActivateCook(UPrimitiveComponent* TakeHeatSphere,
 		AActor* AGrillActor,
 		UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex);
-	
+	*/
 
 public:	
-
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

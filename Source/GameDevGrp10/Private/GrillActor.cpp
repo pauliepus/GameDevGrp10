@@ -2,10 +2,10 @@
 
 
 #include "GrillActor.h"
-//#include "Poels.h"
 #include "Components/BoxComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Poels.h"
 
 
 
@@ -32,28 +32,25 @@ AGrillActor::AGrillActor()
 	
 	// /*  - Gives Heat */
 	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT(" - HeatCapsule - "));
-	
-	// GiveHeatCapsule->SetRelativeTransform(FAttachmentTransformRules::KeepRelativeTransform);
 	GiveHeatCapsule->AttachToComponent(SceneRoot, FAttachmentTransformRules::KeepRelativeTransform);
-	GiveHeatCapsule->SetCapsuleRadius(50);
 	
 	/* Childs from Heat - Box */
 	BoxAttachment2 = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Glue Box Component - "));
 	BoxAttachment2->SetupAttachment(SceneRoot);
-	
-		
+			
 }
 
-void AGrillActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void AGrillActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	APoels* PoelsActor = Cast<APoels>(OtherActor);
 	if (PoelsActor)
 	{
-		PoelsActor->StartCooking();
+		PoelsActor->SetIsCookedTrue();
 	}
 }
 
-// Called when the game starts or when spawned
+ /* BEGIN PLAY */ 
 void AGrillActor::BeginPlay()
 {
 	Super::BeginPlay();
