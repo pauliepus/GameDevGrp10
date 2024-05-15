@@ -1,10 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Poels.h"
+#include "GrillActor.h"
+#include "Engine/Engine.h"
 #include <GameFramework/Character.h>
 #include <Components/SkeletalMeshComponent.h>
 #include <Components/BoxComponent.h>
 #include <Components/SphereComponent.h>
+#include "TimerManager.h"
 
 
 // Sets default values
@@ -12,31 +15,36 @@ APoels::APoels()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bools")
+	bIsCooked = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bools")
+	bIsOvercooked = false;
+
 	// Creating Skeletal Mesh objects and attaching to capsule component
 	// Because Poels is an Actor and not Character, it cannot move yet. This will be fixed later
-	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
-	BoxAttachment->SetupAttachment(GetRootComponent());
+
+	BoxPoelse = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
+	RootComponent = BoxPoelse;
+	BoxPoelse->SetupAttachment(RootComponent);
 
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKDefault->SetupAttachment(BoxAttachment);
+	SKDefault->SetupAttachment(BoxPoelse);
 
 	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
-	TakeHeatSphere->AttachToComponent(SKDefault, FAttachmentTransformRules::KeepRelativeTransform);
+	TakeHeatSphere->SetupAttachment(SKDefault);
 	TakeHeatSphere->InitSphereRadius(25);
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
-
+	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapPoelse"));
 	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
 	
-	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapAllDynamic"));
-
 }
 
 void APoels::SetIsCookedTrue()
 {
 	bIsCooked = false;
-	if (bIsOvercooked == false) {
+	if (!bIsOvercooked) {
 		GetWorld()->GetTimerManager().SetTimer(
 			TakeStartCookingHandle,
 			this,
@@ -44,6 +52,7 @@ void APoels::SetIsCookedTrue()
 			CookingTime,
 			false
 		);
+		bIsCooked = true;
 	}
 }
 
@@ -82,23 +91,17 @@ void APoels::BeginPlay()
 	Super::BeginPlay();
 	SKDefault->SetSimulatePhysics(true);
 	
-	bool UpdateOverlaps
-	(
-		const TOverlapArrayView * PendingOverlaps,
-		bool bDoNotifies,
-		const TOverlapArrayView * OverlapsAtEndLocation
-	);
-
-	
-
 }
 
-void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("It takes heat"));
 		SetIsCookedTrue();
+	}
+
 }
 
 // Called every frame

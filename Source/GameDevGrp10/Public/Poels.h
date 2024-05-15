@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Components/SkeletalMeshComponent.h"
+#include <Components/SkeletalMeshComponent.h>
+#include <Components/BoxComponent.h>
+#include <Components/SphereComponent.h>
 #include "Runtime/Engine/Public/TimerManager.h"
 #include "Poels.generated.h"
 
@@ -12,42 +14,56 @@ UCLASS()
 class GAMEDEVGRP10_API APoels : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+public:
 	// Sets default values for this actor's properties
 	APoels();
-	
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bools")
+	bool bIsCooked = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Bools")
+	bool bIsOvercooked = false;
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+		
 	/* Cooking Pølse Timer */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Cooking Timer")
 	float CookingTime = 15.0f;
-	
+
 	/* Overcooking Pølse Timer */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Burnt Timer")
 	float BurntTime = 10.0f;
 
+	UFUNCTION()
+	void OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+
+private:
 
 	FTimerHandle TakeStartCookingHandle;
-	
-	/**/
-	bool bIsCooked = false;
-	
+
+	FTimerHandle TakeStartOvercookHandle;
+
+public:
+
 	void SetIsCookedTrue();
 	
-	/*
-	the boolean funct for timer and mesh change(which should've been M_), needs to be called in BP.
-	*/
+	 /* the boolean funct for timer and mesh change(which should've been M_), needs to be called in BP. */
+	
 	UFUNCTION(BlueprintCallable)
 	void CookingComplete();
 	
-	/*
-	* Overcook FTimerHandle connected to the Overcook function
-	*/
-	FTimerHandle TakeStartOvercookHandle;
-	
-	/*
-	*Burnt checker
-	*/
-	bool bIsOvercooked = false;
+	 /*
+	 *Burnt checker
+	 */
+
 	UFUNCTION(BlueprintCallable, Category="CookingComponent")
 	void SetIsOvercookedTrue();
 	
@@ -57,37 +73,18 @@ public:
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.
 	
-	/*
-	* MESHES
-	*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	class USceneComponent* SceneComponentPoelse;
 
-	/* BoxComponent Class + Pointer */
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	class UBoxComponent* BoxAttachment;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UBoxComponent* BoxPoelse;
 
-	/* SkeletalMesh Pointer */
+	 /* SkeletalMesh Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
 
-	/* Sphere Taking heat for overlap of Capsule in Grill */
+	 /* Sphere Taking heat for overlap of Capsule in Grill */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class USphereComponent* TakeHeatSphere;
-
-
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-	void OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* AGrillActor,
-		UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex);
-
-private:
-
-
-public:	
-
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
+		
 };

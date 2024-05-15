@@ -21,8 +21,6 @@ AGrillActor::AGrillActor()
 	RootComponent = SceneRoot;
 	
 	 /* Childs from Root */
-	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Mesh Root - "));
-	BoxAttachment->SetupAttachment(SceneRoot);
 	
 	// /*  - Gives Heat */
 	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT(" - HeatCapsule - "));
@@ -30,16 +28,18 @@ AGrillActor::AGrillActor()
 	GiveHeatCapsule->SetGenerateOverlapEvents(true);
 
 	/* Childs from Heat - Box */
-	BoxAttachment2 = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Glue Box Component - "));
-	BoxAttachment2->SetupAttachment(SceneRoot);
-			
+	BoxAttachment = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Glue Box Component - "));
+	BoxAttachment->SetupAttachment(GiveHeatCapsule);
+	BoxAttachment->SetCollisionProfileName(TEXT("OverlapPoelse"));
+
+
 }
 
-void AGrillActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void AGrillActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActorParam,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	UE_LOG(LogTemp, Display, TEXT(" cooking "));
-	APoels* PoelsActor = Cast<APoels>(OtherActor);
+	APoels* PoelsActor = Cast<APoels>(OtherActorParam);
 	if (PoelsActor)
 	{
 		PoelsActor->SetIsCookedTrue();
