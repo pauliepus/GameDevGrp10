@@ -75,7 +75,6 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	{
 		EnhancedInputComponent->BindAction(Looking, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Triggered, this, &APlayerCharacter::InteractWithObjects);
-		EnhancedInputComponent->BindAction(StartWaveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::StartWave);
 		EnhancedInputComponent->BindAction(SwitchViewAction, ETriggerEvent::Started, this, &APlayerCharacter::SwitchView);
 	}
 
@@ -206,6 +205,7 @@ bool APlayerCharacter::GetHasLighter()
 void APlayerCharacter::StartWave()
 {
 	if (WaveEnded)
+		//This causes WaveManager to detect WaveEnded = false, and start a new wave
 		WaveEnded = false;
 }
 
