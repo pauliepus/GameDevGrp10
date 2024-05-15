@@ -39,6 +39,14 @@ APoels::APoels()
 	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapPoelse"));
 	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
 	
+	SKCooked= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKCooked->SetupAttachment(SKDefault);
+	//SKCooked->bSetVisibility(false);
+
+	SKOvercooked= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKOvercooked->SetupAttachment(SKCooked);
+	//SKOvercooked->bHiddenInGame(true);
+
 }
 
 void APoels::SetIsCookedTrue()

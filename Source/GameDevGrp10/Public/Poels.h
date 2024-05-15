@@ -84,6 +84,12 @@ public:
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USkeletalMeshComponent* SKCooked;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	USkeletalMeshComponent* SKOvercooked;
+
 	 /* Sphere Taking heat for overlap of Capsule in Grill */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class USphereComponent* TakeHeatSphere;
