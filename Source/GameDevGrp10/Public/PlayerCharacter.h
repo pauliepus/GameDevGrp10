@@ -118,9 +118,7 @@ public:
 	/*
 	 * Waves
 	 */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input")
-	class UInputAction* StartWaveAction;
-
+	UFUNCTION(BlueprintCallable)
 	void StartWave();
 
 	bool WaveEnded = true;

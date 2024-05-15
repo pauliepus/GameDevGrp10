@@ -85,9 +85,15 @@ void AWaveManager::WaveEnd()
 		{
 			ActorItr->Destroy();
 		}
+		else if (ActorItr->GetName().Contains("Poelse"))
+		{
+			ActorItr->Destroy();
+		}
 	}
 	//stops timer from counting
 	GetWorldTimerManager().ClearTimer(T_CountDown);
+	Seconds = 0;
+	Minutes = 0;
 
 	//Only makes the SequencePlayer if it does not already exist
 	if (TrollSequence && TrollSequencePlayer == nullptr)
