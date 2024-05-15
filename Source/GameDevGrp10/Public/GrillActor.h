@@ -27,7 +27,8 @@ public:
 	 /* Capsule Attaches To Box 1*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UCapsuleComponent* GiveHeatCapsule;
-	//Box2AttachestoCapsule
+
+	 /* Box2 Attaches to Capsule */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* BoxAttachment2;
 

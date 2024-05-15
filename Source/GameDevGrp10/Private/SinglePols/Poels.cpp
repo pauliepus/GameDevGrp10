@@ -31,7 +31,6 @@ APoels::APoels()
 
 }
 
-
 void APoels::SetIsCookedTrue()
 {
 	bIsCooked = false;

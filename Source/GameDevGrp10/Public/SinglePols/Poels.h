@@ -48,6 +48,7 @@ public:
 	*Burnt checker
 	*/
 	bool bIsOvercooked = false;
+	UFUNCTION(BlueprintCallable, Category="CookingComponent")
 	void SetIsOvercookedTrue();
 	
 	UFUNCTION(BlueprintCallable)

@@ -44,13 +44,22 @@ AGrillActor::AGrillActor()
 		
 }
 
-
+void AGrillActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	APoels* PoelsActor = Cast<APoels>(OtherActor);
+	if (PoelsActor)
+	{
+		PoelsActor->StartCooking();
+	}
+}
 
 // Called when the game starts or when spawned
 void AGrillActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	GiveHeatCapsule->OnComponentBeginOverlap.AddDynamic(this, &AGrillActor::OnOverlapBegin);
+
 }
 
 // Called every frame
