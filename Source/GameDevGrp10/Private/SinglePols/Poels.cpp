@@ -12,9 +12,7 @@ APoels::APoels()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
 
-	bool GetGenerateOverlapEvents(true);
 	
 	// Creating Skeletal Mesh objects and attaching to capsule component
 	// Because Poels is an Actor and not Character, it cannot move yet. This will be fixed later
@@ -27,6 +25,8 @@ APoels::APoels()
 	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
 	TakeHeatSphere->AttachToComponent(SKDefault, FAttachmentTransformRules::KeepRelativeTransform);
 	TakeHeatSphere->InitSphereRadius(25);
+	TakeHeatSphere->SetGenerateOverlapEvents(true);
+	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
 
 
 }
@@ -91,7 +91,7 @@ void APoels::BeginPlay()
 
 }
 
-void APoels::OnOverlapActivateCook(UPrimitiveComponent* TakeHeatSphere, AActor* AGrillActor, UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex)
+void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* AGrillActor, UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex)
 {
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT(" It takes heat "));
 	

@@ -73,6 +73,8 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class USphereComponent* TakeHeatSphere;
 
+	OnOverlapActivateCook();
+
 
 protected:
 	// Called when the game starts or when spawned
