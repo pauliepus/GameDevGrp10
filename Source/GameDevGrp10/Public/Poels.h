@@ -30,6 +30,7 @@ public:
 	
 	/**/
 	bool bIsCooked = false;
+	
 	void SetIsCookedTrue();
 	
 	/*
@@ -47,6 +48,7 @@ public:
 	*Burnt checker
 	*/
 	bool bIsOvercooked = false;
+	UFUNCTION(BlueprintCallable, Category="CookingComponent")
 	void SetIsOvercookedTrue();
 	
 	UFUNCTION(BlueprintCallable)
@@ -71,14 +73,22 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class USphereComponent* TakeHeatSphere;
 
+	OnOverlapActivateCook();
 
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+private:
 
+	/*UFUNCTION()
+	 void OnOverlapActivateCook(UPrimitiveComponent* TakeHeatSphere,
+		AActor* AGrillActor,
+		UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex);
+	*/
+
+public:	
 
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

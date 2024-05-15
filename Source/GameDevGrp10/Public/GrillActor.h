@@ -27,36 +27,22 @@ public:
 	 /* Capsule Attaches To Box 1*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UCapsuleComponent* GiveHeatCapsule;
-	//Box2AttachestoCapsule
+
+	 /* Box2 Attaches to Capsule */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* BoxAttachment2;
 
-	//
-	// /* Mesh Attaches to Box 2 */
-	//UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	//UStaticMeshComponent* GrillStaticmesh0;
-	//	
-	//UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	//UStaticMeshComponent* GrillStaticmesh1;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	//UStaticMeshComponent* GrillStaticmesh2;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	//UStaticMeshComponent* GrillStaticmesh3;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	//UStaticMeshComponent* GrillStaticmesh4;
+	
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	
-	//virtual void NotifyActorBeginOverlap(AActor* APoels);
-	//virtual void NotifyActorEndOverlap(AActor* APoels);
+	void OnOverlapBegin(UPrimitiveComponent* OverlappedComp,
+		AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	
+		
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
