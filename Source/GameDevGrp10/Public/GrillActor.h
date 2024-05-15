@@ -31,22 +31,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* BoxAttachment2;
 
-	//
-	// /* Mesh Attaches to Box 2 */
-	//UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	//UStaticMeshComponent* GrillStaticmesh0;
-	//	
-	//UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	//UStaticMeshComponent* GrillStaticmesh1;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	//UStaticMeshComponent* GrillStaticmesh2;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	//UStaticMeshComponent* GrillStaticmesh3;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	//UStaticMeshComponent* GrillStaticmesh4;
+	
 
 protected:
 	// Called when the game starts or when spawned
