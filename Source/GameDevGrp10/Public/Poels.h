@@ -53,6 +53,7 @@ private:
 
 public:
 
+	UFUNCTION(BlueprintCallable)
 	void SetIsCookedTrue();
 	
 	 /* the boolean funct for timer and mesh change(which should've been M_), needs to be called in BP. */
