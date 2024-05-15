@@ -93,20 +93,11 @@ void APlayerCharacter::InteractWithObjects(const FInputActionValue& Value)
 
 	if(GetWorld()->LineTraceSingleByChannel(HitResult, StartTrace, EndTrace, ECC_Visibility, CollisionParams))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Hit: %s"), *HitResult.GetActor()->GetName());
-		if (GEngine)
-			GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Sadge %p"), HitResult.GetActor()));
 		if (HitResult.GetActor()->Implements<UInteractInterface>())
 		{
-
-			if (GEngine)
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("Freedom is close ")));
-
 			IInteractInterface::Execute_Interact(HitResult.GetActor());
- 
 		}
 	}
-	DrawDebugLine(GetWorld(), StartTrace, EndTrace, FColor::Green, false, 3.f, 0, 2.f);
 }
 
 /*
