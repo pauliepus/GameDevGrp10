@@ -25,27 +25,30 @@ APoels::APoels()
 	// Creating Skeletal Mesh objects and attaching to capsule component
 	// Because Poels is an Actor and not Character, it cannot move yet. This will be fixed later
 
-	BoxPoelse = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
 	RootComponent = BoxPoelse;
-	BoxPoelse->SetupAttachment(RootComponent);
-
-	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKDefault->SetupAttachment(BoxPoelse);
-
+	 /* Creating Components */
+	BoxPoelse = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
 	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
+	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKCooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKOvercooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	 /* Attaching components */
+	BoxPoelse->SetupAttachment(RootComponent);
 	TakeHeatSphere->SetupAttachment(SKDefault);
+	SKDefault->AttachToComponent(TakeHeatSphere, FAttachmentTransformRules::KeepRelativeTransform);
+	SKCooked->AttachToComponent(TakeHeatSphere, FAttachmentTransformRules::KeepRelativeTransform);
+	SKOvercooked->AttachToComponent(TakeHeatSphere, FAttachmentTransformRules::KeepRelativeTransform);
+	//SKCooked->bSetVisibility(false);
+
+	 /* Component Attributes */
 	TakeHeatSphere->InitSphereRadius(25);
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
 	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapPoelse"));
+
 	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
 	
-	SKCooked= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKCooked->SetupAttachment(SKDefault);
-	//SKCooked->bSetVisibility(false);
 
-	SKOvercooked= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKOvercooked->SetupAttachment(SKCooked);
-	//SKOvercooked->bHiddenInGame(true);
+	
 
 }
 
