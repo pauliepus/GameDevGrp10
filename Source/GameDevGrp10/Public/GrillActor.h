@@ -18,35 +18,35 @@ public:
 	// Sets default values for this actor's properties
 	AGrillActor();
 	//TransferHeat();
+	USceneComponent* SceneRoot = nullptr;
 
-	USceneComponent* SceneComponent;
-	/* Box Attaches to Root */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	 /* Box Attaches to Root */
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	UBoxComponent* BoxAttachment;
 	
-	/* Capsule Attaches To Box 1*/
+	 /* Capsule Attaches To Box 1*/
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UCapsuleComponent* GiveHeatCapsule;
-	
-	/* Box Attaches to HeatCapsule */
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	//Box2AttachestoCapsule
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* BoxAttachment2;
-	
-	/* Mesh Attaches to Box 2 */
-	UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	UStaticMeshComponent* GrillStaticmesh0;
-		
-	UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	UStaticMeshComponent* GrillStaticmesh1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	UStaticMeshComponent* GrillStaticmesh2;
+	//
+	// /* Mesh Attaches to Box 2 */
+	//UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	//UStaticMeshComponent* GrillStaticmesh0;
+	//	
+	//UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	//UStaticMeshComponent* GrillStaticmesh1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	UStaticMeshComponent* GrillStaticmesh3;
+	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
+	//UStaticMeshComponent* GrillStaticmesh2;
 
-	UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	UStaticMeshComponent* GrillStaticmesh4;
+	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
+	//UStaticMeshComponent* GrillStaticmesh3;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadwrite)
+	//UStaticMeshComponent* GrillStaticmesh4;
 
 protected:
 	// Called when the game starts or when spawned
