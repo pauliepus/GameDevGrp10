@@ -11,7 +11,7 @@
 #include "Poels.generated.h"
 
 UCLASS()
-class GAMEDEVGRP10_API APoels : public AActor
+class GAMEDEVGRP10_API APoels : public ACharacter
 {
 	GENERATED_BODY()
 public:
@@ -54,6 +54,9 @@ private:
 public:
 
 	UFUNCTION(BlueprintCallable)
+	void StopTimers();
+
+	UFUNCTION(BlueprintCallable)
 	void SetIsCookedTrue();
 	
 	 /* the boolean funct for timer and mesh change(which should've been M_), needs to be called in BP. */
@@ -74,15 +77,12 @@ public:
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.
 	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	class USceneComponent* SceneComponentPoelse;
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UBoxComponent* BoxPoelse;
 
-	 /* SkeletalMesh Pointer */
-	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
-	USkeletalMeshComponent* SKDefault;
+	 /* SkeletalMesh */
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	USkeletalMeshComponent* SKUncooked;
 
 	 /* Sphere Taking heat for overlap of Capsule in Grill */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)

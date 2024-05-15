@@ -29,8 +29,8 @@ APoels::APoels()
 	RootComponent = BoxPoelse;
 	BoxPoelse->SetupAttachment(RootComponent);
 
-	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKDefault->SetupAttachment(BoxPoelse);
+	SKUncooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	SKUncooked->SetupAttachment(BoxPoelse);
 
 	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
 	TakeHeatSphere->SetupAttachment(SKDefault);
@@ -38,13 +38,22 @@ APoels::APoels()
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
 	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapPoelse"));
 	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
-	
+
+}
+
+void APoels::StopTimers()
+{
+	GetWorldTimerManager().ClearTimer(TakeStartCookingHandle);
+	GetWorldTimerManager().ClearTimer(TakeStartOvercookHandle);
 }
 
 void APoels::SetIsCookedTrue()
 {
-	bIsCooked = false;
-	if (!bIsOvercooked) {
+	if (bIsCooked)
+	{
+		SetIsOvercookedTrue();
+		return;
+	}
 		GetWorld()->GetTimerManager().SetTimer(
 			TakeStartCookingHandle,
 			this,
@@ -53,18 +62,18 @@ void APoels::SetIsCookedTrue()
 			false
 		);
 		bIsCooked = true;
-	}
+	
 }
 
 void APoels::CookingComplete()
 {
 	bIsCooked = true;
+	SetIsCookedTrue();
 }
 
 void APoels::SetIsOvercookedTrue()
 {
-	bIsOvercooked = false;
-
+	
 	if (bIsCooked == true) 
 	{
 		GetWorld()->GetTimerManager().SetTimer(
