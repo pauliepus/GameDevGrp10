@@ -27,7 +27,7 @@ APoels::APoels()
 	TakeHeatSphere->InitSphereRadius(25);
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
 
-	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
+	//TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
 
 
 }

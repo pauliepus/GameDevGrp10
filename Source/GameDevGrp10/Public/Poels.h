@@ -73,20 +73,17 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class USphereComponent* TakeHeatSphere;
 
-	OnOverlapActivateCook();
 
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* AGrillActor,
+		UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex);
+
 private:
 
-	/*UFUNCTION()
-	 void OnOverlapActivateCook(UPrimitiveComponent* TakeHeatSphere,
-		AActor* AGrillActor,
-		UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex);
-	*/
 
 public:	
 
