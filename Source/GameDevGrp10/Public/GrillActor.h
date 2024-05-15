@@ -19,6 +19,7 @@ public:
 	AGrillActor();
 	//TransferHeat();
 
+	USceneComponent* SceneComponent;
 	/* Box Attaches to Root */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	UBoxComponent* BoxAttachment;
@@ -33,7 +34,7 @@ public:
 	
 	/* Mesh Attaches to Box 2 */
 	UPROPERTY(EditAnywhere, BlueprintReadwrite)
-	UStaticMeshComponent* GrillStaticmesh;
+	UStaticMeshComponent* GrillStaticmesh0;
 		
 	UPROPERTY(EditAnywhere, BlueprintReadwrite)
 	UStaticMeshComponent* GrillStaticmesh1;
