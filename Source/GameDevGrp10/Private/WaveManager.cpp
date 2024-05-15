@@ -46,6 +46,7 @@ void AWaveManager::Tick(float DeltaTime)
 		if (!Player->WaveEnded)
 		{
 			ManagerWaveEnded = false;
+			ManagerStartWaveEnded = false;
 			WaveStart();
 		}
 	}
@@ -76,6 +77,8 @@ void AWaveManager::WaveStart()
 
 void AWaveManager::WaveEnd()
 {
+	ManagerStartWaveEnded = false;
+
 	TargetSpawner->StopSpawning();
 
 	//Destroying all enemies

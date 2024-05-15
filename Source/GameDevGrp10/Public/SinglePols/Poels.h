@@ -29,7 +29,9 @@ public:
 	FTimerHandle TakeStartCookingHandle;
 	
 	/**/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsCooked = false;
+	UFUNCTION(BlueprintCallable)
 	void SetIsCookedTrue();
 	
 	/*
@@ -46,11 +48,16 @@ public:
 	/*
 	*Burnt checker
 	*/
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bIsOvercooked = false;
+	UFUNCTION(BlueprintCallable)
 	void SetIsOvercookedTrue();
 	
 	UFUNCTION(BlueprintCallable)
 	void OverCookingComplete();
+
+	UFUNCTION(BlueprintCallable)
+	void StopTimers();
 		
 	//took from here https://forums.unrealengine.com/t/how-to-add-static-mesh-component-in-c/453395
 	//not sure if it actually helped me tbh.
@@ -66,6 +73,11 @@ public:
 	/* SkeletalMesh Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn")
+	TSubclassOf<APoels> SpawnPoels;
+	
+	
 
 
 protected:

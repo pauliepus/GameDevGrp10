@@ -20,49 +20,71 @@ APoels::APoels()
 
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
 	SKDefault->SetupAttachment(BoxAttachment);
-
 }
 
 void APoels::SetIsCookedTrue()
 {
-	bIsCooked = false;
-	if (bIsOvercooked == false) {
-		GetWorld()->GetTimerManager().SetTimer(
-			TakeStartCookingHandle,
-			this,
-			&APoels::CookingComplete,
-			CookingTime,
-			false
-		);
-	}
-}
+	if (bIsOvercooked)
+		return;
 
+	if (bIsCooked) {
+		SetIsOvercookedTrue();
+		return;
+	}
+
+	GetWorld()->GetTimerManager().SetTimer(
+		TakeStartCookingHandle,
+		this,
+		&APoels::CookingComplete,
+		CookingTime,
+		false
+	);
+}
 void APoels::CookingComplete()
 {
 	bIsCooked = true;
+	SKDefault->SetSimulatePhysics(false);
+	SKDefault->SetEnableGravity(false);
+	FVector TempLocation = GetActorLocation();
+	FRotator TempRotation = GetActorRotation();
+	GetWorld()->SpawnActor<APoels>(SpawnPoels, TempLocation, TempRotation);
+	Destroy();
 }
 
 void APoels::SetIsOvercookedTrue()
 {
-	bIsOvercooked = false;
-
-	if (bIsCooked == true) 
+	if (bIsOvercooked)
 	{
-		GetWorld()->GetTimerManager().SetTimer(
-			TakeStartOvercookHandle,
-			this,
-			&APoels::OverCookingComplete,
-			BurntTime,
-			false
-		);
-
+		return;
 	}
+	GetWorld()->GetTimerManager().SetTimer(
+	TakeStartOvercookHandle,
+	this,
+	&APoels::OverCookingComplete,
+	BurntTime,
+	false
+	);
 }
 
 void APoels::OverCookingComplete()
 {
+	if (GEngine)
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, TEXT("Overcooked"));
 	bIsOvercooked = true;
 	bIsCooked = false;
+
+	SKDefault->SetSimulatePhysics(false);
+	SKDefault->SetEnableGravity(false);
+	FVector TempLocation = GetActorLocation();
+	FRotator TempRotation = GetActorRotation();
+	GetWorld()->SpawnActor<APoels>(SpawnPoels, TempLocation, TempRotation);
+	Destroy();
+}
+
+void APoels::StopTimers()
+{
+	GetWorldTimerManager().ClearTimer(TakeStartCookingHandle);
+	GetWorldTimerManager().ClearTimer(TakeStartOvercookHandle);
 }
 
 

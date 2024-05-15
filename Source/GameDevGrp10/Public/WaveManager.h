@@ -47,6 +47,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool ManagerWaveEnded = true;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool ManagerStartWaveEnded = true;
+
 	
 
 	/*
