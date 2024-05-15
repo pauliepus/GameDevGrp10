@@ -32,7 +32,6 @@ AGrillActor::AGrillActor()
 	BoxAttachment->SetupAttachment(GiveHeatCapsule);
 	BoxAttachment->SetCollisionProfileName(TEXT("OverlapPoelse"));
 
-
 }
 
 void AGrillActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActorParam,

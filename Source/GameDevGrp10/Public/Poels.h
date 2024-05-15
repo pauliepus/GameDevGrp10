@@ -41,8 +41,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Burnt Timer")
 	float BurntTime = 10.0f;
 
-	UFUNCTION()
-	void OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	//UFUNCTION()
+	//void OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 
 private:
 
@@ -52,9 +53,6 @@ private:
 
 public:
 
-	UFUNCTION()
-	void StopTimers();
-
 	UFUNCTION(BlueprintCallable)
 	void SetIsCookedTrue();
 	
@@ -62,7 +60,11 @@ public:
 	
 	UFUNCTION(BlueprintCallable)
 	void CookingComplete();
-		
+	
+	 /*
+	 *Burnt checker
+	 */
+
 	UFUNCTION(BlueprintCallable, Category="CookingComponent")
 	void SetIsOvercookedTrue();
 	
@@ -81,13 +83,7 @@ public:
 	 /* SkeletalMesh Pointer */
 	UPROPERTY(EditDefaultsOnly,BlueprintReadOnly)
 	USkeletalMeshComponent* SKDefault;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	USkeletalMeshComponent* SKCooked;
-	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	USkeletalMeshComponent* SKOvercooked;
-
+		
 	 /* Sphere Taking heat for overlap of Capsule in Grill */
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	class USphereComponent* TakeHeatSphere;

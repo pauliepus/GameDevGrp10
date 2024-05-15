@@ -30,14 +30,14 @@ APoels::APoels()
 	BoxPoelse = CreateDefaultSubobject<UBoxComponent>(TEXT("Asset Box"));
 	TakeHeatSphere = CreateDefaultSubobject<USphereComponent>(TEXT("Take Heat Sphere"));
 	SKDefault = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
-	SKCooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh2"));
-	SKOvercooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh3"));
-	 /* Attaching components */
+	//SKCooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	//SKOvercooked = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Skeletal Mesh"));
+	
+	/* Attaching components */
 	BoxPoelse->SetupAttachment(RootComponent);
-	TakeHeatSphere->SetupAttachment(SKDefault);
-	SKDefault->AttachToComponent(TakeHeatSphere, FAttachmentTransformRules::KeepRelativeTransform);
-	SKCooked->AttachToComponent(TakeHeatSphere, FAttachmentTransformRules::KeepRelativeTransform);
-	SKOvercooked->AttachToComponent(TakeHeatSphere, FAttachmentTransformRules::KeepRelativeTransform);
+	TakeHeatSphere->SetupAttachment(BoxPoels);
+	SKDefault->SetupAttachment(TakeHeatSphere);
+
 	//SKCooked->bSetVisibility(false);
 
 	 /* Component Attributes */
@@ -45,14 +45,11 @@ APoels::APoels()
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
 	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapPoelse"));
 
-	//TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook());
-		
-}
+	//TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
+	
 
-void APoels::StopTimers()
-{
-	GetWorldTimerManager().ClearTimer(TakeStartCookingHandle);
-	GetWorldTimerManager().ClearTimer(TakeStartOvercookHandle);
+	
+
 }
 
 void APoels::SetIsCookedTrue()
@@ -104,8 +101,7 @@ void APoels::BeginPlay()
 {
 	Super::BeginPlay();
 	SKDefault->SetSimulatePhysics(true);
-	SKCooked->SetSimulatePhysics(true);
-	SKOvercooked->SetSimulatePhysics(true);
+	
 }
 
 void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
@@ -114,7 +110,8 @@ void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AAc
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, TEXT("It takes heat"));
-		SetIsCookedTrue();
+		
+		//SetIsCookedTrue();
 	}
 
 }
