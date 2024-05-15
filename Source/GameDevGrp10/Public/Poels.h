@@ -53,6 +53,9 @@ private:
 
 public:
 
+	UFUNCTION()
+	void ClearTimers();
+
 	UFUNCTION(BlueprintCallable)
 	void SetIsCookedTrue();
 	

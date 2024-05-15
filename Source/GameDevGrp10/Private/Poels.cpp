@@ -45,11 +45,13 @@ APoels::APoels()
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
 	TakeHeatSphere->SetCollisionProfileName(TEXT("OverlapPoelse"));
 
-	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
-	
+	//TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook());
+		
+}
 
+void ClearTimers();
+{
 	
-
 }
 
 void APoels::SetIsCookedTrue()
@@ -101,7 +103,8 @@ void APoels::BeginPlay()
 {
 	Super::BeginPlay();
 	SKDefault->SetSimulatePhysics(true);
-	
+	SKCooked->SetSimulatePhysics(true);
+	SKOvercooked->SetSimulatePhysics(true);
 }
 
 void APoels::OnOverlapActivateCook(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
