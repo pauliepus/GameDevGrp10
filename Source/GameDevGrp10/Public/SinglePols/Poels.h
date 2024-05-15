@@ -30,6 +30,7 @@ public:
 	
 	/**/
 	bool bIsCooked = false;
+	
 	void SetIsCookedTrue();
 	
 	/*
@@ -75,6 +76,13 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+private:
+	UFUNCTION()
+	void OnOverlapActivateCook(UPrimitiveComponent* TakeHeatSphere,
+		AActor* AGrillActor,
+		UPrimitiveComponent* GiveHeatCapsule, int32 OtherBodyIndex);
+	
 
 public:	
 
