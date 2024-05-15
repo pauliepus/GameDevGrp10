@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "SinglePols/Poels.h"
-#include "Components/SkeletalMeshComponent.h"
+#include "Poels.h"
 #include <GameFramework/Character.h>
+#include <Components/SkeletalMeshComponent.h>
 #include <Components/BoxComponent.h>
 #include <Components/SphereComponent.h>
 
@@ -26,6 +26,7 @@ APoels::APoels()
 	TakeHeatSphere->AttachToComponent(SKDefault, FAttachmentTransformRules::KeepRelativeTransform);
 	TakeHeatSphere->InitSphereRadius(25);
 	TakeHeatSphere->SetGenerateOverlapEvents(true);
+
 	TakeHeatSphere->OnComponentBeginOverlap.AddDynamic(this, &APoels::OnOverlapActivateCook);
 
 

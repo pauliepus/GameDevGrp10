@@ -2,10 +2,10 @@
 
 
 #include "GrillActor.h"
-#include "Components/BoxComponent.h"
-#include "Components/SphereComponent.h"
-#include "Components/CapsuleComponent.h"
-#include <Public/SinglePols/Poels.h>
+#include <Components/BoxComponent.h>
+#include <Components/SphereComponent.h>
+#include <Components/CapsuleComponent.h>
+#include <Poels.h>
 
 
 
@@ -30,7 +30,8 @@ AGrillActor::AGrillActor()
 	// /*  - Gives Heat */
 	GiveHeatCapsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT(" - HeatCapsule - "));
 	GiveHeatCapsule->AttachToComponent(SceneRoot, FAttachmentTransformRules::KeepRelativeTransform);
-	
+	GiveHeatCapsule->SetGenerateOverlapEvents(true);
+
 	/* Childs from Heat - Box */
 	BoxAttachment2 = CreateDefaultSubobject<UBoxComponent>(TEXT(" - Glue Box Component - "));
 	BoxAttachment2->SetupAttachment(SceneRoot);
