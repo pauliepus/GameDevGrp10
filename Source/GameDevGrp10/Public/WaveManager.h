@@ -47,6 +47,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool ManagerWaveEnded = true;
 
+	//This is used to know that the wave has ended before the cinematic ends as the ManagerWaveEnded only returns true after the cinematic is over
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool ManagerStartWaveEnded = true;
 
