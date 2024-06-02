@@ -77,7 +77,7 @@ void AWaveManager::WaveStart()
 
 void AWaveManager::WaveEnd()
 {
-	ManagerStartWaveEnded = false;
+	ManagerStartWaveEnded = true;
 
 	TargetSpawner->StopSpawning();
 
